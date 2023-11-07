@@ -1,0 +1,44 @@
+.Position{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    display: grid;
+    place-items: center;    
+}
+
+.Container{
+    display: grid;
+    position: relative;
+    bottom: 25%;
+
+    place-items: center;
+    gap: 20px;
+    /* background: red; */
+
+    /* margin: auto; */
+}
+
+.Form{
+    /* background: red; */
+    display: inline-block;
+    border: 1px solid #444;
+    border-radius: 7px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.Input{
+    padding: 10px 15px;
+    font-size: 50px;
+    text-align: center;
+    letter-spacing: 10px;
+    border: 0;
+    /* transition: 0.4s ease; */
+
+    background: transparent;
+}
+

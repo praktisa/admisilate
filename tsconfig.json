@@ -18,8 +18,14 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@content/*": ["./content/*"],
+      "@Connection": ["./app/database/Connection"],
+      "@DB_KendaraanDinas/*": ["./database/_static/KendaraanDinas/*"],
+      "@Method": ["./app/_METHOD/Method"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

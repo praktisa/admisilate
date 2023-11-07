@@ -1,0 +1,39 @@
+@keyframes Show {
+    0%{
+        transform: translateY(-100%);
+    }
+
+
+    100%{
+        transform: translateY(0);
+    }
+}
+
+.NotifStructure{
+    text-align: center;
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    
+    font-size: 28px;
+
+    transform: translateY(-100%);
+    transition: 0.4s ease;
+}
+
+.Founded{
+    background: green;
+    animation: Show 0.4s ease ;
+    transform: translateY(0);
+    
+}
+
+.notFound{
+    background: red;
+    animation: Show 0.4s ease ;
+
+    transform: translateY(-100%);
+    transition: 0.4s ease;
+}

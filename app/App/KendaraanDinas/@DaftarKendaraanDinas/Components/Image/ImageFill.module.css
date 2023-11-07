@@ -1,0 +1,52 @@
+
+.IMG{
+    object-fit: cover;
+    width: 100% !important;
+   
+    transform: scale(1.35);
+    transform-origin: 100% 50%;
+   
+    will-change: transform;
+    z-index: 0;
+
+   
+}
+
+
+
+.animated{
+    animation: Zoom 0.3s ease 0.8s forwards;
+}
+
+
+@keyframes Zoom {
+
+    0%{
+        transform-origin: 100% 50%;
+        transform: scale(1.35);
+    }
+
+    100%{
+        transform-origin: center center ;
+        transform: scale(1);
+    }
+}
+
+.IMG_HOVER{
+    transition: 0.4s ease;
+    transform-origin: center center ;
+    transform: scale(1);
+    
+  
+    object-fit: cover;
+    width: 100% !important;
+    z-index: 0;
+
+   
+}
+
+.IMG_HOVER:hover{
+    /* animation: ZoomIn 0.4s ease forwards; */
+    transform-origin: 100% 50%;
+    transform: scale(1.35);
+}

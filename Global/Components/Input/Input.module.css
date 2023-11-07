@@ -1,0 +1,37 @@
+.label{
+    position:relative;
+    border: 1px;
+    display: grid;
+    background: #212121;
+    padding: 15px 15px 15px 15px;
+ 
+    border-radius: 4px;
+    cursor: text;
+    
+}
+
+
+.label .span{
+    position:absolute;
+    top:0;
+    left:0;
+    padding: 15px;
+    transform:translate(0);
+    /* font-weight: bold; */
+    transition-duration:300ms;
+    user-select: none;
+}
+
+.label:focus-within > .span,
+input:not(:placeholder-shown) + .span{
+    color:#eaeaea80;
+    font-size: 13px;
+    transform:translateY(-10px);
+    
+}
+
+.label:focus-within > input,
+.label input:not(:placeholder-shown) {
+    
+     transform:translateY(10px);
+}

@@ -1,0 +1,59 @@
+.label{
+    position:relative;
+    border: 1px;
+    display: grid;
+    padding: 15px 15px 15px 15px;
+    border-radius: 4px;
+    cursor: text;
+    align-content: stretch;   
+    height: 100% !important;
+    letter-spacing: 0.3px;
+    
+}
+
+.label textarea{
+    color: var(--Typo);
+     height: 100%;
+     transition: 0.4s ease;
+     font-size: 20px;
+     letter-spacing: 0.3px;
+     font-weight: normal;
+}
+
+.label{
+    background: var(--GlassBG);
+    color: var(--Typo);
+     transition: 0.4s ease;
+    /* border: 2px solid var(--Typo); */
+}
+
+
+
+
+
+.label .span{
+    position:absolute;
+    top:0;
+    left:0;
+    padding: 15px;
+    transform:translate(0);
+    font-weight: bold;
+    transition-duration:300ms;
+    user-select: none;
+  
+}
+
+.label:focus-within > .span,
+input:not(:placeholder-shown) + .span, textarea:not(:placeholder-shown) + .span{
+    color:var(--Typo);
+    opacity: 0.8;
+    font-size: 14px;
+    transform:translateY(-10px);
+    
+}
+
+.label:focus-within > input, .label:focus-within > textarea,
+.label input:not(:placeholder-shown), .label textarea:not(:placeholder-shown){
+    
+     transform:translateY(10px);
+}

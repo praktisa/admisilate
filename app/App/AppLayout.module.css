@@ -1,0 +1,41 @@
+
+.AppRoot{
+    display: grid;
+    grid-template-columns: 0.2fr 0.80fr;
+
+    height: 100vh;
+    position: relative;
+}
+
+.AppRoot__Nav{
+  
+    padding: 0 30px;
+   
+}
+
+.AppRoot__Content{
+  
+    position: relative;
+    overflow-x: hidden;
+  
+    padding: 28px;
+   
+}
+
+.AppRoot__Content::-webkit-scrollbar{
+    width: 0.3em;
+  
+}
+ 
+.AppRoot__Content::-webkit-scrollbar-track{
+    background: var(--Container);
+  
+}
+ 
+.AppRoot__Content::-webkit-scrollbar-thumb {
+
+    background-color: var(--Act);
+    outline: 1px solid var(--Act);
+
+    border-radius: 7px;
+}
