@@ -17,27 +17,33 @@ export default function C_NavContainer() {
   let Menu: any = [
     {
       href: "Dashboard",
-      display: "Dashboard"
+      display: "Dashboard",
+      link: "/App/Dashoard"
     },
     {
       href: "Kepegawaian",
-      display: "Kepegawaian"
+      display: "Kepegawaian",
+      link: "/App/Kepegawaian"
     },
     {
       href: "KendaraanDinas",
-      display: "Kendaraan Dinas"
+      display: "Kendaraan Dinas",
+      link: "/App/KendaraanDinas"
     },
     {
       href: "BMN",
-      display: "Barang Milik Negara"
+      display: "Barang Milik Negara",
+      link: "/App/Dashoard"
     },
     {
       href: "Keuangan",
-      display: "Keuangan"
+      display: "Keuangan",
+      link: "/App/Dashoard"
     },
     {
       href: "Kepatuhan",
-      display: "Kepatuhan"
+      display: "Kepatuhan",
+      link: "/App/Dashoard"
     },
   ]
 
@@ -62,7 +68,7 @@ export default function C_NavContainer() {
           return (
             <Fragment key={i}>
               <CustomLink
-                href={`/App/${men.href}`}
+                href={men.link}
                 style='navigation'
                 activePath={usePathname()}
                 prefetch={true}

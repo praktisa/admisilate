@@ -3,13 +3,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
     title: 'Admisi | TURT',
-    description: 'Kendaraan Dinas',
+    description: 'Daftar Kendaraan Dinas',
 }
 
 interface children {
     children: React.ReactNode
-    DaftarKendaraanDinas: React.ReactNode
-    modal: React.ReactNode
 
 }
 
@@ -22,17 +20,7 @@ export default function KendaraanDinasLayout(child: children) {
 
     return (
         <>
-
-            {child.modal}
-
-            <h1>Kendaraan Dinas</h1>
-
             {child.children}
-
-            <div> Daftar </div>
-            {child.DaftarKendaraanDinas}
-
-
         </>
 
 

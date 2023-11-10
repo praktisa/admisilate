@@ -1,0 +1,69 @@
+.CardGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    gap: 30px;
+
+    margin-top: 20px;
+}
+
+
+.Container{
+    /* border: 1px solid #444; */
+    border-radius: 7px;
+    /* padding: 15px; */
+
+    display: grid;
+    grid-template-areas: "Image" ;
+
+    cursor: pointer;
+   
+}
+
+.Container__Image{
+    grid-area: Image;
+    border-radius: 7px;
+    position: relative;
+
+
+    width: 100%;
+    height: 250px;
+
+    overflow: hidden;
+    box-shadow: var(--Shadow);
+}
+
+.Container__Info{
+   
+
+    position: absolute;
+    display: block;
+
+    letter-spacing: 1px;
+
+    bottom: 0;
+    left:0;
+
+    z-index: 99;
+
+    padding: 10px 15px;
+   
+    background: var(--Surface);
+    opacity: 0.9;
+    color:var(--Typo);
+
+    transition: 0.4s ease;
+
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+   transform: translateY(0);
+
+    z-index: 1;
+}
+
+.Container:hover .Container__Info{
+   
+    background: var(--Act);
+    color:var(--TypoStill);
+    transform: translateY(0);
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import P from './Peminjaman.module.css'
-import { PinjamMobil } from '../Action/ActionPinjam'
+// import { PinjamMobil } from '../Action/ActionPinjam'
 import TextArea from '@/Global/Components/Input/TextArea/TextArea'
 
 interface Container_Interception__inter {
@@ -22,7 +22,11 @@ export function Container_AdminKDForm({ children }: Container_Interception__inte
 
 export function FormPeminjaman({ children }: Container_Interception__inter) {
     return (
-        <form className={P['FormPeminjaman']} action={PinjamMobil}>{children}</form>
+        <>
+            {/* <form className={P['FormPeminjaman']} action={PinjamMobil}>{children}</form> */}
+        </>
+
+
     )
 }
 

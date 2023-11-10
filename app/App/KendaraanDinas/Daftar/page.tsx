@@ -10,7 +10,7 @@ export default async function KendaraanDinasPage() {
 
     return (
         <>
-            <h1>Kendaraan Dinas</h1>
+            <h1>Daftar Kendaraan Dinas</h1>
             <CardGrid>
                 {
                     SemuaKendaraanDinas.map((SKD: any, i: number) => {
