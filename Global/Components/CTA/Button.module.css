@@ -6,9 +6,12 @@
     border-radius: 4px;
     cursor: pointer;
     letter-spacing: 1.2px;
-    z-index: 20x;
+    z-index: 20px;
     /* font-weight: bold; */
     /* font-size: bold; */
+    user-select: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .styleContained{
@@ -45,9 +48,27 @@
 .styleText{
   background: transparent;
   opacity: 0.9;
+  color: var(--Act);
 }
 
+.styleOutlined{
+  border: 1px solid var(--Typo);
+  color: var(--Typo);
+  text-align: center;
+  transition: 0.4s ease;
+}
 
+.styleOutlined:hover{
+  background: var(--Act);
+  border: 1px solid transparent;
+}
+
+.styleDanger{
+  text-align: center;
+  background: var(--Error);
+   color: var(--Typo);
+   
+}
 
 
 

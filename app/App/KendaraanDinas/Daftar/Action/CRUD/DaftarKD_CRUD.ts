@@ -1,4 +1,5 @@
 import Connection from '@Connection';
+import { READ_REGISTER_BY_NAMA_MOBIL } from '../../@modal/(.)peminjaman/[dk]/Action/Register_CRUD';
 
 const Table: string = 'tb_kendaraandinas'
 
@@ -79,7 +80,7 @@ export async function READ_SEMUA_KENDARAAN_DINAS() {
 
     let QUERY = {
         "METHOD": "SELECT_ALL",
-        "METHOD_QUERY": "ID, STR_NAMA, STR_PLAT, STR_IMG, OBJ_DATES_BOOKING",
+        "METHOD_QUERY": "ID, STR_NAMA, STR_IMG, OBJ_DATES_BOOKING",
     }
 
     let hasil = await Execute(QUERY)
@@ -115,19 +116,20 @@ export async function READ_KENDARAAN_DINAS_BY_ID(ID: string) {
 }
 
 // mengedit rencana kerja berdasarkan ID pembuatan
-export async function UPDATE_KENDARAAN_DINAS_BY_PLAT(ID: string, TGL: any, TEMPAT: string, TUJUAN: string) {
+// dibawah ini salah
+// export async function UPDATE_KENDARAAN_DINAS_BY_PLAT(ID: string, TGL: any, TEMPAT: string, TUJUAN: string) {
 
-    let QUERY = {
-        "METHOD": "UPDATE",
-        "METHOD_QUERY": "STR_TGL = ?, STR_TEMPAT = ?, STR_TUJUAN = ?",
-        "WHERE": "ID = ?",
-        "DATA": [TGL, TEMPAT, TUJUAN, ID]
-    }
+//     let QUERY = {
+//         "METHOD": "UPDATE",
+//         "METHOD_QUERY": "STR_TGL = ?, STR_TEMPAT = ?, STR_TUJUAN = ?",
+//         "WHERE": "ID = ?",
+//         "DATA": [TGL, TEMPAT, TUJUAN, ID]
+//     }
 
-    let hasil = await Execute(QUERY)
+//     let hasil = await Execute(QUERY)
 
-    return hasil[0]
-}
+//     return hasil[0]
+// }
 
 export async function READ_OBJ_DATES_BOOKING_MOBIL_BY_ID(ID: string) {
 
@@ -143,13 +145,13 @@ export async function READ_OBJ_DATES_BOOKING_MOBIL_BY_ID(ID: string) {
     return hasil[0][0]['OBJ_DATES_BOOKING']
 }
 
-export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
+export async function INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID(
     ID: string, TGL: any, seksiPeminjam: string
 ) {
 
     let OBJ_DATES_BOOKING_BEFORE = await READ_OBJ_DATES_BOOKING_MOBIL_BY_ID(ID)
 
-    console.log("OBJ_DATES_BOOKING_BEFORE", typeof OBJ_DATES_BOOKING_BEFORE)
+    // console.log("OBJ_DATES_BOOKING_BEFORE", typeof OBJ_DATES_BOOKING_BEFORE)
 
     let USED_OBJ_DATES_BOOKING_BEFORE = {}
 
@@ -183,6 +185,85 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
 
     return OBJ_DATES_BOOKING_AFTER
 }
+
+export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
+    ID: string, TGL_BEFORE: any, TGL_AFTER: any, seksiPeminjam: string
+) {
+
+    let DataMobil_OBJ_DATES = JSON.parse(await READ_OBJ_DATES_BOOKING_MOBIL_BY_ID(ID))
+    let Parsed_TGL_BEFORE = JSON.parse(TGL_BEFORE)
+    let Parsed_TGL_AFTER = JSON.parse(TGL_AFTER)
+
+    for (var i = 0; i < Parsed_TGL_BEFORE.length; i++) {
+
+        delete DataMobil_OBJ_DATES[Parsed_TGL_BEFORE[i]]
+
+    }
+
+    for (var i = 0; i < Parsed_TGL_AFTER.length; i++) {
+
+        let CreateNew_OBJ_DATES = {
+            [Parsed_TGL_AFTER[i]]: seksiPeminjam
+        }
+        Object.assign(DataMobil_OBJ_DATES, CreateNew_OBJ_DATES)
+    }
+
+    let QUERY = {
+        "METHOD": "UPDATE",
+        "METHOD_QUERY": "OBJ_DATES_BOOKING = ?",
+        "WHERE": "ID = ?",
+        "DATA": [JSON.stringify(DataMobil_OBJ_DATES), ID]
+    }
+
+
+    // console.log("DataMobil_OBJ_DATES", DataMobil_OBJ_DATES)
+    // console.log("TGL_BEFORE", Parsed_TGL_BEFORE)
+    // console.log("TGL_AFTER", Parsed_TGL_AFTER)
+    // console.log("seksiPeminjam", seksiPeminjam)
+
+    let asd = await Execute(QUERY)
+
+    // console.log("UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID", asd)
+
+}
+
+
+export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(
+    NAMA_MOBIL: string
+) {
+
+    let REGISTER_BY_NAMA = await READ_REGISTER_BY_NAMA_MOBIL(NAMA_MOBIL)
+
+    console.log("REGISTER_BY_NAMA", REGISTER_BY_NAMA.length, REGISTER_BY_NAMA)
+
+    let NEW_OBJ_DATES = {}
+
+    if (REGISTER_BY_NAMA.length > 0) {
+        for (var i = 0; i < REGISTER_BY_NAMA.length; i++) {
+
+            console.log("CREATE NEW", REGISTER_BY_NAMA[i])
+
+            Object.assign(NEW_OBJ_DATES, {
+                [REGISTER_BY_NAMA[i]['STR_DATE']]: REGISTER_BY_NAMA[i]['STR_PEMINJAM']
+            })
+        }
+    }
+
+
+    let QUERY = {
+        "METHOD": "UPDATE",
+        "METHOD_QUERY": "OBJ_DATES_BOOKING = ?",
+        "WHERE": "STR_NAMA = ?",
+        "DATA": [JSON.stringify(NEW_OBJ_DATES), NAMA_MOBIL]
+    }
+
+
+    let UpdateResult = await Execute(QUERY)
+
+    // console.log("UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID", asd)
+
+}
+
 
 
 export async function DELETE_KENDARAAN_DINAS_BY_PLAT(ID: string) {

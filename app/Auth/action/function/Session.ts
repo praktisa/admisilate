@@ -1,6 +1,11 @@
 
 import Connection from '@Connection';
 import { AmbilDataPegawaiDariJSONDirectory } from './function';
+
+import { cookies } from 'next/headers'
+
+
+
 import { redirect } from 'next/navigation';
 
 const Table: string = 'tb_session'
@@ -75,6 +80,19 @@ export async function READ_NIP_BY_SESSION(SESSION: any) {
     return hasil[0][0]['STR_NIP9']
 }
 
+export async function READ_SERVER_SESSION() {
+
+    let SessionCookie = cookies().get("session")?.value
+    let NIP = await READ_NIP_BY_SESSION(SessionCookie)
+    let DataPegawai = await AmbilDataPegawaiDariJSONDirectory(NIP)
+
+    let IP_KOTOR = DataPegawai['IP Sikka'] as string
+
+    DataPegawai['IP Sikka'] = IP_KOTOR.replaceAll("'", "")
+
+    return DataPegawai
+}
+
 // mengedit rencana kerja berdasarkan ID pembuatan
 export async function UPDATE_SESSSION(ID: string, TGL: any, TEMPAT: string, TUJUAN: string) {
 
@@ -104,6 +122,7 @@ export async function DELETE_SESSION(ID: string) {
 
     return hasil[0]
 }
+
 
 
 

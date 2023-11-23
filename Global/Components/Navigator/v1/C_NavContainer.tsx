@@ -12,40 +12,18 @@ interface LC_Inter {
   activePath: string
 }
 
-export default function C_NavContainer() {
+interface Menu__inter {
+  Menu: ObjectMenu[]
+}
 
-  let Menu: any = [
-    {
-      href: "Dashboard",
-      display: "Dashboard",
-      link: "/App/Dashoard"
-    },
-    {
-      href: "Kepegawaian",
-      display: "Kepegawaian",
-      link: "/App/Kepegawaian"
-    },
-    {
-      href: "KendaraanDinas",
-      display: "Kendaraan Dinas",
-      link: "/App/KendaraanDinas"
-    },
-    {
-      href: "BMN",
-      display: "Barang Milik Negara",
-      link: "/App/Dashoard"
-    },
-    {
-      href: "Keuangan",
-      display: "Keuangan",
-      link: "/App/Dashoard"
-    },
-    {
-      href: "Kepatuhan",
-      display: "Kepatuhan",
-      link: "/App/Dashoard"
-    },
-  ]
+interface ObjectMenu {
+  display: string,
+  link: string
+}
+
+export default function C_NavContainer({ Menu }: Menu__inter) {
+
+
 
 
   function CustomLink({ href, prefetch = false, style = "contained", children, activePath }: LC_Inter) {

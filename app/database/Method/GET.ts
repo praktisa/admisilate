@@ -1,24 +1,29 @@
 import { cookies } from 'next/headers'
-// apabila melakukan fetch pada layout dengan menggunakan cookie,
-// lakukan pada layout /fetcher, jangan pada route api bakal undefined
+
 
 
 export default async function GET(
     URL: string,
-    AUTH: boolean = false
+    AUTH: boolean = false,
+    OPT: object = {}
 ) {
 
     let isAuth = AUTH === true ? cookies().get('session')?.value : ""
 
-    try {
-        const res: any = await fetch(URL, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authentication': `${isAuth}`
+    let Option = {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `${isAuth}`
+        }
+    }
 
-            },
-        })
+    if (Object.keys(OPT).length != 0) {
+        Object.assign(Option, OPT)
+    }
+
+    try {
+        const res: any = await fetch(URL, Option)
 
         return res.json()
 

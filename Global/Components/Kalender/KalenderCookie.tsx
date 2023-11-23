@@ -14,9 +14,9 @@ interface Peminjam {
     hover: any,
 }
 
-export default function Kalender({ terpinjam = "" }: any) {
+export default function Kalender({ terpinjam = "", editValue }: any) {
 
-    const { CurrentDate, ChosenDate, HeadCalendar, CreateCalendar, ChangeMonth, ChoseDate } = useCalendar(new Date())
+    const { CurrentDate, ChosenDate, HeadCalendar, CreateCalendar, ChangeMonth, ChoseDate, setChosenDate } = useCalendar(new Date())
 
     const [DataTerpinjam, setDataterpinjam] = useState<TanggalTerpinjam[]>([])
 
@@ -33,29 +33,43 @@ export default function Kalender({ terpinjam = "" }: any) {
 
 
     useEffect(() => {
-        let ArrObj = []
+        let ArrObj: any = []
 
         if (terpinjam != "") {
             let terpinjamParsed = JSON.parse(terpinjam)
+
+            // console.log("editValue", editValue)
+            // console.log("terpinjam", terpinjam)
 
             let KeyTerpinjam = Object.keys(terpinjamParsed)
             let ValueTerpinjam = Object.values(terpinjamParsed)
 
             for (var i = 0; i < KeyTerpinjam.length; i++) {
 
-                let DataKonversi: TanggalTerpinjam = {
-                    "Peminjam": ValueTerpinjam[i] as string,
-                    "TanggalPinjam": KeyTerpinjam[i]
+                let TargetEditDate = editValue.includes(KeyTerpinjam[i])
+
+                if (!TargetEditDate) {
+                    let DataKonversi: TanggalTerpinjam = {
+                        "Peminjam": ValueTerpinjam[i] as string,
+                        "TanggalPinjam": KeyTerpinjam[i]
+                    }
+                    ArrObj.push(DataKonversi)
                 }
-                ArrObj.push(DataKonversi)
+
+            }
+
+            if (editValue.length > 0) {
+                setChosenDate(editValue)
             }
 
             setDataterpinjam(ArrObj)
 
         }
-        console.log("terpinjam", terpinjam)
+        // console.log("terpinjam", terpinjam)
 
     }, [terpinjam])
+
+    // console.log("Chosen", ChosenDate)
 
     function Peminjam({ display, hover }: Peminjam) {
         return (
@@ -96,8 +110,6 @@ export default function Kalender({ terpinjam = "" }: any) {
                         CreateCalendar.map((tangs, i) => {
 
                             let obj = DataTerpinjam.find(o => o.TanggalPinjam === tangs.id);
-
-
 
                             let Terpinjam = false // pick = readyPick
                             if (obj != undefined) {

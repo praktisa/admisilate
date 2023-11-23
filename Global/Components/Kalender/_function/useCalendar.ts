@@ -39,7 +39,7 @@ export default function useCalendar(dateData: Date) {
       index++
     }
 
-    console.log("BUAT KALENDER", bulan, tahun)
+    // console.log("BUAT KALENDER", bulan, tahun)
 
     return ArrayTanggal
   }

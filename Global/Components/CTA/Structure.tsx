@@ -14,7 +14,8 @@ export default function Structure({ children, onClick, style = "contained", isAc
         "contained": B['styleContained'],
         "outlined": B['styleOutlined'],
         "navigation": B['styleNav'],
-        "text": B['styleText']
+        "text": B['styleText'],
+        "danger": B['styleDanger']
 
     }
 

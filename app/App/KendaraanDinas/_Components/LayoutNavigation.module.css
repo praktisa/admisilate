@@ -1,0 +1,18 @@
+.Layout{
+    display:grid;
+    grid-template-areas: "Nav" "Content";
+
+    grid-template-rows: 0.01fr 0.9fr;
+    gap: 20px;
+}
+
+.Layout__Nav{
+    /* background: red; */
+
+    display: flex;
+    gap: 10px;
+}
+
+.Layout__Content{
+    /* background: green */
+}

@@ -1,5 +1,6 @@
 // import Layout_KendaraanDinas from '@/content/KendaraanDinas/S_KendaraanDinas'
 import type { Metadata } from 'next'
+import LayoutNavigation from './_Components/LayoutNavigation'
 
 export const metadata: Metadata = {
     title: 'Admisi | TURT',
@@ -8,11 +9,10 @@ export const metadata: Metadata = {
 
 interface children {
     children: React.ReactNode
-
+    AdminPage: React.ReactNode
+    DaftarKendaraanDinas: React.ReactNode
 }
 
-// Riwayat Pararel
-// Pinjam Intercept
 
 export default function KendaraanDinasLayout(child: children) {
 
@@ -20,7 +20,9 @@ export default function KendaraanDinasLayout(child: children) {
 
     return (
         <>
-            {child.children}
+            <LayoutNavigation>
+                {child.children}
+            </LayoutNavigation>
         </>
 
 

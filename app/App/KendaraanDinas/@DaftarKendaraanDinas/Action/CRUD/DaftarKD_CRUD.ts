@@ -143,7 +143,7 @@ export async function READ_OBJ_DATES_BOOKING_MOBIL_BY_ID(ID: string) {
     return hasil[0][0]['OBJ_DATES_BOOKING']
 }
 
-export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
+export async function INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID(
     ID: string, TGL: any, seksiPeminjam: string
 ) {
 

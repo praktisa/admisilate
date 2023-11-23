@@ -1,0 +1,74 @@
+.layoutTable{
+    display: grid;
+    
+}
+
+.layoutTable th{
+    padding: 10px;
+    text-align: left;
+    opacity: 0.8;
+    letter-spacing: 1px;
+}
+
+
+.layoutTable tbody tr{
+    transition: 0.4s ease;
+    background: var(--Surface);
+
+    border-radius: 9px;
+}
+
+.layoutTable tbody tr:first-child td:first-child{
+  border-radius: 4px 0 0 0;
+}
+
+.layoutTable tbody tr:first-child td:last-child{
+  border-radius: 0 4px 0 0;
+}
+
+.layoutTable tbody tr:last-child td:first-child{
+  border-radius: 0 0 0 4px;
+}
+
+.layoutTable tbody tr:last-child td:last-child{
+  border-radius: 0 0 4px 0;
+ 
+}
+
+.layoutTable tbody tr:hover{
+    background:  var(--ActHover);
+    color: var(--TypoStill);
+   
+}
+
+.layoutTable tbody tr div span{
+  
+   padding: 5px 10px;
+   border-radius: 24px;
+  
+   border: 1px solid var(--Typo);
+   font-size: 14px;
+   
+}
+
+
+.layoutTable tbody tr:hover div span{
+    border: 1px solid  var(--TypoStill);
+}
+
+.layoutTable td{
+    padding: 10px;
+}
+
+.layoutTable td:nth-child(3){
+    width: 350px;
+}
+
+.layoutTable td div{
+ 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    
+}
+
