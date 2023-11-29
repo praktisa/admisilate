@@ -1,0 +1,147 @@
+.TableData__Position{
+    display: grid;
+    place-items: center;
+    height: 100%;
+    
+}
+
+.TableData__Grid{
+    background: var(--Surface);
+    box-shadow: var(--Shadow);
+    border-radius: 8px;
+    width: 85%;
+    height: 80%;
+    padding: 10px;
+    /* margin-top: -10px; */
+    transform: translateY(-30px);
+
+    scale: 0.9;
+    will-change:transform;
+    opacity: 0;
+
+    transition: 0.4s ease;
+    animation: PopUp 0.3s ease forwards;
+
+   
+    display: grid;
+    grid-template-rows: 0.99fr 0.1fr;
+    gap: 10px;
+   
+}
+
+.TableData__Container {
+    max-height: 100%;
+    overflow-y: scroll;
+    
+}  
+
+.TableData__Container thead{
+    background: var(--Surface);
+    position: sticky;
+    top: 0;
+    user-select: none;
+}  
+
+.TableData__Container th{
+    position:relative;
+}  
+
+
+
+.TableData__Container::-webkit-scrollbar{
+    width: 0.3em;
+  
+}
+ 
+.TableData__Container::-webkit-scrollbar-track{
+    background: var(--Container);
+  
+}
+ 
+.TableData__Container::-webkit-scrollbar-thumb {
+
+    background-color: var(--Act);
+    outline: 1px solid var(--Act);
+
+    border-radius: 7px;
+}
+
+@keyframes PopUp {
+    0%{
+        scale: 0.9;
+        opacity: 0;
+        transform: translateY(0);
+        
+    }
+    100%{
+        scale: 1;
+        opacity: 1;
+        transform: translateY(-30px);
+    }
+}
+
+
+.TableData__Filter{
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+}
+
+.TableData__Filter div{
+   padding: 7px 10px;
+   background: var(--Act);
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+
+
+
+.FilterLabel{
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    border-radius: 3px;
+
+    position: absolute;
+    right: 0;
+    top: 7px;
+    bottom: 10px;
+
+   border: 1px solid var(--Act);
+
+    cursor: pointer;
+
+    transition: 0.4s ease;
+}
+
+.Filter__List{
+    position: absolute;
+    display: none;
+
+     list-style-type: none;
+     width: 100%;
+     background: var(--Act);
+     padding: 5px;
+     border-radius: 4px;
+     opacity: 1;
+}
+
+.Filter__List li{
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.Filter__List li:hover{
+    background: red;
+}
+
+.FilterCheck:checked ~ .FilterLabel {
+    background: var(--Act);
+}
+
+.FilterCheck:checked ~ .Filter__List{
+    display: block;
+}

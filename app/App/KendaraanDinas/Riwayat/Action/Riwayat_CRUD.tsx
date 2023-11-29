@@ -154,16 +154,24 @@ export async function DELETE_DATA_PINJAM_MOBIL_BY_ID(ID_PINJAM: string, ID_MOBIL
     // UPDATE DATA PADA KENDARAAN DINAS OBJ DATE
 
 
+    try {
+        await Execute(QUERY_DELETE)
+            .then(async () => {
+                await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(NamaKendaraan)
+            })
 
-    let hasil = await Execute(QUERY_DELETE)
-        .then(async () => {
-            await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(NamaKendaraan)
-        })
+        return "Berhasil"
+    } catch (error) {
+
+        return "Failed"
+    }
 
 
 
 
-    redirect('/App/KendaraanDinas/Riwayat')
 
-    return "Ok"
+
+
+
+
 }

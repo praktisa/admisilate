@@ -20,6 +20,10 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
         'Seksi Pelayanan': 'Pelayanan',
         'Fungsional Pemeriksa Pajak': 'FPP',
         'Seksi Pengawasan I': 'WAS I',
+        'Seksi Pengawasan II': 'WAS II',
+        'Seksi Pengawasan III': 'WAS III',
+        'Seksi Pengawasan IV': 'WAS IV',
+        'Seksi Pengawasan V': 'WAS V'
     }
 
 
@@ -30,10 +34,14 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
             let Array_Date_Keys = Object.keys(JSON.parse(booked))
             let Array_Date_Values = Object.values(JSON.parse(booked))
 
-            let Today = new Date().setHours(0, 0, 0, 0)
+            console.log("Array_Date_Keys", Array_Date_Keys)
+            console.log("Array_Date_Values", Array_Date_Values)
+
+            let Today = new Date()
+            let STR_TODAY = `${Today.getFullYear()}-${Today.getMonth() + 1}-${Today.getDate()}`
 
             for (var i = 0; i < Array_Date_Keys.length; i++) {
-                let Compare = new Date(Array_Date_Keys[i]).setHours(0, 0, 0, 0) === Today
+                let Compare = Array_Date_Keys[i] === STR_TODAY
                 // console.log("Compare", Compare)
 
                 if (Compare === true) {
@@ -41,7 +49,7 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
                     break;
                 }
             }
-
+            console.log("isBooked", isBooked)
             return isBooked
         } else {
             return ""
@@ -69,6 +77,9 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
                 <></>
             )
         }
+        // return (
+        //     <></>
+        // )
     }
 
     return (

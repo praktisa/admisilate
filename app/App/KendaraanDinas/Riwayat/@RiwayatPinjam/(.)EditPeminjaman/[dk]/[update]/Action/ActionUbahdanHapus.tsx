@@ -57,8 +57,8 @@ export async function ActionUbahdanHapus(prevData: any, formData: FormData) {
     await CEK_REGISTER((formData.getAll("TGL") as string[]), NAMA_MOBIL)
         .then(async (HASIL_CEK_REGISTER) => {
 
-            console.log("HASIL_CEK_REGISTER dari EDIT", HASIL_CEK_REGISTER)
-            console.log("TGL_AFTER dari EDIT", JSON.parse(TGL_AFTER))
+            // console.log("HASIL_CEK_REGISTER dari EDIT", HASIL_CEK_REGISTER)
+            // console.log("TGL_AFTER dari EDIT", JSON.parse(TGL_AFTER))
 
 
             await CREATE_REGISTER(JSON.parse(ID_PINJAM), NAMA_MOBIL, HASIL_CEK_REGISTER['0'], Peminjam)

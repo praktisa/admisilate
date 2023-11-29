@@ -1,0 +1,112 @@
+.layout{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    row-gap: 40px;
+    margin-top: 20px;
+}
+
+.container{
+   
+    border-radius: 6px;
+    transition: 0.3s ease;
+    
+    padding: 20px 10px 10px 10px;
+    border: 2px solid var(--Surface);
+    cursor: pointer;
+
+    position: relative;
+
+    
+}
+
+
+.container:hover .container__head{
+    background: var(--Act);
+    border: 2px solid var(--Act);
+}
+
+.container:hover{
+      border: 2px solid var(--Act);
+}
+
+.container__head{
+    position: absolute;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 6px;
+    background: var(--BG);
+    border: 2px solid var(--Surface);
+    top: -18px;
+    transition: 0.3s ease ;
+    z-index: 2;
+}
+
+
+
+
+
+
+
+
+/* Khusus untuk animasi garis berjalan cscs dibawah ini */
+
+/* https://www.sliderrevolution.com/resources/css-border-animation/ */
+/* .container::before, .container::after{
+    box-sizing: inherit;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.draw{
+    
+    border-radius: 6px;
+    z-index: 1;
+}
+
+.draw::before, .draw::after{
+    border-radius: 6px;
+    
+    border: 1px solid transparent;
+    width: 0;
+    height: 0;
+    z-index: 1;
+}
+
+.draw::before{
+    top: 0;
+    left: 0;
+}
+
+.draw::after{
+    bottom: 0;
+    right: 0;
+}
+
+.draw:hover::before, .draw:hover::after{
+    width: 100%;
+    height: 100%;
+}
+
+.draw:hover::before{
+    border-top-color: var(--Act);
+    border-right-color:  var(--Act);
+    transition:
+      width 0.25s ease-out,
+      height 0.25s ease-out 0.25s; 
+}
+
+.draw:hover::after{
+    border-bottom-color: var(--Act); 
+    border-left-color: var(--Act);
+    transition:
+      border-color 0s ease-out 0.5s, 
+      width 0.25s ease-out 0.5s, 
+      height 0.25s ease-out 0.75s;
+}
+
+.relative{
+    position: relative;
+} */

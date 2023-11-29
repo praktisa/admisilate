@@ -14,11 +14,11 @@ export async function DELETE(request: NextRequest, response: NextResponse) {
 
     // console.log("OBJ_DATE DELETE", OBJ_DATE)
 
-    await DELETE_DATA_PINJAM_MOBIL_BY_ID(ID_PINJAM, ID_MOBIL)
+    let result = await DELETE_DATA_PINJAM_MOBIL_BY_ID(ID_PINJAM, ID_MOBIL)
 
     revalidateTag(`${ID_MOBIL}`)
     revalidateTag('all_mobil')
 
-    return NextResponse.json("result")
+    return NextResponse.json(result)
 
 }

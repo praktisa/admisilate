@@ -12,7 +12,7 @@ export default async function FETCH_DELETE_ID_PINJAM(ID_PINJAM: any, ID_MOBIL: s
     let Response = await DELETE(URL, true, FetchTag)
 
 
-    console.log("FETCH_DELETE_ID_PINJAM", Response)
+    // console.log("FETCH_DELETE_ID_PINJAM", Response)
 
     return Response
 

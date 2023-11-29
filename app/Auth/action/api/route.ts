@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { READ_UserBySession } from '../function/Session'
+import { redirect } from 'next/navigation'
 // import { READ_KENDARAAN_DINAS_BY_ID } from '../../CRUD/DaftarKD_CRUD'
 
 
@@ -13,10 +14,18 @@ export async function GET(request: NextRequest, response: NextResponse) {
     // let result = await READ_KENDARAAN_DINAS_BY_ID(ID)
 
     // console.log("request AUTH", request.headers)
+    try {
+        let DataPegawai = await READ_UserBySession(request)
+        return NextResponse.json(DataPegawai)
 
-    let DataPegawai = await READ_UserBySession(request)
+    } catch (error) {
+        // redirect('/Auth')
+        return NextResponse.json("no session")
+
+    }
 
 
-    return NextResponse.json(DataPegawai)
+
+
 
 }

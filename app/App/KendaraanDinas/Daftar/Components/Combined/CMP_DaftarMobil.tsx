@@ -11,6 +11,8 @@ export default function CMP_DaftarMobil({ Data }: any) {
             <CardGrid>
                 {
                     Data.map((SKD: any, i: number) => {
+
+                        console.log("SKD.OBJ_DATES_BOOKING.trim()", SKD.OBJ_DATES_BOOKING.trim())
                         return (
                             <Fragment key={SKD.ID}>
 

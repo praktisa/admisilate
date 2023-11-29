@@ -11,6 +11,12 @@ export default function LayoutNavigation({ children }: LayoutNavigation_inter) {
     let Menu: any = [
         {
 
+            display: "Admin",
+            link: "/App/KendaraanDinas/AdminKD",
+            role: "Subbagian Umum dan Kepatuhan Internal"
+        },
+        {
+
             display: "Daftar",
             link: "/App/KendaraanDinas/Daftar"
         },
@@ -18,7 +24,7 @@ export default function LayoutNavigation({ children }: LayoutNavigation_inter) {
 
             display: "Riwayat",
             link: "/App/KendaraanDinas/Riwayat"
-        },
+        }
 
     ]
 

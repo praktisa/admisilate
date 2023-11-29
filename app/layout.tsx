@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Noto_Sans } from 'next/font/google'
 import { cookies } from 'next/headers'
 import SessionContext from './Auth/components/SessionContext/SessionContext'
+import ActionLogin from './Auth/components/ActionLogin/ActionLogin'
 
 const Noto = Noto_Sans({
   subsets: ["latin"],
@@ -21,8 +22,6 @@ interface children {
 }
 
 async function RoleUser(auth: string) {
-
-
   // try {
   const res: any = await fetch(`http://localhost:3000/Auth/action/api/`, {
     method: "GET",
@@ -49,7 +48,12 @@ export default async function RootLayout({ children }: children) {
 
   // console.log("SessionCookie from root layout", SessionCookie)
 
-  let RolePegawai = await RoleUser(SessionCookie)
+  let RolePegawai = {}
+
+  if (SessionCookie != undefined) {
+    RolePegawai = await RoleUser(SessionCookie)
+  }
+
 
   // console.log("RolePegawai", RolePegawai)
 
@@ -57,9 +61,19 @@ export default async function RootLayout({ children }: children) {
   return (
     <html lang="en">
       <body className={Noto.className}>
-        <SessionContext value={RolePegawai}>
-          {children}
-        </SessionContext>
+
+        {
+          SessionCookie != undefined
+            ?
+            <SessionContext value={RolePegawai}>
+              {children}
+            </SessionContext>
+            :
+            <>
+              <ActionLogin />
+            </>
+        }
+
       </body>
     </html>
   )

@@ -7,6 +7,7 @@ import S_ModalDelete from './S_ModalDelete'
 import { ModalContext } from '@/Global/Components/Portal/PortalKonfirmation/PortalKonfirmation'
 import C_Structure from '@/Global/Components/CTA/C_Structure'
 import Shimerloading from '@/Global/Components/Loading/Shimerloading'
+import { useRouter } from 'next/navigation'
 
 
 interface HapusRiwayat_Inter {
@@ -16,20 +17,30 @@ interface HapusRiwayat_Inter {
 export default function HapusRiwayat({ DataPinjam }: HapusRiwayat_Inter) {
 
     const [LoadingProcess, setLoadingProcess] = useState<boolean>(false)
+    const [LoadMSG, setLoadMSG] = useState("Menghapus")
+    const router = useRouter()
+    // console.log("DataPinjam", DataPinjam)
 
     async function UserDelete(ID_PINJAM: string, ID_MOBIL: string,) {
         setLoadingProcess(true)
 
-        await FETCH_DELETE_ID_PINJAM(ID_PINJAM, ID_MOBIL).then(() => {
-            setLoadingProcess(false)
+        await FETCH_DELETE_ID_PINJAM(ID_PINJAM, ID_MOBIL).then(async (res) => {
+
+            let DeleteStatus = await res.json()
+
+            setLoadMSG(DeleteStatus)
+
+
+        }).then(() => {
+            router.refresh()
         })
     }
 
     function ButtonDelete() {
         return (
-            <C_Structure style="danger" onClick={() => UserDelete(DataPinjam.ID_PINJAM, DataPinjam.ID_MOBIL)} >
+            <C_Structure style={LoadMSG != "Berhasil" ? "danger" : "success"} onClick={() => UserDelete(DataPinjam.ID_STATUS, DataPinjam.STR_ID_KENDARAAN)} >
                 {LoadingProcess === true ? <Shimerloading loop={0} /> : <></>}
-                {LoadingProcess === true ? "Menghapus" : "Hapus"}
+                {LoadingProcess === true ? LoadMSG : "Hapus"}
             </C_Structure>
         )
     }
@@ -42,7 +53,7 @@ export default function HapusRiwayat({ DataPinjam }: HapusRiwayat_Inter) {
                 }
             >
                 <S_ModalDelete
-                    batal={<Konfirmation_Batal />}
+                    batal={<Konfirmation_Batal LoadingProcess={LoadingProcess} />}
                     hapus={<ButtonDelete />}
                     mobil={DataPinjam.STR_NAMA_KENDARAAN}
                 />
@@ -51,15 +62,15 @@ export default function HapusRiwayat({ DataPinjam }: HapusRiwayat_Inter) {
     )
 }
 
-export function Konfirmation_Batal() {
+export function Konfirmation_Batal({ LoadingProcess }: { LoadingProcess: boolean }) {
 
     const BatalToggle = useContext(ModalContext)
-    console.log("BatalToggle", BatalToggle.Show, ModalContext)
+    // console.log("BatalToggle", BatalToggle.Show, ModalContext)
 
     return (
         <>
             <C_Structure
-                onClick={() => BatalToggle.Show(false)}
+                onClick={() => { LoadingProcess === true ? null : BatalToggle.Show(false) }}
                 style="outlined"
             >
                 Batal

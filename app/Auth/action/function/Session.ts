@@ -169,14 +169,20 @@ export async function READ_UserBySession(request: any) {
 
     const Session = request.headers.get('authentication')
 
-    const dbconnection = Connection()
-    let Query = `SELECT STR_NIP9 FROM ${Table} WHERE STR_Session = ?`
-    let result: any = await dbconnection.promise().query(Query, [Session]);
-    dbconnection.end();
+    try {
+        const dbconnection = Connection()
+        let Query = `SELECT STR_NIP9 FROM ${Table} WHERE STR_Session = ?`
+        let result: any = await dbconnection.promise().query(Query, [Session]);
+        dbconnection.end();
 
-    let DataPegawai = AmbilDataPegawaiDariJSONDirectory(result[0][0]['STR_NIP9'])
+        let DataPegawai = AmbilDataPegawaiDariJSONDirectory(result[0][0]['STR_NIP9'])
 
-    return DataPegawai
+        return DataPegawai
+    } catch (error) {
+
+        redirect('/Auth')
+    }
+
 }
 
 // export default async function FETCH_READ_UserBySession() {

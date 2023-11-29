@@ -15,7 +15,8 @@ export default function C_Structure({ children, onClick, style = "contained", is
         "outlined": B['styleOutlined'],
         "navigation": B['styleNav'],
         "text": B['styleText'],
-        "danger": B['styleDanger']
+        "danger": B['styleDanger'],
+        "success": B['styleSuccess']
     }
 
     return (

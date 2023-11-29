@@ -20,11 +20,11 @@ export default function PortalKonfirmation({ children, onOpen }: PortalKonfirmat
         <>
             <div onClick={() => setShowModal(true)} >{onOpen}</div>
             {showModal && createPortal(
-                <Modals>
-                    <ModalContext.Provider value={{ Show: setShowModal }}>
+                <ModalContext.Provider value={{ Show: setShowModal }}>
+                    <Modals>
                         {children}
-                    </ModalContext.Provider>
-                </Modals>
+                    </Modals>
+                </ModalContext.Provider>
                 ,
                 document.body
             )}

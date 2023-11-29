@@ -1,7 +1,6 @@
 // 'use client'
 
 
-
 import React, { useMemo, useState } from 'react'
 
 export default function useCalendar(dateData: Date) {
@@ -10,7 +9,12 @@ export default function useCalendar(dateData: Date) {
   const [ChosenDate, setChosenDate] = useState<string[]>([])
 
 
+  const BulanName = {
+    1: "Januari", 2: "Februari", 3: "Maret", 4: "April",
+    5: "Mei", 6: "Juni", 7: "Juli", 8: "Agustus", 9: "September",
+    10: "Oktober", 11: "November", 12: "Desember"
 
+  }
 
   const DateArrayContructor = (bulan: any, tahun: any) => {
     let ArrayTanggal = []
@@ -21,18 +25,21 @@ export default function useCalendar(dateData: Date) {
       index = index - TesTanggal
     }
     for (var i = 0; i < 42; i++) {
-      let Now = new Date().setHours(0, 0, 0, 0)
+      // let Now = new Date().setHours(0, 0, 0, 0)
       let DateData = new Date(tahun, bulan, index)
-      let DateData_0 = DateData.setHours(0, 0, 0, 0)
-      let StringDate = DateData.toString() // this
+      // let DateData_0 = 
+      // let StringDate = DateData.toString() // this
+      // let StringDate = DateData.toDateString()
+      let StringDate = `${tahun}-${bulan + 1}-${index}`
+
 
 
       let ObjectData = {
         id: StringDate,
         display: DateData.getDate(),
         styleMonth: new Date(DateData).getMonth() != CurrentDate.getMonth() ? "lower" : "higher",
-        availablity: Now > DateData_0 ? "hidden" : "pickAble",
-        isToday: Now === DateData_0 ? true : false
+        availablity: new Date().setHours(0, 0, 0, 0) > DateData.setHours(0, 0, 0, 0) ? "hidden" : "pickAble",
+        isToday: new Date().setHours(0, 0, 0, 0) === DateData.setHours(0, 0, 0, 0) ? true : false
       }
 
       ArrayTanggal.push(ObjectData)

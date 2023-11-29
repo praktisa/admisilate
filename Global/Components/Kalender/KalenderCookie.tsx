@@ -2,6 +2,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import K from './Kalender.module.css'
 import useCalendar from './_function/useCalendar'
+import PenyingkatSeksi from '@/Global/function/PenyingkatSeksi'
 // import { setCookie } from 'cookies-next'
 
 interface TanggalTerpinjam {
@@ -20,16 +21,7 @@ export default function Kalender({ terpinjam = "", editValue }: any) {
 
     const [DataTerpinjam, setDataterpinjam] = useState<TanggalTerpinjam[]>([])
 
-    // console.log("terpinjam dari Kalender", terpinjam)
-
-    const SeksiPanjang = [
-        { panjang: 'Subbagian Umum dan Kepatuhan Internal', singkat: 'SUKI' },
-        { panjang: 'Seksi Penjaminan Kualitas Data', singkat: 'PKD' },
-        { panjang: 'Seksi Pemeriksaan, Penilaian, dan Penagihan', singkat: 'P3' },
-        { panjang: 'Seksi Pelayanan', singkat: 'Pelayanan' },
-        { panjang: 'Fungsional Pemeriksa Pajak', singkat: 'FPP' },
-        { panjang: 'Seksi Pengawasan I', singkat: 'WAS I' },
-    ]
+    // console.log("terpinjam dari Kalender", ChosenDate)
 
 
     useEffect(() => {
@@ -112,17 +104,23 @@ export default function Kalender({ terpinjam = "", editValue }: any) {
                             let obj = DataTerpinjam.find(o => o.TanggalPinjam === tangs.id);
 
                             let Terpinjam = false // pick = readyPick
+                            let SingkatPeminjam = ""
                             if (obj != undefined) {
+                                let today = new Date().setHours(0, 0, 0, 0)
                                 let Compare = new Date(obj.TanggalPinjam).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)
+
+                                // console.log("obj.TanggalPinjam", obj)
+                                // console.log("Compare", today, Compare)
+
                                 Terpinjam = Compare === true ? false : true
                                 // Apabila Tanggal Booking lebih kecil dari tanggal sekarang maka Terpinjam tidak dimunculkan
                             }
 
-                            let SingkatPeminjam = SeksiPanjang.map((sek, i) => {
-                                if (obj?.Peminjam.includes(sek.panjang)) {
-                                    return sek.singkat
-                                }
-                            })
+                            if (obj != undefined) {
+                                SingkatPeminjam = PenyingkatSeksi(obj.Peminjam)
+                            }
+
+
 
                             let fix_styleMonth = tangs.styleMonth
                             let fix_pick = ChosenDate.includes(tangs.id)
