@@ -137,59 +137,57 @@ export function ClientFormPeminjaman({ ServerAction, DataMobil, UpdateData }: Ch
             <input input-type="hidden" type="text" name="ID_MOBIL" defaultValue={DataMobil.ID} />
 
             <SegmentForm
-                label={"Pilih Tanggal"}
+                label={"Tujuan dan Lokasi"}
                 after={<SubmitFormStatus UpdateData={UpdateData} />}
-                before={<label data-type="before" htmlFor='Tujuan dan Lokasi'>Sebelumnya</label>}
+                before={<label data-type="before" htmlFor='Pilih Tanggal'>Sebelumnya</label>}
             >
-                <KalenderLoadingStatus
-                    terpinjam={DataMobil.OBJ_DATES_BOOKING}
-                    loadmsg={"Mengubah Peminjaman Mobil " + DataMobil.STR_NAMA}
-                    UpdateData={UpdateData}
-                />
+
+                <LabelArea htmlFor={"Area " + "Tujuan Penggunaan"} label={"Tujuan Penggunaan"} >
+                    <textarea rows={1}
+                        ref={RefTujuan}
+                        onKeyUp={() => CheckInput()}
+
+                        spellCheck="false"
+                        id={"Area " + "Tujuan Penggunaan"}
+                        placeholder={``}
+                        name={"Tujuan Penggunaan"}
+                        defaultValue={UpdateData ? UpdateData.STR_TUJUAN : ""}
+                        required
+                    >
+                        {/* {editValue} */}
+                    </textarea>
+                </LabelArea>
+
+                <LabelArea htmlFor={"Area " + "Lokasi Kegiatan"} label={"Lokasi Kegiatan"} >
+                    <textarea rows={1}
+                        ref={RefLokasi}
+                        onKeyUp={() => CheckInput()}
+
+                        spellCheck="false"
+                        id={"Area " + "Lokasi Kegiatan"}
+                        placeholder={``}
+                        name={"Lokasi Kegiatan"}
+                        defaultValue={UpdateData ? UpdateData.STR_TEMPAT : ""}
+                        required
+                    >
+                        {/* {editValue} */}
+                    </textarea>
+                </LabelArea>
+
             </SegmentForm>
 
             <SegmentForm
-                label={"Tujuan dan Lokasi"}
-                after={<label id={"Label_Next"}
-
-                    style={{ display: "none" }}
-
-                    data-type="after" htmlFor='Pilih Tanggal'>Lanjut</label>}
+                label={"Pilih Tanggal"}
+                after={<label data-type="after" htmlFor='Tujuan dan Lokasi'>Lanjut</label>}
             >
                 <GridTujuanLokasi >
 
-                    <LabelArea htmlFor={"Area " + "Tujuan Penggunaan"} label={"Tujuan Penggunaan"} >
-                        <textarea rows={1}
-                            ref={RefTujuan}
-                            onKeyUp={() => CheckInput()}
 
-                            spellCheck="false"
-                            id={"Area " + "Tujuan Penggunaan"}
-                            placeholder={``}
-                            name={"Tujuan Penggunaan"}
-                            defaultValue={UpdateData ? UpdateData.STR_TUJUAN : ""}
-                            required
-                        >
-                            {/* {editValue} */}
-                        </textarea>
-                    </LabelArea>
-
-                    <LabelArea htmlFor={"Area " + "Lokasi Kegiatan"} label={"Lokasi Kegiatan"} >
-                        <textarea rows={1}
-                            ref={RefLokasi}
-                            onKeyUp={() => CheckInput()}
-
-                            spellCheck="false"
-                            id={"Area " + "Lokasi Kegiatan"}
-                            placeholder={``}
-                            name={"Lokasi Kegiatan"}
-                            defaultValue={UpdateData ? UpdateData.STR_TEMPAT : ""}
-                            required
-                        >
-                            {/* {editValue} */}
-                        </textarea>
-                    </LabelArea>
-
+                    <KalenderLoadingStatus
+                        terpinjam={DataMobil.OBJ_DATES_BOOKING}
+                        loadmsg={"Mengubah Peminjaman Mobil " + DataMobil.STR_NAMA}
+                        UpdateData={UpdateData}
+                    />
 
                 </GridTujuanLokasi>
             </SegmentForm>

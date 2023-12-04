@@ -83,14 +83,26 @@ export async function READ_NIP_BY_SESSION(SESSION: any) {
 export async function READ_SERVER_SESSION() {
 
     let SessionCookie = cookies().get("session")?.value
-    let NIP = await READ_NIP_BY_SESSION(SessionCookie)
-    let DataPegawai = await AmbilDataPegawaiDariJSONDirectory(NIP)
 
-    let IP_KOTOR = DataPegawai['IP Sikka'] as string
+    if (SessionCookie != undefined) {
+        let NIP = await READ_NIP_BY_SESSION(SessionCookie)
+        if (NIP != undefined) {
 
-    DataPegawai['IP Sikka'] = IP_KOTOR.replaceAll("'", "")
+            let DataPegawai = await AmbilDataPegawaiDariJSONDirectory(NIP)
 
-    return DataPegawai
+            let IP_KOTOR = DataPegawai['IP Sikka'] as string
+
+            DataPegawai['IP Sikka'] = IP_KOTOR.replaceAll("'", "")
+
+            return DataPegawai
+        } else {
+            return undefined
+        }
+    } else {
+
+        return undefined
+    }
+
 }
 
 // mengedit rencana kerja berdasarkan ID pembuatan
@@ -165,7 +177,7 @@ export async function READ_NIPBySession(Session: any) {
     return NIP
 }
 
-export async function READ_UserBySession(request: any) {
+export async function READ_UserBySessionRequest(request: any) {
 
     const Session = request.headers.get('authentication')
 

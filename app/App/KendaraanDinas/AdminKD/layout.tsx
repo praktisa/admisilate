@@ -3,7 +3,7 @@
 import React, { useContext } from 'react'
 import { Session } from '@/app/Auth/components/SessionContext/SessionContext'
 import { useRouter } from 'next/navigation'
-import LAKD from './layoutAdminKD.module.css'
+
 
 
 interface children {
@@ -15,9 +15,6 @@ interface Provider__Value__inter {
     [key: string]: string
 }
 
-interface CMP_Container__inter {
-    children: React.ReactNode, head: string
-}
 
 export default function AdminKDLayout(child: children) {
 
@@ -25,43 +22,15 @@ export default function AdminKDLayout(child: children) {
     let DataContext = useContext<Provider__Value__inter>(Session)
     let Require = "Subbagian Umum dan Kepatuhan Internal"
 
-    function CMP_Container({ children, head }: CMP_Container__inter) {
-        return (
-            <>
-                <div className={LAKD['relative']} >
-                    <div className={`${LAKD['container']} ${LAKD['draw']}`}>
-                        <h4 className={LAKD['container__head']} >{head}</h4>
-                        {children}
-                    </div>
-                </div>
-
-            </>
-        )
-    }
 
 
     if (DataContext['UNIT ORGANISASI'] === Require) {
         return (
             <>
-                <div className={LAKD['layout']}>
+                {child.PeminjamanHariIni}
 
-                    <CMP_Container head={"Terpinjam Hari Ini"} >
-                        {child.PeminjamanHariIni}
-                    </CMP_Container>
+                {child.children}
 
-                    <CMP_Container head={"Jumlah Terpinjam Bulan Ini"} >
-                        {child.children}
-                    </CMP_Container>
-
-                    <CMP_Container head={"Jumlah Servis Bulan Ini"} >
-                        {child.children}
-                    </CMP_Container>
-
-                    <CMP_Container head={"Jumlah Servis Bulan Ini"} >
-                        {child.children}
-                    </CMP_Container>
-
-                </div >
             </>
 
         )

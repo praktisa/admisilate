@@ -30,7 +30,7 @@ export default function useCalendar(dateData: Date) {
       // let DateData_0 = 
       // let StringDate = DateData.toString() // this
       // let StringDate = DateData.toDateString()
-      let StringDate = `${tahun}-${bulan + 1}-${index}`
+      let StringDate = `${DateData.getFullYear()}-${DateData.getMonth() + 1}-${DateData.getDate()}`
 
 
 

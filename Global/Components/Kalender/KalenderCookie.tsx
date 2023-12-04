@@ -77,6 +77,7 @@ export default function Kalender({ terpinjam = "", editValue }: any) {
 
     return (
         <>
+            <input input-type="hidden" type="text" name="Chosen__TGL" defaultValue={ChosenDate} />
             <div className={K['layout']} >
 
                 <div className={K['layout__header']}>

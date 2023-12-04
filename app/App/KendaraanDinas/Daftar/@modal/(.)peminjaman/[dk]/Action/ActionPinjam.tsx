@@ -29,7 +29,7 @@ export async function DataProcessing(formData: FormData) {
         "STR_TGL": JSON.stringify(formData.getAll("TGL")) as string,
         "STR_TEMPAT": formData.get("Lokasi Kegiatan") as string,
         "STR_TUJUAN": formData.get("Tujuan Penggunaan") as string,
-        "STR_STATUS": "pinjam"
+        "STR_STATUS": "Terpinjam"
     }
 
 
@@ -41,8 +41,10 @@ export async function PinjamMobilState(prevData: any, formData: FormData) {
 
     let ValueAdd = await DataProcessing(formData)
 
+    let Chosen_TGL = (formData.get("Chosen__TGL") as string).split(",")
 
-    await CEK_REGISTER((formData.getAll("TGL") as string[]), ValueAdd.STR_NAMA_KENDARAAN)
+
+    await CEK_REGISTER(Chosen_TGL, ValueAdd.STR_NAMA_KENDARAAN)
         .then(async (HASIL_CEK_REGISTER) => {
 
             ValueAdd.STR_TGL = JSON.stringify(HASIL_CEK_REGISTER['0'])

@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 interface children {
     children: React.ReactNode
-    AdminPage: React.ReactNode
     DaftarKendaraanDinas: React.ReactNode
 }
 

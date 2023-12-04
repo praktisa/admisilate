@@ -1,26 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { READ_UserBySession } from '../function/Session'
-import { redirect } from 'next/navigation'
-// import { READ_KENDARAAN_DINAS_BY_ID } from '../../CRUD/DaftarKD_CRUD'
+import { READ_UserBySessionRequest } from '../function/Session'
+
+import { cookies } from 'next/headers'
 
 
 
 
 export async function GET(request: NextRequest, response: NextResponse) {
 
-    // const { searchParams } = new URL(request.url)
-    // const ID = searchParams.get('DK') as string
 
-    // let result = await READ_KENDARAAN_DINAS_BY_ID(ID)
-
-    // console.log("request AUTH", request.headers)
     try {
-        let DataPegawai = await READ_UserBySession(request)
+        let DataPegawai = await READ_UserBySessionRequest(request)
+
+        // console.log("READ_UserBySessionRequest", DataPegawai)
         return NextResponse.json(DataPegawai)
 
     } catch (error) {
-        // redirect('/Auth')
-        return NextResponse.json("no session")
+        cookies().delete('session')
+        return NextResponse.json({ "IP Sikka": "0" })
 
     }
 

@@ -12,7 +12,7 @@ export default function PenyingkatSeksi(Seksi: any) {
         'Seksi Penjaminan Kualitas Data': 'PKD',
         'Seksi Pemeriksaan, Penilaian, dan Penagihan': 'P3',
         'Seksi Pelayanan': 'PLYN',
-        'Fungsional Pemeriksa Pajak': 'FPP',
+        'Fungsional Pemeriksa': 'FPP',
         'Seksi Pengawasan I': 'WAS I',
         'Seksi Pengawasan II': 'WAS II',
         'Seksi Pengawasan III': 'WAS III',

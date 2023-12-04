@@ -231,10 +231,10 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
 export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(
     NAMA_MOBIL: string
 ) {
-
+    // harusnya BY ID Mobil
     let REGISTER_BY_NAMA = await READ_REGISTER_BY_NAMA_MOBIL(NAMA_MOBIL)
 
-    console.log("REGISTER_BY_NAMA", REGISTER_BY_NAMA.length, REGISTER_BY_NAMA)
+    // console.log("REGISTER_BY_NAMA", REGISTER_BY_NAMA.length, REGISTER_BY_NAMA)
 
     let NEW_OBJ_DATES = {}
 
@@ -243,8 +243,11 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL
 
             console.log("CREATE NEW", REGISTER_BY_NAMA[i])
 
+            let date = new Date(REGISTER_BY_NAMA[i]['STR_DATE'])
+            let InsertDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+
             Object.assign(NEW_OBJ_DATES, {
-                [REGISTER_BY_NAMA[i]['STR_DATE']]: REGISTER_BY_NAMA[i]['STR_PEMINJAM']
+                [InsertDate]: REGISTER_BY_NAMA[i]['STR_PEMINJAM']
             })
         }
     }
@@ -259,6 +262,8 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL
 
 
     let UpdateResult = await Execute(QUERY)
+
+    return UpdateResult
 
     // console.log("UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID", asd)
 

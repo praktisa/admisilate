@@ -83,7 +83,14 @@ export function SubmitForm({ disabled, Value }: { disabled: boolean, Value: stri
             {
                 disabled === true ? <Shimerloading loop={0} /> : <></>
             }
-            <input className={P['SubmitForm']} type='submit' value={ValueSubmit} disabled={disabled} />
+            <input
+                id={"Label_Next"}
+                style={{ display: "none" }}
+                className={P['SubmitForm']}
+                type='submit'
+                value={ValueSubmit}
+                disabled={disabled}
+            />
         </>
 
     )

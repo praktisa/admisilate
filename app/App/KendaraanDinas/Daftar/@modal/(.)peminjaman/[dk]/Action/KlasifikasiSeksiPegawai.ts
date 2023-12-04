@@ -8,8 +8,7 @@ export default function KlasifikasiSeksiPegawai(datapegawai: any) {
 
     if (Jabatan.includes('Pemeriksa Pajak')) {
         return "Fungsional Pemeriksa"
-    } else if (Jabatan.includes('Penyuluh')) {
-        return "Fungsional Penyuluh"
+
     } else if (Jabatan.includes('Penyidik')) {
         return "Penyidik"
     } else {

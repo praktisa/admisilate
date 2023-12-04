@@ -1,6 +1,7 @@
 import React from 'react'
 import C from './Card.module.css'
 import ImageFill from '../Image/ImageFill'
+import PenyingkatSeksi from '@/Global/function/PenyingkatSeksi'
 
 
 interface Card__Inter {
@@ -13,18 +14,6 @@ interface SeksiPanjang__inter {
 
 export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
 
-    const SeksiPanjang: SeksiPanjang__inter = {
-        'Subbagian Umum dan Kepatuhan Internal': 'SUKI',
-        'Seksi Penjaminan Kualitas Data': 'PKD',
-        'Seksi Pemeriksaan, Penilaian, dan Penagihan': 'P3',
-        'Seksi Pelayanan': 'Pelayanan',
-        'Fungsional Pemeriksa Pajak': 'FPP',
-        'Seksi Pengawasan I': 'WAS I',
-        'Seksi Pengawasan II': 'WAS II',
-        'Seksi Pengawasan III': 'WAS III',
-        'Seksi Pengawasan IV': 'WAS IV',
-        'Seksi Pengawasan V': 'WAS V'
-    }
 
 
     function CheckBooked(booked: string) {
@@ -44,11 +33,15 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
                 let Compare = Array_Date_Keys[i] === STR_TODAY
                 // console.log("Compare", Compare)
 
-                if (Compare === true) {
-                    isBooked = SeksiPanjang[`${Array_Date_Values[i]}`]
+                if (Compare === true && PenyingkatSeksi(Array_Date_Values[i])) {
+                    isBooked = PenyingkatSeksi(Array_Date_Values[i])
                     break;
+                } else {
+                    isBooked = ""
                 }
             }
+
+
             console.log("isBooked", isBooked)
             return isBooked
         } else {
@@ -77,9 +70,9 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
                 <></>
             )
         }
-        // return (
-        //     <></>
-        // )
+        return (
+            <></>
+        )
     }
 
     return (

@@ -10,7 +10,7 @@ import { cookies } from 'next/headers'
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 import KlasifikasiSeksiPegawai from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/KlasifikasiSeksiPegawai'
-import { UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID } from '@/app/App/KendaraanDinas/Daftar/Action/CRUD/DaftarKD_CRUD'
+import { UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID, UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL } from '@/app/App/KendaraanDinas/Daftar/Action/CRUD/DaftarKD_CRUD'
 import { UPDATE_KENDARAAN_DINAS_BY_ID_PINJAM } from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/Pinjam_CRUD'
 import { CEK_REGISTER, CREATE_REGISTER, UPDATE_REGISTER } from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/Register_CRUD'
 
@@ -26,10 +26,10 @@ export async function DataProcessing(formData: FormData) {
     let ID_MOBIL = formData.get("ID_MOBIL") as string
     let NAMA_MOBIL = formData.get("NAMA_MOBIL") as string
     let TGL_BEFORE = formData.get("TGL_BEFORE") as string
-    let TGL_AFTER = JSON.stringify(formData.getAll("TGL")) as string
+    let TGL_AFTER = JSON.stringify((formData.get("Chosen__TGL") as string).split(",")) as string
 
     let ID_PINJAM = formData.get("ID_PINJAM") as string
-    let STR_TGL = JSON.stringify(formData.getAll("TGL")) as string
+    let STR_TGL = JSON.stringify((formData.get("Chosen__TGL") as string).split(",")) as string
     let STR_TEMPAT = formData.get("Lokasi Kegiatan") as string
     let STR_TUJUAN = formData.get("Tujuan Penggunaan") as string
 
@@ -54,7 +54,7 @@ export async function ActionUbahdanHapus(prevData: any, formData: FormData) {
 
 
 
-    await CEK_REGISTER((formData.getAll("TGL") as string[]), NAMA_MOBIL)
+    await CEK_REGISTER((formData.get("Chosen__TGL") as string).split(","), NAMA_MOBIL)
         .then(async (HASIL_CEK_REGISTER) => {
 
             // console.log("HASIL_CEK_REGISTER dari EDIT", HASIL_CEK_REGISTER)
@@ -66,9 +66,11 @@ export async function ActionUbahdanHapus(prevData: any, formData: FormData) {
 
             // TGL_AFTER = JSON.stringify(HASIL_CEK_REGISTER['0'])
 
-            await UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
-                ID_MOBIL, TGL_BEFORE, TGL_AFTER, Peminjam
-            )
+            // await UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
+            //     ID_MOBIL, TGL_BEFORE, TGL_AFTER, Peminjam
+            // )
+
+            await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(NAMA_MOBIL)
 
             await UPDATE_KENDARAAN_DINAS_BY_ID_PINJAM(
                 ID_PINJAM,

@@ -40,6 +40,7 @@
     position: sticky;
     top: 0;
     user-select: none;
+    z-index: 50;
 }  
 
 .TableData__Container th{

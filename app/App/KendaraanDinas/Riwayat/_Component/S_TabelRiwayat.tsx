@@ -16,8 +16,8 @@ export default function S_TabelRiwayat({ children }: children) {
                         <thead>
                             <tr style={{ width: "100%" }}>
                                 <th style={{ width: "20%" }}>Mobil</th>
-                                <th style={{ width: "10%" }}>Status</th>
-                                <th style={{ width: "50%" }}>Tanggal</th>
+                                <th style={{ width: "20%" }}>Status</th>
+                                <th style={{ width: "40%" }}>Tanggal</th>
                                 <th style={{ width: "20%" }}>Aksi</th>
                             </tr>
                         </thead>

@@ -101,11 +101,14 @@ export async function CEK_REGISTER(Array_Date: string[], STR_Nama_Kendaraan: str
 
 export async function READ_REGISTER_BY_NAMA_MOBIL(STR_Nama_Kendaraan: string) {
 
+    let HariIni = new Date()
+    let STR_HariIni = `${HariIni.getFullYear()}-${HariIni.getMonth() + 1}-${HariIni.getDate()}`
+
     let QUERY = {
         "METHOD": "SELECT",
         "METHOD_QUERY": "ID, STR_DATE, STR_PEMINJAM",
-        "WHERE": "STR_NAMA_KENDARAAN = ?", // harusnya PLAT MOBIL
-        "DATA": [STR_Nama_Kendaraan]
+        "WHERE": `STR_NAMA_KENDARAAN = ? AND STR_DATE >= ? `, // harusnya PLAT MOBIL
+        "DATA": [STR_Nama_Kendaraan, STR_HariIni]
     }
 
     let hasil = await Execute(QUERY)
@@ -166,14 +169,6 @@ export async function UPDATE_REGISTER(ID_STATUS: number, Array_Date_After: strin
     }
 
 
-    // for (var i = 0; i < REGISTER_AWAL.length; i++) {
-    //     let TARGET_DELETE_DATE_AWAL = Array_Date_After.includes(REGISTER_AWAL[i]['STR_DATE'])
-
-    //     if (!TARGET_DELETE_DATE_AWAL) {
-    //         await DELETE_REGISTER(REGISTER_AWAL[i]['ID'])
-    //     }
-    // }
-
 }
 
 
@@ -198,18 +193,13 @@ export async function ADMIN_READ_ALL_REGISTER(comparison: string) {
     let HariIni = new Date()
     let STR_HariIni = `${HariIni.getFullYear()}-${HariIni.getMonth() + 1}-${HariIni.getDate()}`
 
-    console.log("HariIni dan JSON toDateString", HariIni)
+    // console.log("HariIni dan JSON toDateString", HariIni)
 
-    // let QUERY = {
-    //     "METHOD": "SELECT",
-    //     "METHOD_QUERY": `ID_STATUS, STR_NAMA_KENDARAAN, STR_DATE, STR_PEMINJAM`,
-    //     "WHERE": `STR_DATE ${comparison} ? ORDER BY STR_DATE`,
-    //     "DATA": [STR_HariIni]
-    // }
+
 
     let QUERY = {
         "METHOD": "SELECT_LEFT_JOIN",
-        "METHOD_QUERY": `${Table}.ID_STATUS, ${Table}.STR_NAMA_KENDARAAN, ${Table}.STR_DATE, ${Table}.STR_PEMINJAM, tb_kendaraandinas_status.STR_TUJUAN`,
+        "METHOD_QUERY": `${Table}.ID, ${Table}.ID_STATUS, ${Table}.STR_NAMA_KENDARAAN, ${Table}.STR_DATE, ${Table}.STR_PEMINJAM, tb_kendaraandinas_status.STR_TUJUAN, tb_kendaraandinas_status.ID_STATUS,  tb_kendaraandinas_status.STR_APPROVE`,
         "LEFT_JOIN_TABLE": `tb_kendaraandinas_status`,
         "ON": `${Table}.ID_STATUS = tb_kendaraandinas_status.ID_STATUS`,
         "WHERE": `${Table}.STR_DATE ${comparison} ? ORDER BY ${Table}.STR_DATE`,
@@ -222,3 +212,48 @@ export async function ADMIN_READ_ALL_REGISTER(comparison: string) {
 
     return hasil[0]
 }
+
+export async function ADMIN_UPDATE_AMBIL_ALIH_REGISTER(ID_REGISTER: string, ID_STATUS_BARU: string, STR_PEMINJAM: string) {
+
+    // Ubah data Register (ID_STATUS) berdasarkan ID_REGISTER
+
+    // Recreate Register
+
+    let QUERY = {
+        "METHOD": "UPDATE",
+        "METHOD_QUERY": "ID_STATUS = ?, STR_PEMINJAM = ?",
+        "WHERE": "ID = ?",
+        "DATA": [ID_STATUS_BARU, STR_PEMINJAM, ID_REGISTER]
+    }
+
+    let hasil = await Execute(QUERY)
+
+    return hasil[0]
+    // pertimbangkan untuk membuat ambil alih seperti booking biasa
+
+    // return hasil[0]
+}
+
+export async function ADMIN_UPDATE_KEMBALIKAN_REGISTER(ID_REGISTER: string, ID_STATUS: string, STR_PEMINJAM_AWAL: string) {
+
+    // Ubah data Register (ID_STATUS) berdasarkan ID_REGISTER
+
+    // Recreate Register
+
+    let QUERY = {
+        "METHOD": "UPDATE",
+        "METHOD_QUERY": "ID_STATUS = ?, STR_PEMINJAM = ?",
+        "WHERE": "ID = ?",
+        "DATA": [ID_STATUS, STR_PEMINJAM_AWAL, ID_REGISTER]
+    }
+
+    let hasil = await Execute(QUERY)
+
+    // console.log("ADMIN_UPDATE_KEMBALIKAN_REGISTER", hasil)
+
+    return hasil[0].affectedRows
+
+
+}
+
+

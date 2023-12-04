@@ -18,6 +18,7 @@ export async function DELETE(request: NextRequest, response: NextResponse) {
 
     revalidateTag(`${ID_MOBIL}`)
     revalidateTag('all_mobil')
+    revalidateTag('AdminRiwayatKD')
 
     return NextResponse.json(result)
 

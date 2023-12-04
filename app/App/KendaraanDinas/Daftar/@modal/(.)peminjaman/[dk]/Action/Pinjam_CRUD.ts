@@ -65,6 +65,7 @@ export async function Execute(QUERY: any) {
 
 export async function CREATE_PINJAM__MOBIL(Object_Data: any) {
 
+    // berfungsi untuk menambahkan saja tetapi tidak menggunakan UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL agar tidak berat
     let TGL_IN_DATABASE_UPDATE = await INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID(
         Object_Data.STR_ID_KENDARAAN,
         Object_Data.STR_TGL,
@@ -97,3 +98,5 @@ export async function UPDATE_KENDARAAN_DINAS_BY_ID_PINJAM(ID: string, TGL: any, 
 
     return hasil[0]
 }
+
+
