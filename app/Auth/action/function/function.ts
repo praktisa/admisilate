@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { ReadFileJSON } from './F_CRUD_FILE_JSON';
-
+import fs from 'fs'
 
 export function AmbilDataPegawaiDariJSON(DataPegawai: any, NIP: string) {
     let JSON_DataPegawai = JSON.parse(DataPegawai)
@@ -23,11 +23,17 @@ export function AmbilDataPegawaiDariJSONDirectory(NIP: string) {
 }
 
 
-export function TokenNIP(NIP: string) {
+export function PublicTokenNIP(NIP: string) {
     let RandomNumber = Math.floor(Math.random() * 100)
     let MD5NIP = md5(NIP + RandomNumber)
 
     return MD5NIP
+}
+
+// OnAppToken
+export function OAT(NIP_TOKENIZE: string) {
+    let Result = md5(NIP_TOKENIZE)
+    return Result
 }
 
 

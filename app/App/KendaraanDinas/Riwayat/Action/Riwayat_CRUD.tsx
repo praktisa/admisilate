@@ -2,7 +2,6 @@ import { READ_SERVER_SESSION } from '@/app/Auth/action/function/Session';
 
 import Connection from '@Connection';
 import { UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL } from '../../Daftar/Action/CRUD/DaftarKD_CRUD';
-import { redirect } from 'next/navigation';
 import KlasifikasiSeksiPegawai from '../../Daftar/@modal/(.)peminjaman/[dk]/Action/KlasifikasiSeksiPegawai';
 
 
@@ -68,7 +67,7 @@ export async function Execute(QUERY: any) {
 
 export async function READ_PEMINJAMAN_MOBIL_BY_SESSION() {
 
-    let DataPegawai = await READ_SERVER_SESSION()
+    let DataPegawai = await READ_SERVER_SESSION(["All"])
 
     let Unit = KlasifikasiSeksiPegawai(DataPegawai)
 
@@ -222,6 +221,7 @@ export async function ADMIN_INSERT_AMBIL_ALIH_PEMINJAMAN(ID_STATUS: string, NIP:
         "DATA": [Object_AmbilAlih]
     }
 
+    // eksekusi dan ambil ID
     let ID_AMBIL_ALIH = await Execute(QUERY_AMBIL_ALIH)
 
 
@@ -251,6 +251,7 @@ export async function ADMIN_INSERT_AMBIL_ALIH_PEMINJAMAN(ID_STATUS: string, NIP:
     let ReturnData = {
         "ID_AMBIL_ALIH": ID_AMBIL_ALIH[0].insertId,
         "STR_NAMA_KENDARAAN": Object_AmbilAlih.STR_NAMA_KENDARAAN,
+
     }
 
     return ReturnData
@@ -307,9 +308,10 @@ export async function ADMIN_UPDATE_CEK_DAN_UBAH_PINJAMAN_LAMA(ID_STATUS_LAMA: st
 
         return {
             "Peminjam_Sebelumnya": DataPeminjamSebelumnya.STR_PEMINJAM,
+            "Tujuan_Sebelumnya": DataPeminjamSebelumnya.STR_TUJUAN,
             "Nama_Mobil": DataPeminjamSebelumnya.STR_NAMA_KENDARAAN,
-            "Kembalikan": 0,
-            "Hapus": 0
+            "STR_APPROVE_Sebelumnya": DataPeminjamSebelumnya.STR_APPROVE,
+            "ID_STATUS_Sebelumnya": DataPeminjamSebelumnya.ID_STATUS
         }
 
     } else {

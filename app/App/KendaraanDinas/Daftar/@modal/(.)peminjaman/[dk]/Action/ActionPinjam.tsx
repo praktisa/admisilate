@@ -5,11 +5,18 @@ import { AmbilDataPegawaiDariJSONDirectory } from '@/app/Auth/action/function/fu
 
 import { cookies } from 'next/headers'
 import KlasifikasiSeksiPegawai from './KlasifikasiSeksiPegawai'
-import { CREATE_PINJAM__MOBIL } from './Pinjam_CRUD'
+
 
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { CEK_REGISTER, CREATE_REGISTER } from './Register_CRUD'
+
+
+// import { CREATE_PINJAM__MOBIL } from './Pinjam_CRUD'
+// import { CEK_REGISTER, CREATE_REGISTER } from './Register_CRUD'
+// import { CREATE_PINJAM__MOBIL } from '@/app/App/KendaraanDinas/_Schema/schema_tb_kendaraan_status'
+
+import { CEK_REGISTER, CREATE_REGISTER } from '@SchemaKD/schema_tb_kendaraan_register'
+import { CREATE_PINJAM__MOBIL } from '@SchemaKD/schema_tb_kendaraan_status'
 
 
 export async function DataProcessing(formData: FormData) {

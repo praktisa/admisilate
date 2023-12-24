@@ -12,7 +12,7 @@ export default function CMP_DaftarMobil({ Data }: any) {
                 {
                     Data.map((SKD: any, i: number) => {
 
-                        console.log("SKD.OBJ_DATES_BOOKING.trim()", SKD.OBJ_DATES_BOOKING.trim())
+                        // console.log("SKD.OBJ_DATES_BOOKING.trim()", SKD.OBJ_DATES_BOOKING.trim())
                         return (
                             <Fragment key={SKD.ID}>
 
@@ -20,7 +20,8 @@ export default function CMP_DaftarMobil({ Data }: any) {
                                     <Card
                                         name={SKD.STR_NAMA}
                                         plat={SKD.ID}
-                                        img={SKD.ID}
+                                        // img={SKD.ID}
+                                        img={SKD.BLOB_IMG}
                                         booked={SKD.OBJ_DATES_BOOKING.trim()}
                                     />
                                 </Link>

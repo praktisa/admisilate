@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { CREATE_Session, DELETE_Session, READ_Session } from "./function/Session"
-import { AmbilDataPegawaiDariJSONDirectory, MasaCookie, TokenNIP } from "./function/function"
+import { AmbilDataPegawaiDariJSONDirectory, MasaCookie, OAT, PublicTokenNIP } from "./function/function"
 
 
 export async function Login(formData: FormData) {
@@ -18,7 +18,11 @@ export async function Login(formData: FormData) {
         if (Availability > 0) {
 
             // 3 Jika ada, buat token terhadap NIP
-            let Token_NIP = TokenNIP(NIP9)
+            let Token_NIP = PublicTokenNIP(NIP9)
+
+            // let App_Token = OAT(Token_NIP)
+
+            // console.log("App_TokenApp_TokenApp_TokenApp_Token", App_Token)
 
             // 4 Cek Session
             let ApakahSudahLogin = await READ_Session(NIP9)

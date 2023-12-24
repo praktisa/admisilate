@@ -7,8 +7,9 @@ import { useRouter } from 'next/navigation'
 
 
 interface children {
-    children: React.ReactNode
-    PeminjamanHariIni: React.ReactNode
+    children: React.ReactNode,
+    PeminjamanHariIni: React.ReactNode,
+    ModalKendaraanDinas: React.ReactNode
 }
 
 interface Provider__Value__inter {
@@ -27,6 +28,8 @@ export default function AdminKDLayout(child: children) {
     if (DataContext['UNIT ORGANISASI'] === Require) {
         return (
             <>
+                {child.ModalKendaraanDinas}
+
                 {child.PeminjamanHariIni}
 
                 {child.children}

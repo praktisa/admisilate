@@ -2,12 +2,16 @@
     position:relative;
     border: 1px;
     display: grid;
-    background: #212121;
+    background: var(--Surface);
     padding: 15px 15px 15px 15px;
  
     border-radius: 4px;
     cursor: text;
-    
+}
+
+
+.with__border{
+    border: 1px solid var(--borderColor);
 }
 
 
@@ -16,7 +20,7 @@
     top:0;
     left:0;
     padding: 15px;
-    transform:translate(0);
+    transform:translateY(0);
     /* font-weight: bold; */
     transition-duration:300ms;
     user-select: none;
@@ -24,7 +28,7 @@
 
 .label:focus-within > .span,
 input:not(:placeholder-shown) + .span{
-    color:#eaeaea80;
+    color:var(--TypoSecond);
     font-size: 13px;
     transform:translateY(-10px);
     

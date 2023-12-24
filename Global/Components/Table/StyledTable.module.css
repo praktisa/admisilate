@@ -15,8 +15,11 @@
 .layoutTable tbody tr{
     transition: 0.4s ease;
     background: var(--Surface);
-
+    
     border-radius: 9px;
+   
+    /* position: relative;
+    overflow: hidden; */
 }
 
 .layoutTable tbody tr:first-child td:first-child{
@@ -39,7 +42,7 @@
 .layoutTable tbody tr:hover{
     background:  var(--ActHover);
     color: var(--TypoStill);
-   
+
 }
 
 .layoutTable tbody tr div span{
@@ -59,6 +62,7 @@
 
 .layoutTable td{
     padding: 10px;
+    
 }
 
 .layoutTable td:nth-child(3){

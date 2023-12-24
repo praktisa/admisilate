@@ -3,6 +3,7 @@ import React, { useState, createContext } from 'react'
 import { createPortal } from 'react-dom';
 import Modals from '../../Modals/BasicModal/Modals';
 
+
 interface PortalKonfirmation__inter {
     children: React.ReactNode,
     onOpen: React.ReactNode
@@ -22,7 +23,9 @@ export default function PortalKonfirmation({ children, onOpen }: PortalKonfirmat
             {showModal && createPortal(
                 <ModalContext.Provider value={{ Show: setShowModal }}>
                     <Modals>
+
                         {children}
+
                     </Modals>
                 </ModalContext.Provider>
                 ,

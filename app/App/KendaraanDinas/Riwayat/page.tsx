@@ -1,5 +1,5 @@
 import React from 'react'
-import { READ_PEMINJAMAN_MOBIL_BY_SESSION } from './Action/Riwayat_CRUD'
+import { READ_PEMINJAMAN_MOBIL_BY_SESSION } from '@SchemaKD/schema_tb_kendaraan_status'
 import Link from 'next/link'
 import HapusRiwayat from './_Component/C_HapusRiwayat'
 import Structure from '@/Global/Components/CTA/Structure'

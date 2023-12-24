@@ -8,6 +8,7 @@ export default async function KendaraanDinasPage() {
 
     const SemuaKendaraanDinas = await GET_ALL_DataMobil()
 
+    // console.log("SemuaKendaraanDinas", SemuaKendaraanDinas)
 
     return (
         <>

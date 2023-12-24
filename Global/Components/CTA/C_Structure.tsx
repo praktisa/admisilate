@@ -12,6 +12,7 @@ export default function C_Structure({ children, onClick, style = "contained", is
 
     let styleList: any = {
         "contained": B['styleContained'],
+        "containedCenter": B['styleContainedCenter'],
         "outlined": B['styleOutlined'],
         "navigation": B['styleNav'],
         "text": B['styleText'],

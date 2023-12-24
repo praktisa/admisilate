@@ -35,12 +35,6 @@ export default function C_NavContainer({ Menu }: Menu__inter) {
   let DataContext = useContext<Provider__Value__inter>(Session)
 
 
-  // if (DataContext) {
-  //   if (DataContext['UNIT ORGANISASI'] === "Subbagian Umum dan Kepatuhan Internal") {
-
-  //   }
-  // }
-
 
   function CustomLink({ href, prefetch = false, style = "contained", children, activePath }: LC_Inter) {
 

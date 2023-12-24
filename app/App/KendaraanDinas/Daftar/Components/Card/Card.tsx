@@ -23,8 +23,8 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
             let Array_Date_Keys = Object.keys(JSON.parse(booked))
             let Array_Date_Values = Object.values(JSON.parse(booked))
 
-            console.log("Array_Date_Keys", Array_Date_Keys)
-            console.log("Array_Date_Values", Array_Date_Values)
+            // console.log("Array_Date_Keys", Array_Date_Keys)
+            // console.log("Array_Date_Values", Array_Date_Values)
 
             let Today = new Date()
             let STR_TODAY = `${Today.getFullYear()}-${Today.getMonth() + 1}-${Today.getDate()}`
@@ -42,7 +42,7 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
             }
 
 
-            console.log("isBooked", isBooked)
+            // console.log("isBooked", isBooked)
             return isBooked
         } else {
             return ""

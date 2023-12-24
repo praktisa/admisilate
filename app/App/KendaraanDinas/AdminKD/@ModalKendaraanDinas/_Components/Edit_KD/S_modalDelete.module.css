@@ -1,0 +1,83 @@
+.Position{
+    /* background: blue; */
+    display: grid;
+    place-items: center;
+    height: 100%;
+    
+}
+
+.Modal__Container{
+    background: var(--Surface);
+    box-shadow: var(--Shadow);
+    border-radius: 8px;
+    width: 35%;
+    height: 45%;
+    padding: 10px;
+    transform: translateY(-30px);
+
+
+    display: grid;
+    position: relative;
+    grid-template-rows:1fr 1fr 0.1fr;
+    gap: 10px;
+
+    scale: 0.9;
+    will-change:transform;
+    opacity: 0;
+
+    /* transition: 0.4s ease; */
+    animation: PopUp 0.3s ease forwards;
+
+    /* overflow: hidden; */
+}   
+
+@keyframes PopUp {
+    0%{
+        scale: 0.9;
+        opacity: 0;
+        transform: translateY(0);
+        
+    }
+    100%{
+        scale: 1;
+        opacity: 1;
+        transform: translateY(-30px);
+    }
+}
+
+.LogoWarning{
+    font-size: 70px;
+    position: absolute;
+    transform: translate(195%, -60%);
+}
+
+.Container__Question{
+    text-align: center;
+    margin-top: 30px;
+    display: grid;
+    place-items: center;
+    padding: 0 30px;
+
+   
+}
+
+.Container__Question b{
+    color:var(--Act)
+}
+
+.Container__Caution{
+    display: grid;
+    place-items: center;
+}
+
+.Caution{
+    border-left: 5px solid var(--Error);
+    background: var(--ErrorBG);
+    padding: 20px;
+}
+
+.Container__Selection{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}

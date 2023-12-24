@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 
 interface children {
     children: React.ReactNode
-    DaftarKendaraanDinas: React.ReactNode
+
 }
 
 
 export default function KendaraanDinasLayout(child: children) {
 
-    // console.log("props", child)
+
 
     return (
         <>

@@ -1,0 +1,86 @@
+.Form__Action{
+    display: grid;
+}
+.Layout__Form{
+    /* background: red; */
+    display: grid;
+    grid-template-rows: 1fr  0.2fr;
+    gap: 15px;
+}
+
+.Layout__Form__Img{
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+
+    box-shadow: var(--Shadow);
+}
+
+.Form__Title{
+    text-align: center;
+    position: absolute;
+    /* left: 33%; */
+    top: -30px;
+    padding: 10px 20px;
+    border-radius: 7px;
+
+    letter-spacing: 0.3px;
+
+    background: var(--Surface);
+}
+
+
+/* .Layout__Form__Img label{
+    position: relative;
+    
+} */
+
+
+.Layout__Input{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px
+}
+
+
+.Form{
+    display: grid;
+    gap: 5px;
+}
+
+.Input__Form{
+    
+    border: 1px solid #EDEDED;
+}
+
+.Form__radio{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:15px;
+}
+
+.radio:checked ~ label{
+    background: var(--Act);
+    border: 1px solid var(--Act);
+}
+
+
+.Form__radio label
+{
+    padding: 7px 14px;
+    border-radius: 7px;
+    text-align: center;
+    transition: 0.4s ease;
+    border: 1px solid var(--borderColor);
+    cursor: pointer;
+    user-select: none;
+
+    display: grid;
+    place-items: center;
+    letter-spacing: 0.3px;
+}
+
+.Form__radio div
+{
+   display: grid;
+}

@@ -12,10 +12,12 @@ export default function Structure({ children, onClick, style = "contained", isAc
 
     let styleList: any = {
         "contained": B['styleContained'],
+        "containedCenter": B['styleContainedCenter'],
         "outlined": B['styleOutlined'],
         "navigation": B['styleNav'],
         "text": B['styleText'],
-        "danger": B['styleDanger']
+        "danger": B['styleDanger'],
+        "success": B['styleSuccess']
 
     }
 

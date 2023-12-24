@@ -1,18 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { READ_SEMUA_KENDARAAN_DINAS } from '../../CRUD/DaftarKD_CRUD'
+import { CEK_UserBySessionRequest } from '@/app/Auth/action/function/Session'
 
 
 
 
 export async function GET(request: NextRequest, response: NextResponse) {
 
-    // console.log("request READ_SEMUA_KENDARAAN_DINAS", request)
+    let isLogin = await CEK_UserBySessionRequest(request)
 
-    let result = await READ_SEMUA_KENDARAAN_DINAS()
+    if (isLogin === 1) {
+        let result = await READ_SEMUA_KENDARAAN_DINAS()
+        return NextResponse.json(result)
 
-    // console.log("READ_SEMUA_KENDARAAN_DINAS result", result, request)
+    } else {
+        return NextResponse.json("Unauthorized")
+    }
 
 
-    return NextResponse.json(result)
+
 
 }

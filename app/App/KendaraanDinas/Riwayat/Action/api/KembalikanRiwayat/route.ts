@@ -1,29 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { ADMIN_UPDATE_CEK_DAN_UBAH_PINJAMAN_LAMA, DELETE_DATA_PINJAM_MOBIL_BY_ID } from '../../Riwayat_CRUD'
+import { ADMIN_UPDATE_CEK_DAN_UBAH_PINJAMAN_LAMA, DELETE_DATA_PINJAM_MOBIL_BY_ID } from '@SchemaKD/schema_tb_kendaraan_status'
 import { revalidateTag } from 'next/cache'
 
 import { ADMIN_UPDATE_KEMBALIKAN_REGISTER } from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/Register_CRUD'
 import { redirect } from 'next/navigation'
 
 
-interface EndResult_inter {
 
-    Peminjam_Sebelumnya?: string,
-    Nama_Mobil?: string,
-    Kembalikan: number,
-    Hapus: number
-
-}
 
 export async function POST(request: NextRequest, response: NextResponse) {
 
-    // let DataPegawai = await READ_SERVER_SESSION()
+    // let DataPegawai = await READ_SERVER_SESSION(["All"])
 
     const DATA = await request.json()
 
     // step 1 tb_kendaraandinas_status
     // akses ID_STATUS_LAMA DENGAN DATA.ID_STATUS_KEMBALI, apabila ada (Edit) apabila tidak (jangan dilanjutkan) edit dibagian ID_STATUS yang diambil alih menjadi 1
-    let EndResult: EndResult_inter = await ADMIN_UPDATE_CEK_DAN_UBAH_PINJAMAN_LAMA(DATA.ID_STATUS_KEMBALI, DATA.TGL_KEMBALI).then(async (Data) => {
+    let EndResult = await ADMIN_UPDATE_CEK_DAN_UBAH_PINJAMAN_LAMA(DATA.ID_STATUS_KEMBALI, DATA.TGL_KEMBALI).then(async (Data) => {
 
         // apabila sukses maka akan mengeluarkan nama seksi yang telah diubah
         if (Data['Peminjam_Sebelumnya'].length !== 0) {

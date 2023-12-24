@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { DELETE_DATA_PINJAM_MOBIL_BY_ID } from '../../Riwayat_CRUD'
+import { DELETE_DATA_PINJAM_MOBIL_BY_ID } from '@SchemaKD/schema_tb_kendaraan_status'
 import { revalidateTag } from 'next/cache'
 
 

@@ -16,7 +16,6 @@ export default async function MonitoringMobilAdminpage() {
 
 
             <Modals>
-                <div> Dari Page Biasa</div>
 
                 <S_TableData DATA={DATA_SEMUA} />
             </Modals>

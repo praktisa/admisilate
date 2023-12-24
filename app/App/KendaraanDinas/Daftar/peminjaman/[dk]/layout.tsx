@@ -22,8 +22,6 @@ interface children {
 
 export default function ModalPeminjamanLayout(props: children) {
 
-    // console.log("params from layout", props)
-
     return (
         <>
 
@@ -31,25 +29,9 @@ export default function ModalPeminjamanLayout(props: children) {
             <Shimerloading loop={1} />
             {props.children}
 
-            <ImageFill
-                src={props.params.dk}
-                animated={true}
-                hover={false}
-                quality={90}
-            />
-
-
 
         </>
 
 
     )
-}
-
-export async function generateStaticParams() {
-    const ListDK = await READ_SEMUA_KENDARAAN_DINAS_ONLY_ID()
-
-    return ListDK.map((dk: any) => ({
-        dk: dk.ID,
-    }))
 }

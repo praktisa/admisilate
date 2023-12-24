@@ -1,20 +1,19 @@
 import { cookies } from 'next/headers'
 
 
-
 export default async function GET(
     URL: string,
-    AUTH: boolean = false,
+    AUTH: string,
     OPT: object = {}
 ) {
 
-    let isAuth = AUTH === true ? cookies().get('session')?.value : ""
+
 
     let Option = {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
-            'Authentication': `${isAuth}`
+            'Authentication': `${AUTH}`
         }
     }
 

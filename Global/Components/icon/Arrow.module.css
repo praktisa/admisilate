@@ -1,0 +1,21 @@
+
+.structure{
+    text-align: center;
+}
+
+.left{
+    display: inline-block;
+    transform: rotate(180deg);
+    /* background: red; */
+}
+
+.top{
+    display: inline-block;
+    transform: rotate(-90deg);
+    
+}
+
+.bottom{
+    display: inline-block;
+    transform: rotate(90deg);
+}

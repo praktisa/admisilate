@@ -27,7 +27,7 @@ export default function S_CoverData({ HARI_INI }: { HARI_INI: object[] }) {
                                     let TUJUAN = datas['STR_TUJUAN']
                                     return (
                                         <Fragment key={MOBIL + PEMINJAM}>
-                                            <tr>
+                                            <tr style={{ height: "62px" }}>
                                                 <td>{MOBIL}</td>
                                                 <td>{PEMINJAM}</td>
                                                 <td>{TUJUAN}</td>

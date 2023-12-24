@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { ADMIN_INSERT_AMBIL_ALIH_PEMINJAMAN } from '../../Riwayat_CRUD'
+import { ADMIN_INSERT_AMBIL_ALIH_PEMINJAMAN } from '@SchemaKD/schema_tb_kendaraan_status'
 import { revalidateTag } from 'next/cache'
 import { READ_SERVER_SESSION } from '@/app/Auth/action/function/Session'
 import KlasifikasiSeksiPegawai from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/KlasifikasiSeksiPegawai'
@@ -13,7 +13,7 @@ import { redirect } from 'next/navigation'
 export async function POST(request: NextRequest, response: NextResponse) {
 
 
-    let DataPegawai = await READ_SERVER_SESSION()
+    let DataPegawai = await READ_SERVER_SESSION(["All"])
 
     let Peminjam = KlasifikasiSeksiPegawai(DataPegawai)
 

@@ -1,0 +1,57 @@
+/* .CardKD__Container{
+    width: 100%;
+} */
+
+
+.CardKD__img{
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 150px;
+
+    filter: grayscale(0);
+    
+    cursor: pointer;
+     box-shadow: var(--Shadow);
+}
+
+.CardKD__name{
+    z-index: 20;
+    font-size: 17px;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background: #12121290;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: 0.4s ease;
+
+
+   
+}
+
+.CardKD__Container:hover .CardKD__name{
+ 
+
+    background: var(--Act);
+}
+
+.CardKD__Active{
+ 
+
+    background: var(--Act);
+}
+
+
+
+
+.CardKD__img__add{
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    place-items: center;
+    border: 3px solid var(--borderColor);
+
+    font-size: 50px;
+}

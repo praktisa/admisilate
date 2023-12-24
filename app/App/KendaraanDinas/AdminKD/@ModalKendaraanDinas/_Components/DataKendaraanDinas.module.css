@@ -1,0 +1,82 @@
+.Layout{
+    display: grid;
+    grid-template-areas: "Nav Content";
+    grid-template-columns: 0.45fr 0.55fr;
+
+    gap: 25px;
+    height: 100%;
+
+  
+}
+
+.Layout__Nav{
+   grid-area: Nav;
+   display: grid;
+
+   grid-template-rows: 0.05fr 1fr;
+    gap: 15px;
+    overflow: hidden;
+    
+      /* background: red; */
+}
+
+.Layout__Content{
+    grid-area: Content;
+    position: relative;
+    display: grid;
+    
+}
+
+.Nav__Kendaraan__title{
+    position: relative;
+}
+
+.Nav__Kendaraan__exit{
+    color: var(--TypoSecond);
+    position: absolute;
+    left: 0;
+    top: 20%;
+    letter-spacing: 0.3px;
+}
+.Nav__Kendaraan__title h3{
+    text-align: center;
+   
+}
+
+
+.Nav__Kendaraan__container__area{
+    overflow-y: scroll;
+    display: grid;
+   
+   
+    height: 100%;
+}
+
+.Nav__Kendaraan__container{
+    display: grid;
+   
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0 25px 0 0;
+}
+
+
+.Nav__Kendaraan__container__area::-webkit-scrollbar{
+    width: 1px;
+    
+}
+ 
+.Nav__Kendaraan__container__area::-webkit-scrollbar-track{
+    background: var(--Container);
+    
+  
+}
+ 
+.Nav__Kendaraan__container__area::-webkit-scrollbar-thumb{
+
+    background-color: var(--Typo);
+    outline: 1px solid var(--Typo);
+
+    border-radius: 7px;
+   
+}

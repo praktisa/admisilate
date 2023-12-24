@@ -5,7 +5,7 @@
    
     transform: scale(1.35);
     transform-origin: 100% 50%;
-   
+    
     will-change: transform;
     z-index: 0;
 

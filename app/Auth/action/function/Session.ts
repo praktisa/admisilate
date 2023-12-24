@@ -18,6 +18,10 @@ export async function Execute(QUERY: any) {
     const dbconnection = Connection()
 
     switch (QUERY.METHOD) {
+        case "CHECK":
+            Q = `SELECT COUNT(1) FROM ${TABLE} WHERE ${QUERY.WHERE}`
+            break;
+
         case "INSERT":
             Q = `INSERT INTO ${TABLE} SET ?`
             break;
@@ -66,6 +70,20 @@ export async function CREATE_SESSION(Object_Data: any) {
 
 
 // membaca semua rencana kerja berdasarkan STR_ID_USER buat
+export async function CEK_NIP_BY_SESSION(SESSION: any) {
+
+    let QUERY = {
+        "METHOD": "CHECK",
+        "METHOD_QUERY": "STR_NIP9",
+        "WHERE": "STR_Session = ?",
+        "DATA": [SESSION]
+    }
+
+    let hasil = await Execute(QUERY)
+
+    return hasil[0][0]['COUNT(1)']
+}
+
 export async function READ_NIP_BY_SESSION(SESSION: any) {
 
     let QUERY = {
@@ -80,7 +98,13 @@ export async function READ_NIP_BY_SESSION(SESSION: any) {
     return hasil[0][0]['STR_NIP9']
 }
 
-export async function READ_SERVER_SESSION() {
+// interface READ_SERVER_SESSION__INTER {
+//     select: string
+// }
+
+export async function READ_SERVER_SESSION(select: string[]) {
+
+
 
     let SessionCookie = cookies().get("session")?.value
 
@@ -88,13 +112,24 @@ export async function READ_SERVER_SESSION() {
         let NIP = await READ_NIP_BY_SESSION(SessionCookie)
         if (NIP != undefined) {
 
-            let DataPegawai = await AmbilDataPegawaiDariJSONDirectory(NIP)
+            let DataPegawai: any = await AmbilDataPegawaiDariJSONDirectory(NIP)
 
             let IP_KOTOR = DataPegawai['IP Sikka'] as string
 
             DataPegawai['IP Sikka'] = IP_KOTOR.replaceAll("'", "")
 
-            return DataPegawai
+            if (select[0] === "All") {
+                return DataPegawai
+            } else {
+                let NewReturn = {}
+
+                for (var i = 0; i < select.length; i++) {
+                    Object.assign(NewReturn, { [select[i]]: DataPegawai[select[i]] })
+                }
+
+                return NewReturn
+            }
+
         } else {
             return undefined
         }
@@ -197,13 +232,29 @@ export async function READ_UserBySessionRequest(request: any) {
 
 }
 
-// export default async function FETCH_READ_UserBySession() {
+export async function CEK_UserBySessionRequest(request: any) {
 
-//     let URL = `http://0.0.0.0:3000/Auth/api/Login`
-//     let res = await GET(URL, true)
+    const Session = request.headers.get('authentication')
 
-//     return res.user
-// }
+    try {
+        let QUERY = {
+            "METHOD": "CHECK",
+            "METHOD_QUERY": "STR_NIP9",
+            "WHERE": "STR_Session = ?",
+            "DATA": [Session]
+        }
+
+        let hasil = await Execute(QUERY)
+
+        return hasil[0][0]['COUNT(1)']
+
+    } catch (error) {
+
+        redirect('/Auth')
+    }
+
+}
+
 
 
 export async function DELETE_Session(NIP: string) {

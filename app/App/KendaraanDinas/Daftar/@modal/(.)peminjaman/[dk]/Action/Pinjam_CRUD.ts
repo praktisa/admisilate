@@ -1,6 +1,7 @@
 
-import { INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID } from '@/app/App/KendaraanDinas/@DaftarKendaraanDinas/Action/CRUD/DaftarKD_CRUD';
+
 import Connection from '@Connection';
+import { INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID } from '../../../../Action/CRUD/DaftarKD_CRUD';
 
 
 const Table: string = 'tb_kendaraandinas_status'

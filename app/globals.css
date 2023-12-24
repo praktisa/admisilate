@@ -6,6 +6,7 @@
 
   --Typo: #121212;
   --TypoStill: #f3f4f8;
+  --TypoSecond: #12121280;
 
   --Container: #212121;
   
@@ -13,6 +14,7 @@
   --ActHover: #EE4E3450;
   --Success: #25D366;
   --Error:#B00020;
+  --Error2:#f22613;
   --ErrorBG:#B0002090;
 
   --TypoSize:18px;
@@ -32,6 +34,7 @@
     --borderColor: #444;
 
     --Typo: #fafbfc;
+    --TypoSecond: #fafbfc80;
     --Act: #EE4E34;
     --Success: #25D366;
     --Error:#B00020;

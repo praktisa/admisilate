@@ -45,17 +45,25 @@ export async function Execute(QUERY: any) {
 
         let result: any = await dbconnection.promise().query(Q, QUERY.DATA);
 
-        await dbconnection.promise().commit()
-        dbconnection.end();
+        await dbconnection.promise().commit().then(() => {
+            dbconnection.end()
+        })
+        // dbconnection.end();
 
         console.log("TRANSACTION SUCCESS")
         return result
 
-    } catch (e) {
-        console.log("TRANSACTION ERROR", e)
+    }
+    catch (e: any) {
+        // console.log("TRANSACTION ERROR", JSON.stringify(e))
+        console.log("TRANSACTION ERROR", e.message)
         await dbconnection.promise().query('ROLLBACK');
         dbconnection.end();
-        return e
+        return e.message
+    }
+    finally {
+
+        // dbconnection.end()
     }
 
 
@@ -80,7 +88,7 @@ export async function READ_SEMUA_KENDARAAN_DINAS() {
 
     let QUERY = {
         "METHOD": "SELECT_ALL",
-        "METHOD_QUERY": "ID, STR_NAMA, STR_IMG, OBJ_DATES_BOOKING",
+        "METHOD_QUERY": "ID, STR_NAMA, BLOB_IMG, OBJ_DATES_BOOKING",
     }
 
     let hasil = await Execute(QUERY)
@@ -114,22 +122,6 @@ export async function READ_KENDARAAN_DINAS_BY_ID(ID: string) {
 
     return hasil[0][0]
 }
-
-// mengedit rencana kerja berdasarkan ID pembuatan
-// dibawah ini salah
-// export async function UPDATE_KENDARAAN_DINAS_BY_PLAT(ID: string, TGL: any, TEMPAT: string, TUJUAN: string) {
-
-//     let QUERY = {
-//         "METHOD": "UPDATE",
-//         "METHOD_QUERY": "STR_TGL = ?, STR_TEMPAT = ?, STR_TUJUAN = ?",
-//         "WHERE": "ID = ?",
-//         "DATA": [TGL, TEMPAT, TUJUAN, ID]
-//     }
-
-//     let hasil = await Execute(QUERY)
-
-//     return hasil[0]
-// }
 
 export async function READ_OBJ_DATES_BOOKING_MOBIL_BY_ID(ID: string) {
 
@@ -285,3 +277,57 @@ export async function DELETE_KENDARAAN_DINAS_BY_PLAT(ID: string) {
 }
 
 
+
+
+export async function ADMIN_READ_SEMUA_KENDARAAN_DINAS() {
+
+    let QUERY = {
+        "METHOD": "SELECT_ALL",
+        "METHOD_QUERY": "ID, STR_NAMA, STR_PLAT, BLOB_IMG, STR_JENIS",
+
+    }
+
+    let hasil = await Execute(QUERY)
+
+    return JSON.stringify(hasil[0])
+}
+
+export async function ADMIN_UPDATE_KENDARAAN_DINAS_BY_ID(Data: any) {
+
+    const { ID_LAMA, ID, STR_NAMA, STR_PLAT, BLOB_IMG, STR_JENIS } = Data
+
+    let QUERY = {}
+
+    let CheckImg = JSON.parse(JSON.stringify(BLOB_IMG))
+
+    if (CheckImg.data.length != 0) {
+        QUERY = {
+            "METHOD": "UPDATE",
+            "METHOD_QUERY": "ID = ?, STR_NAMA = ?, STR_PLAT = ?, BLOB_IMG= ?, STR_JENIS= ?",
+            "WHERE": "ID = ?",
+            "DATA": [ID, STR_NAMA, STR_PLAT, BLOB_IMG, STR_JENIS, ID_LAMA]
+        }
+
+    } else {
+        QUERY = {
+            "METHOD": "UPDATE",
+            "METHOD_QUERY": "ID = ?, STR_NAMA = ?, STR_PLAT = ?, STR_JENIS= ?",
+            "WHERE": "ID = ?",
+            "DATA": [ID, STR_NAMA, STR_PLAT, STR_JENIS, ID_LAMA]
+        }
+    }
+
+    // console.log("ADMIN_UPDATE_KENDARAAN_DINAS_BY_ID", CheckImg.data.length)
+
+    let hasil = await Execute(QUERY)
+
+    console.log("HASILLL ", hasil)
+
+    if (hasil[0].changedRows === 1) {
+        return "Berhasil"
+    } else {
+        return "Gagal"
+    }
+
+
+}

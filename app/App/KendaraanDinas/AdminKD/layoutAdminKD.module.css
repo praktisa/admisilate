@@ -1,9 +1,39 @@
+
+.relative{
+    position: relative;
+    /* overflow: hidden; */
+   
+}
+
+.overflow{
+      overflow: hidden;
+      display: grid;
+ 
+}
+
+
+
+.outer_layout{
+    display: grid;
+    margin-top: 15px;
+    gap: 20px;
+
+}
+
 .layout{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
     row-gap: 40px;
     margin-top: 20px;
+    opacity: 1;
+
+    will-change: opacity;
+    transition: 0.4s ease 0.4s;
+}
+
+.relative:hover ~ .layout{
+    opacity: 0;
 }
 
 .container{

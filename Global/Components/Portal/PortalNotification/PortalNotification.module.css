@@ -1,0 +1,158 @@
+.Position{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    z-index: 25;
+
+    box-shadow: var(--Shadow);
+
+    
+}
+
+.Container{
+    position: absolute;
+
+    bottom: 5%;
+    right: 2%;
+
+    /* background: var(--Surface); */
+
+    background: rgba(18, 18, 18, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px) ;
+    border: 1px solid var(--borderColor);
+
+    border-radius: 7px;
+    /* width: 240px;
+    height: 70px; */
+    overflow: hidden;
+    animation: Slider 0.8s ease forwards;
+    
+    
+}
+
+@keyframes Slider {
+    0%{
+        transform: translateY(150%);
+    }
+
+    100%{
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+.Relative{
+    position: relative;
+    padding: 10px 15px;
+  
+}
+
+.Grid{
+    display: grid;
+    grid-template-areas:  "Img Body Close";
+    gap: 15px;
+   
+
+    grid-template-columns: 0.2fr 0.6fr 0.2fr;
+    place-items: center;
+}
+
+.Grid__Img{
+    grid-area: Img;
+    position: relative;
+}
+
+
+
+
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+ 
+}
+
+.pulseSuccess {
+  box-shadow: 0px 0px 1px 1px #25D366;
+  animation: pulseSuccess 2s infinite;
+}
+
+.pulseFail {
+  box-shadow: 0px 0px 1px 1px #f22613;
+  animation: pulseFail 2s infinite;
+}
+
+@keyframes pulseSuccess {
+  0% {
+    box-shadow: 0 0 0 0px rgba(37, 211, 102, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+  }
+}
+
+@keyframes pulseFail {
+  0% {
+    box-shadow: 0 0 0 0px rgba(242, 38, 19, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(242, 38, 19, 0);
+  }
+}
+
+
+
+
+.Grid__Body{
+    grid-area: Body;
+
+    display: grid;
+
+    grid-template-rows: 1fr 1fr;
+}
+
+.Grid__Close{
+    grid-area: Close;
+    display: grid;
+    place-items: center;
+}
+
+.Close{
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+
+    /* border: 1px solid var(--borderColor); */
+    padding: 5px;
+
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+.Close:hover{
+    
+
+   background:  var(--borderColor);
+   
+}
+
+.Grid__Title h3{
+  letter-spacing: 0.3px;
+}
+
+
+.Grid__Desc{
+    text-wrap: nowrap;
+}

@@ -55,7 +55,7 @@ export default async function RootLayout({ children }: children) {
   if (SessionCookie != undefined) {
     RolePegawai = await RoleUser(SessionCookie)
   }
-
+  // console.log("RolePegawai", RolePegawai)
 
   return (
     <html lang="en">

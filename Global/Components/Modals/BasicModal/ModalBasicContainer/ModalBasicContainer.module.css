@@ -1,0 +1,32 @@
+.area{
+    display: grid;
+    position: fixed;
+    
+    height: 100%;
+    width: 100%;
+    padding: 50px 80px 60px 80px;
+}
+
+.container{
+    background: var(--Surface);
+    padding: 15px;
+    border-radius: 7px;
+    box-shadow: var(--Shadow);
+
+    overflow: hidden;
+}
+
+
+@keyframes UP {
+    0%{
+       
+        transform: translateY(10%) scale(0.95);
+ 
+    }
+
+    100%{
+        
+        transform: translateX(0)scale(1);
+     
+    }
+}
