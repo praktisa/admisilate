@@ -3,7 +3,7 @@
 import Connection from '@Connection';
 import { INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID } from '../../../../Action/CRUD/DaftarKD_CRUD';
 
-
+ 
 const Table: string = 'tb_kendaraandinas_status'
 
 export async function Execute(QUERY: any) {
@@ -99,5 +99,3 @@ export async function UPDATE_KENDARAAN_DINAS_BY_ID_PINJAM(ID: string, TGL: any, 
 
     return hasil[0]
 }
-
-

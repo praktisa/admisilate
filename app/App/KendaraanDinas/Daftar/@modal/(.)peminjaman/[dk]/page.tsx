@@ -20,7 +20,7 @@ export default async function PeminjamanPage({ params }: ParamPinjam) {
     const DataMobil = await FETCH_GET_DATA_MOBIL_BY_DK(params.dk)
     const ImgMobil = await FETCH_GET_IMG_BY_DK(params.dk)
 
-
+    
     return (
         <>
             <Container_Form>

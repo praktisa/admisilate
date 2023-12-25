@@ -11,6 +11,8 @@ export default async function page() {
 
                 RENCANA KERJAAAAAA nih BOS
 
+                
+
             </div>
         </>
 

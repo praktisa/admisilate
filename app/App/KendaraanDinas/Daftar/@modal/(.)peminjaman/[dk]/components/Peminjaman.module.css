@@ -282,7 +282,7 @@
 
 .Alternate__position{
     position: fixed;
-    z-index: 50 !important;
+    
 
     background: var(--Surface);
     width: 100%;
@@ -297,5 +297,19 @@
 
 .Alternate__container{
     background: red;
-    z-index: 60 !important;
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: 0.2fr 0.2fr 0.6fr;
+    gap: 10px;
+
+
 }
+
+.Container__nav{
+    display: flex;
+    gap: 10px;
+}
+
+
+

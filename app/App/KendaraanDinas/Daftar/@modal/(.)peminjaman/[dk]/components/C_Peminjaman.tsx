@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback, useRef, useEffect, useContext, useState } from 'react'
+import React, { Fragment, useCallback, useRef, useEffect, useContext, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 import P from './Peminjaman.module.css'
@@ -9,7 +9,7 @@ import LabelArea from '@/Global/Components/Input/_Label/TextArea/LabelArea'
 import { ModalNotification_Context } from '@/Global/Components/Portal/PortalNotification/PortalNotification'
 
 
-
+   
 export function ExitForm() {
 
     const router = useRouter()
@@ -29,6 +29,12 @@ interface Child {
     UpdateData?: any
 }
 
+interface ShowAlternate__inter{
+    status:boolean,
+    tgl_terpesan:string[],
+    str_tujuan:string,
+    str_lokasi:string  
+}
 
 
 export function ClientFormPeminjaman({ ServerAction, DataMobil, UpdateData }: Child) {
@@ -37,7 +43,13 @@ export function ClientFormPeminjaman({ ServerAction, DataMobil, UpdateData }: Ch
     const RefTujuan = useRef<HTMLTextAreaElement | null>(null)
     const RefLokasi = useRef<HTMLTextAreaElement | null>(null)
 
-    const [ShowAlternate, setShowAlternate] = useState(false)
+    const [ShowAlternate, setShowAlternate] = useState<ShowAlternate__inter>({
+        status:false,
+        tgl_terpesan:[],
+        str_tujuan:"",
+        str_lokasi:""
+    })
+    
 
     const NotificationToggle = useContext(ModalNotification_Context)
 
@@ -104,10 +116,10 @@ export function ClientFormPeminjaman({ ServerAction, DataMobil, UpdateData }: Ch
     return (
         <>
             {
-                ShowAlternate === false
+                ShowAlternate.status === false
 
                     ?
-                    <AlternateMobil />
+                    <AlternateMobil tgl_terpesan={[]} />
                     :
                     <form className={P['FormPeminjaman']} action={(form) => PinjamMobilAction(form, ServerAction)}>
 
@@ -191,15 +203,47 @@ export function ClientFormPeminjaman({ ServerAction, DataMobil, UpdateData }: Ch
     )
 }
 
+interface AlternateMobil__inter{
+    tgl_terpesan: string[]
+}
 
-export function AlternateMobil() {
+// pertimbangkan untuk dijadikan pararel page baru 
+export function AlternateMobil({tgl_terpesan}: AlternateMobil__inter) {
+
+    // coba gunakan useState untuk pergantian tanggal dengan nilai string tgl terpesan
+
+
     return (
         <>
             <div className={P['Alternate__position']} >
                 <div className={P['Alternate__container']}>
-                    Pemilihan Mobil alternatif
-                </div>
+                    <div className={P['Container__head']} >
+                        <h3>Sebagian tanggal telah dipesan</h3>
+                        <h4>Berikut adalah alternatif mobil yang tersedia:</h4>
+                    </div>
+                    <div className={P['Container__nav']} >
 
+                        <div className={P['Nav__alternate']} >
+                            Semua
+                        </div>
+
+                        {
+                            tgl_terpesan.map((tgl:string, i:number)=>{
+                                return(
+                                    <Fragment key={tgl}>
+                                        <div className={P['Nav__alternate']} >{tgl}</div>
+                                    </Fragment>
+                                )
+                            })
+                        }
+                    </div>
+
+                    <div className={P['Container__mobil']} >
+                        
+                    </div>
+
+                    
+                </div>
             </div>
         </>
     )
