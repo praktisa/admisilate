@@ -95,14 +95,3 @@ export function SubmitForm({ disabled, Value }: { disabled: boolean, Value: stri
 
     )
 }
-
-
-export function LoadingSubmit({ msg = "Berhasil" }: { msg: string }) {
-    return (
-        <>
-            <h2 className={P['LoadingSubmit']}>
-                {msg}
-            </h2>
-        </>
-    )
-}

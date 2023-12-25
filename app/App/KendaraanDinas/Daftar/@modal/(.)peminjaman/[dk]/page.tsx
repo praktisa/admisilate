@@ -5,6 +5,8 @@ import { ClientFormPeminjaman, ExitForm } from './components/C_Peminjaman'
 import FETCH_GET_DATA_MOBIL_BY_DK from '../../../Action/api/FETCH_GET_DATA_MOBIL_BY_DK/fetch'
 import { PinjamMobilState } from './Action/ActionPinjam'
 import ImageFill from '../../../Components/Image/ImageFill'
+import FETCH_GET_IMG_BY_DK from '../../../Action/api/FETCH_GET_IMG_BY_DK/fetch'
+import PortalNotification from '@/Global/Components/Portal/PortalNotification/PortalNotification'
 
 
 
@@ -16,16 +18,20 @@ interface ParamPinjam {
 export default async function PeminjamanPage({ params }: ParamPinjam) {
 
     const DataMobil = await FETCH_GET_DATA_MOBIL_BY_DK(params.dk)
-    // PinjamMobilState
+    const ImgMobil = await FETCH_GET_IMG_BY_DK(params.dk)
+
 
     return (
         <>
             <Container_Form>
-                <ClientFormPeminjaman ServerAction={PinjamMobilState} DataMobil={DataMobil} />
+                <PortalNotification>
+                    <ClientFormPeminjaman ServerAction={PinjamMobilState} DataMobil={DataMobil} />
+                </PortalNotification>
             </Container_Form>
+
             <ExitForm />
             <NamaKendaraan nama={DataMobil.STR_NAMA} />
-            <ImageFill src={DataMobil.BLOB_IMG} animated hover={false} quality={75} />
+            <ImageFill src={ImgMobil.BLOB_IMG} animated hover={false} quality={75} />
         </>
     )
 }

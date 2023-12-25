@@ -4,8 +4,6 @@ import { AmbilDataPegawaiDariJSONDirectory } from './function';
 
 import { cookies } from 'next/headers'
 
-
-
 import { redirect } from 'next/navigation';
 
 const Table: string = 'tb_session'

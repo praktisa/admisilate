@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react'
-
 import Link from 'next/link'
+import React, { Fragment } from 'react'
 import Card, { CardGrid } from '../Card/Card'
 
 export default function CMP_DaftarMobil({ Data }: any) {

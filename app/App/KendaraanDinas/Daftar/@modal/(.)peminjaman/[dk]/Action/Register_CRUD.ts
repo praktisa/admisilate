@@ -208,7 +208,7 @@ export async function ADMIN_READ_ALL_REGISTER(comparison: string) {
 
     let hasil = await Execute(QUERY)
 
-    console.log("ADMIN_READ_REGISTER_HARI_INI", hasil)
+    // console.log("ADMIN_READ_REGISTER_HARI_INI", hasil)
 
     return hasil[0]
 }

@@ -1,4 +1,5 @@
 'use server'
+import 'server-only'
 
 import { READ_NIP_BY_SESSION } from '@/app/Auth/action/function/Session'
 import { AmbilDataPegawaiDariJSONDirectory } from '@/app/Auth/action/function/function'
@@ -44,59 +45,65 @@ export async function DataProcessing(formData: FormData) {
 }
 
 
-export async function PinjamMobilState(prevData: any, formData: FormData) {
+export async function PinjamMobilState(formData: FormData) {
 
     let ValueAdd = await DataProcessing(formData)
 
     let Chosen_TGL = (formData.get("Chosen__TGL") as string).split(",")
 
+    try {
+        let ReturnedData = await CEK_REGISTER(Chosen_TGL, ValueAdd.STR_NAMA_KENDARAAN)
+            .then(async (HASIL_CEK_REGISTER) => {
 
-    await CEK_REGISTER(Chosen_TGL, ValueAdd.STR_NAMA_KENDARAAN)
-        .then(async (HASIL_CEK_REGISTER) => {
+                ValueAdd.STR_TGL = JSON.stringify(HASIL_CEK_REGISTER['0'])
+                let ID_INSERTED = await CREATE_PINJAM__MOBIL(ValueAdd)
 
-            ValueAdd.STR_TGL = JSON.stringify(HASIL_CEK_REGISTER['0'])
-            let ID_INSERTED = await CREATE_PINJAM__MOBIL(ValueAdd)
+                await CREATE_REGISTER(ID_INSERTED, ValueAdd.STR_NAMA_KENDARAAN, HASIL_CEK_REGISTER['0'], ValueAdd.STR_PEMINJAM)
 
-            await CREATE_REGISTER(ID_INSERTED, ValueAdd.STR_NAMA_KENDARAAN, HASIL_CEK_REGISTER['0'], ValueAdd.STR_PEMINJAM)
-        })
+                return HASIL_CEK_REGISTER
+            })
+
+        revalidateTag(`${ValueAdd.STR_ID_KENDARAAN}`)
+        revalidateTag('all_obj_dates')
+        return ReturnedData
+
+    } catch (error) {
+        return JSON.stringify(error)
+    }
 
 
-    // await CREATE_PINJAM__MOBIL(ValueAdd)
 
-    revalidateTag(`${ValueAdd.STR_ID_KENDARAAN}`)
-    revalidateTag('all_mobil')
 
-    return ({
-        success: true,
-        HeadMsg: ValueAdd.STR_NAMA_KENDARAAN,
-        BodyMsg: "Berhasil dipinjam 😄 !! ",
-        loadmsg: `Peminjaman ${ValueAdd.STR_NAMA_KENDARAAN}`,
-    })
+
 }
 
 
-export async function PinjamMobilState_WithRedirect(prevData: any, formData: FormData) {
+export async function PinjamMobilState_WithRedirect(formData: FormData) {
 
     let ValueAdd = await DataProcessing(formData)
 
-    await CEK_REGISTER((formData.getAll("TGL") as string[]), ValueAdd.STR_NAMA_KENDARAAN)
-        .then(async (HASIL_CEK_REGISTER) => {
+    try {
 
-            ValueAdd.STR_TGL = JSON.stringify(HASIL_CEK_REGISTER['0'])
-            let ID_INSERTED = await CREATE_PINJAM__MOBIL(ValueAdd)
+        let ReturnedData = await CEK_REGISTER((formData.getAll("TGL") as string[]), ValueAdd.STR_NAMA_KENDARAAN)
+            .then(async (HASIL_CEK_REGISTER) => {
 
-            await CREATE_REGISTER(ID_INSERTED, ValueAdd.STR_NAMA_KENDARAAN, HASIL_CEK_REGISTER['0'], ValueAdd.STR_PEMINJAM)
-        })
+                ValueAdd.STR_TGL = JSON.stringify(HASIL_CEK_REGISTER['0'])
 
-    revalidateTag(`${ValueAdd.STR_ID_KENDARAAN}`)
-    revalidateTag('all_mobil')
+                console.log("HASIL_CEK_REGISTER", HASIL_CEK_REGISTER)
+                // let ID_INSERTED = await CREATE_PINJAM__MOBIL(ValueAdd)
 
-    redirect('/App/KendaraanDinas/Riwayat')
+                // await CREATE_REGISTER(ID_INSERTED, ValueAdd.STR_NAMA_KENDARAAN, HASIL_CEK_REGISTER['0'], ValueAdd.STR_PEMINJAM)
 
-    return ({
-        success: true,
-        HeadMsg: ValueAdd.STR_NAMA_KENDARAAN,
-        BodyMsg: "Berhasil dipinjam 😄 !! ",
-        loadmsg: `Peminjaman ${ValueAdd.STR_NAMA_KENDARAAN}`,
-    })
+                return HASIL_CEK_REGISTER
+            })
+
+        revalidateTag(`${ValueAdd.STR_ID_KENDARAAN}`)
+        revalidateTag('all_obj_dates')
+
+        return ReturnedData
+
+    } catch (error) {
+        return JSON.stringify(error)
+    }
+
 }

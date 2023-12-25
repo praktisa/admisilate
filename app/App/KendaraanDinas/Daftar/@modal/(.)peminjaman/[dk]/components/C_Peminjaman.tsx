@@ -1,21 +1,12 @@
 'use client'
-import { useFormState, useFormStatus } from 'react-dom'
-import React, { useCallback, useRef, useEffect } from 'react'
-import dynamic from 'next/dynamic'
+import React, { useCallback, useRef, useEffect, useContext, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 import P from './Peminjaman.module.css'
-
-
-
-
 import Kalender from '@/Global/Components/Kalender/KalenderCookie'
-// const Kalender = dynamic(() => import('@/Global/Components/Kalender/KalenderCookie'), {
-//     ssr: false,
-// })
-
-import { GridTujuanLokasi, LoadingSubmit, SegmentForm, SubmitForm } from './S_Peminjaman'
+import { GridTujuanLokasi, SegmentForm, SubmitForm } from './S_Peminjaman'
 import LabelArea from '@/Global/Components/Input/_Label/TextArea/LabelArea'
+import { ModalNotification_Context } from '@/Global/Components/Portal/PortalNotification/PortalNotification'
 
 
 
@@ -32,36 +23,23 @@ export function ExitForm() {
     )
 }
 
-
 interface Child {
     DataMobil: any
     ServerAction: any
     UpdateData?: any
 }
 
-interface TextArea__Inter {
-    label: string
-    rows?: number
-    editValue?: string
-}
-
 
 
 export function ClientFormPeminjaman({ ServerAction, DataMobil, UpdateData }: Child) {
 
-    let initialState = {
-        success: null,
-        HeadMsg: "",
-        BodyMsg: ""
-    }
-
-
-    const [state, FormAction] = useFormState(ServerAction, initialState)
-
-
     // handle validasi Input
     const RefTujuan = useRef<HTMLTextAreaElement | null>(null)
     const RefLokasi = useRef<HTMLTextAreaElement | null>(null)
+
+    const [ShowAlternate, setShowAlternate] = useState(false)
+
+    const NotificationToggle = useContext(ModalNotification_Context)
 
     function CheckInput() {
         if (RefTujuan.current && RefLokasi.current) {
@@ -90,149 +68,139 @@ export function ClientFormPeminjaman({ ServerAction, DataMobil, UpdateData }: Ch
 
 
 
+    async function PinjamMobilAction(form: FormData, ServerAction: any) {
 
-    const router = useRouter()
-    router.prefetch('/App/KendaraanDinas/Riwayat')
+        await ServerAction(form)
+            .then((res: any) => {
 
-    const PindahKe_RiwayatMobil = useCallback(() => {
-        router.push('/App/KendaraanDinas/Riwayat', { scroll: false })
-    }, [router])
+                if (res[1].length > 0) {
+                    NotificationToggle.ShowNotif({ Open: true, Status: true, Title: "Berhasil Sebagian", Desc: "Sebagian tanggal telah dibooking" })
 
+                    let Inter = setInterval(() => {
+                        NotificationToggle.ShowNotif({ Open: false, Status: true, Title: "", Desc: "" })
+                        setShowAlternate(true)
 
-    Notification.requestPermission().then(permission => {
-        if (permission === "granted" && state.success === true) {
-            console.log("permission", permission)
-            new Notification(state.HeadMsg,
-                { body: state.BodyMsg }
-            )
-        }
-    })
-        .then(() => {
-            if (state.success === true) {
-                // setInterval(() => {
-                PindahKe_RiwayatMobil()
-                // }, 1000)
-            }
-        })
+                        clearInterval(Inter)
+                    }, 500)
 
 
+                } else {
+                    NotificationToggle.ShowNotif({ Open: true, Status: true, Title: "Berhasil", Desc: "Berhasil meminjam mobil" })
 
 
-    return (
-        <form className={P['FormPeminjaman']} action={FormAction}>
-
-            {
-                UpdateData
-                    ?
-                    <>
-                        <input input-type="hidden" type="text" name="TGL_BEFORE" value={UpdateData.STR_TGL} />
-                        <input input-type="hidden" type="text" name="ID_PINJAM" value={UpdateData.ID_STATUS} />
-                    </>
-
-                    :
-                    <></>
-            }
-
-            <input input-type="hidden" type="text" name="NAMA_MOBIL" defaultValue={DataMobil.STR_NAMA} />
-            <input input-type="hidden" type="text" name="ID_MOBIL" defaultValue={DataMobil.ID} />
-
-            <SegmentForm
-                label={"Tujuan dan Lokasi"}
-                after={<SubmitFormStatus UpdateData={UpdateData} />}
-                before={<label data-type="before" htmlFor='Pilih Tanggal'>Sebelumnya</label>}
-            >
-
-                <LabelArea htmlFor={"Area " + "Tujuan Penggunaan"} label={"Tujuan Penggunaan"} >
-                    <textarea rows={1}
-                        ref={RefTujuan}
-                        onKeyUp={() => CheckInput()}
-
-                        spellCheck="false"
-                        id={"Area " + "Tujuan Penggunaan"}
-                        placeholder={``}
-                        name={"Tujuan Penggunaan"}
-                        defaultValue={UpdateData ? UpdateData.STR_TUJUAN : ""}
-                        required
-                    >
-                        {/* {editValue} */}
-                    </textarea>
-                </LabelArea>
-
-                <LabelArea htmlFor={"Area " + "Lokasi Kegiatan"} label={"Lokasi Kegiatan"} >
-                    <textarea rows={1}
-                        ref={RefLokasi}
-                        onKeyUp={() => CheckInput()}
-
-                        spellCheck="false"
-                        id={"Area " + "Lokasi Kegiatan"}
-                        placeholder={``}
-                        name={"Lokasi Kegiatan"}
-                        defaultValue={UpdateData ? UpdateData.STR_TEMPAT : ""}
-                        required
-                    >
-                        {/* {editValue} */}
-                    </textarea>
-                </LabelArea>
-
-            </SegmentForm>
-
-            <SegmentForm
-                label={"Pilih Tanggal"}
-                after={<label data-type="after" htmlFor='Tujuan dan Lokasi'>Lanjut</label>}
-            >
-                <GridTujuanLokasi >
+                }
 
 
-                    <KalenderLoadingStatus
-                        terpinjam={DataMobil.OBJ_DATES_BOOKING}
-                        loadmsg={"Mengubah Peminjaman Mobil " + DataMobil.STR_NAMA}
-                        UpdateData={UpdateData}
-                    />
+            })
+            .catch((error: any) => {
+                console.log("Error", error)
+                NotificationToggle.ShowNotif({ Open: true, Status: false, Title: "Server Error", Desc: "Gagal meminjam mobil" })
+            })
 
-                </GridTujuanLokasi>
-            </SegmentForm>
-
-
-        </form>
-    )
-}
+    }
 
 
-
-export function SubmitFormStatus({ UpdateData }: { UpdateData?: any }) {
-
-    const status = useFormStatus();
-
-    let isPending = status.pending === true ? true : false
-
-    // console.log("useFormStatus", status)
-
-    return (
-
-        <SubmitForm disabled={isPending} Value={UpdateData ? "Ubah" : "Pinjam"} />
-    )
-}
-
-export function KalenderLoadingStatus({ terpinjam, loadmsg, UpdateData }: { terpinjam: any, loadmsg: string, UpdateData: any }) {
-
-    const status = useFormStatus();
-
-    let isPending = status.pending === true ? true : false
-
-    // let isPending = false
 
     return (
         <>
             {
-                isPending
+                ShowAlternate === false
+
                     ?
-                    <LoadingSubmit msg={loadmsg} />
+                    <AlternateMobil />
                     :
-                    <Kalender
-                        terpinjam={terpinjam}
-                        editValue={UpdateData ? JSON.parse(UpdateData.STR_TGL) : []}
-                    />
+                    <form className={P['FormPeminjaman']} action={(form) => PinjamMobilAction(form, ServerAction)}>
+
+                        {
+                            UpdateData
+                                ?
+                                <>
+                                    <input input-type="hidden" type="text" name="TGL_BEFORE" value={UpdateData.STR_TGL} />
+                                    <input input-type="hidden" type="text" name="ID_PINJAM" value={UpdateData.ID_STATUS} />
+                                </>
+                                :
+                                <></>
+                        }
+
+                        <input input-type="hidden" type="text" name="NAMA_MOBIL" defaultValue={DataMobil.STR_NAMA} />
+                        <input input-type="hidden" type="text" name="ID_MOBIL" defaultValue={DataMobil.ID} />
+
+                        <SegmentForm
+                            label={"Tujuan dan Lokasi"}
+                            after={
+                                <SubmitForm disabled={NotificationToggle.Open} Value={UpdateData ? "Ubah" : "Pinjam"} />
+                            }
+                            before={<label data-type="before" htmlFor='Pilih Tanggal'>Sebelumnya</label>}
+                        >
+
+                            <LabelArea htmlFor={"Area " + "Tujuan Penggunaan"} label={"Tujuan Penggunaan"} >
+                                <textarea rows={1}
+                                    ref={RefTujuan}
+                                    onKeyUp={() => CheckInput()}
+                                    spellCheck="false"
+                                    id={"Area " + "Tujuan Penggunaan"}
+                                    placeholder={``}
+                                    name={"Tujuan Penggunaan"}
+                                    defaultValue={UpdateData ? UpdateData.STR_TUJUAN : ""}
+                                    disabled={NotificationToggle.Open}
+                                    required
+                                >
+                                    {/* {editValue} */}
+                                </textarea>
+                            </LabelArea>
+
+                            <LabelArea htmlFor={"Area " + "Lokasi Kegiatan"} label={"Lokasi Kegiatan"} >
+                                <textarea rows={1}
+                                    ref={RefLokasi}
+                                    onKeyUp={() => CheckInput()}
+                                    spellCheck="false"
+                                    id={"Area " + "Lokasi Kegiatan"}
+                                    placeholder={``}
+                                    name={"Lokasi Kegiatan"}
+                                    defaultValue={UpdateData ? UpdateData.STR_TEMPAT : ""}
+                                    disabled={NotificationToggle.Open}
+                                    required
+                                >
+                                    {/* {editValue} */}
+                                </textarea>
+                            </LabelArea>
+
+                        </SegmentForm>
+
+                        <SegmentForm
+                            label={"Pilih Tanggal"}
+                            after={<label data-type="after" htmlFor='Tujuan dan Lokasi'>Lanjut</label>}
+                        >
+                            <GridTujuanLokasi >
+
+
+                                <Kalender
+                                    terpinjam={DataMobil.OBJ_DATES_BOOKING}
+                                    editValue={UpdateData ? JSON.parse(UpdateData.STR_TGL) : []}
+                                />
+
+                            </GridTujuanLokasi>
+                        </SegmentForm>
+
+
+                    </form>
             }
+
+        </>
+
+    )
+}
+
+
+export function AlternateMobil() {
+    return (
+        <>
+            <div className={P['Alternate__position']} >
+                <div className={P['Alternate__container']}>
+                    Pemilihan Mobil alternatif
+                </div>
+
+            </div>
         </>
     )
 }

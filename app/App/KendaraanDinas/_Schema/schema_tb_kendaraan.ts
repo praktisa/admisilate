@@ -26,13 +26,43 @@ export async function READ_SEMUA_KENDARAAN_DINAS() {
     let QUERY = {
         "TABLE": Table,
         "METHOD": "SELECT_ALL",
-        "METHOD_QUERY": "ID, STR_NAMA, BLOB_IMG, OBJ_DATES_BOOKING",
+        "METHOD_QUERY": "ID, STR_NAMA, STR_JENIS",
     }
 
     let hasil = await Execute_KendaraanDinas(QUERY)
 
     return hasil[0]
 }
+
+export async function READ_SEMUA_OBJ_DATES_BOOKING() {
+
+    let QUERY = {
+        "TABLE": Table,
+        "METHOD": "SELECT_ALL",
+        "METHOD_QUERY": "ID, OBJ_DATES_BOOKING",
+    }
+
+    let hasil = await Execute_KendaraanDinas(QUERY)
+
+    return hasil[0]
+}
+
+export async function READ_SEMUA_IMG() {
+
+    let QUERY = {
+        "TABLE": Table,
+        "METHOD": "SELECT_ALL",
+        "METHOD_QUERY": "ID, BLOB_IMG",
+    }
+
+    let hasil = await Execute_KendaraanDinas(QUERY)
+
+    return hasil[0]
+}
+
+
+
+
 
 export async function READ_SEMUA_KENDARAAN_DINAS_ONLY_ID() {
 
@@ -53,7 +83,7 @@ export async function READ_KENDARAAN_DINAS_BY_ID(ID: string) {
     let QUERY = {
         "TABLE": Table,
         "METHOD": "SELECT",
-        "METHOD_QUERY": "ID, STR_NAMA, STR_PLAT, BLOB_IMG ,OBJ_DATES_BOOKING, STR_JENIS",
+        "METHOD_QUERY": "ID, STR_NAMA, STR_PLAT ,OBJ_DATES_BOOKING, STR_JENIS",
         "WHERE": "ID = ?",
         "DATA": [ID]
     }
@@ -62,6 +92,25 @@ export async function READ_KENDARAAN_DINAS_BY_ID(ID: string) {
 
     return hasil[0][0]
 }
+
+export async function READ_BLOB_IMG_BY_ID(ID: string) {
+
+    let QUERY = {
+        "TABLE": Table,
+        "METHOD": "SELECT",
+        "METHOD_QUERY": "ID, BLOB_IMG",
+        "WHERE": "ID = ?",
+        "DATA": [ID]
+    }
+
+    let hasil = await Execute_KendaraanDinas(QUERY)
+
+    return hasil[0][0]
+}
+
+
+
+
 
 export async function READ_OBJ_DATES_BOOKING_MOBIL_BY_ID(ID: string) {
 
@@ -275,14 +324,14 @@ export async function ADMIN_READ_KENDARAAN_DINAS_BY_ID(ID: string) {
     let QUERY = {
         "TABLE": Table,
         "METHOD": "SELECT",
-        "METHOD_QUERY": "ID, STR_NAMA, STR_PLAT, BLOB_IMG , STR_JENIS",
+        "METHOD_QUERY": "ID, STR_NAMA, STR_PLAT, BLOB_IMG, STR_JENIS",
         "WHERE": "ID = ?",
         "DATA": [ID]
     }
 
     let hasil = await Execute_KendaraanDinas(QUERY)
 
-    console.log("ADMIN_READ_KENDARAAN_DINAS_BY_ID", hasil)
+    // console.log("ADMIN_READ_KENDARAAN_DINAS_BY_ID", hasil)
 
     if (hasil[0].length != 0) {
         return hasil[0][0]

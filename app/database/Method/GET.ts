@@ -1,9 +1,7 @@
-import { cookies } from 'next/headers'
 
 
 export default async function GET(
     URL: string,
-    AUTH: string,
     OPT: object = {}
 ) {
 
@@ -13,7 +11,7 @@ export default async function GET(
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
-            'Authentication': `${AUTH}`
+            'API_KEY': `${process.env.API_KEY}`
         }
     }
 

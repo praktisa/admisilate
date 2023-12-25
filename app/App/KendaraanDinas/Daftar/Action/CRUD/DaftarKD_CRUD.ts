@@ -88,7 +88,7 @@ export async function READ_SEMUA_KENDARAAN_DINAS() {
 
     let QUERY = {
         "METHOD": "SELECT_ALL",
-        "METHOD_QUERY": "ID, STR_NAMA, BLOB_IMG, OBJ_DATES_BOOKING",
+        "METHOD_QUERY": "ID, STR_NAMA, BLOB_IMG, OBJ_DATES_BOOKING, STR_JENIS",
     }
 
     let hasil = await Execute(QUERY)

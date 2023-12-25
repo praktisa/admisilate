@@ -3,11 +3,11 @@ import GET from "@Method/GET";
 import { redirect } from "next/navigation";
 
 
-export default async function FETCH_GET_DATA_MOBIL_BY_DK(dk: string) {
+export default async function FETCH_GET_IMG_BY_DK(dk: string) {
 
-    const URL = `http://localhost:3000/App/KendaraanDinas/Daftar/Action/api/FETCH_GET_DATA_MOBIL_BY_DK?DK=${dk}`
+    const URL = `http://localhost:3000/App/KendaraanDinas/Daftar/Action/api/FETCH_GET_IMG_BY_DK?DK=${dk}`
 
-    let FetchTag = { next: { tags: [dk] } }
+    let FetchTag = { cache: 'no-store' }
 
     let Response = await GET(URL, FetchTag)
 
