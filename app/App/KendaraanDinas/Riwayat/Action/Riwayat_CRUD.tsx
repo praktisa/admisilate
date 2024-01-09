@@ -1,7 +1,7 @@
 import { READ_SERVER_SESSION } from '@/app/Auth/action/function/Session';
 
 import Connection from '@Connection';
-import { UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL } from '../../Daftar/Action/CRUD/DaftarKD_CRUD';
+import { UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL } from '../../Daftar/Action/CRUD/DaftarKD_CRUD';
 import KlasifikasiSeksiPegawai from '../../Daftar/@modal/(.)peminjaman/[dk]/Action/KlasifikasiSeksiPegawai';
 
 
@@ -133,7 +133,7 @@ export async function DELETE_DATA_PINJAM_MOBIL_BY_ID(ID_PINJAM: string, ID_MOBIL
 
     let QUERY_AMBIL_NAMA_MOBIL = {
         "METHOD": "SELECT",
-        "METHOD_QUERY": "STR_NAMA_KENDARAAN",
+        "METHOD_QUERY": "STR_ID_KENDARAAN",
         "WHERE": "ID_STATUS = ?",
         "DATA": [ID_PINJAM]
     }
@@ -152,7 +152,7 @@ export async function DELETE_DATA_PINJAM_MOBIL_BY_ID(ID_PINJAM: string, ID_MOBIL
     try {
         await Execute(QUERY_DELETE)
             .then(async () => {
-                await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(NamaKendaraan)
+                await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(NamaKendaraan)
             })
 
         return "Berhasil"

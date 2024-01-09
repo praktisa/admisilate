@@ -3,6 +3,8 @@ import React, { Fragment, useEffect, useState } from 'react'
 import K from './Kalender.module.css'
 import useCalendar from './_function/useCalendar'
 import PenyingkatSeksi from '@/Global/function/PenyingkatSeksi'
+import Shimerloading from '../Loading/Shimerloading'
+import { AnySrvRecord } from 'dns'
 // import { setCookie } from 'cookies-next'
 
 interface TanggalTerpinjam {
@@ -15,13 +17,16 @@ interface Peminjam {
     hover: any,
 }
 
-export default function Kalender({ terpinjam = "", editValue }: any) {
+interface Kalender__inter {
+    terpinjam: string,
+    editValue?: any
+}
+
+export default function Kalender({ terpinjam = "", editValue = [] }: Kalender__inter) {
 
     const { CurrentDate, ChosenDate, HeadCalendar, CreateCalendar, ChangeMonth, ChoseDate, setChosenDate } = useCalendar(new Date())
 
     const [DataTerpinjam, setDataterpinjam] = useState<TanggalTerpinjam[]>([])
-
-    // console.log("terpinjam dari Kalender", ChosenDate)
 
 
     useEffect(() => {
@@ -29,7 +34,6 @@ export default function Kalender({ terpinjam = "", editValue }: any) {
 
         if (terpinjam != "") {
             let terpinjamParsed = JSON.parse(terpinjam)
-
             // console.log("editValue", editValue)
             // console.log("terpinjam", terpinjam)
 
@@ -61,8 +65,6 @@ export default function Kalender({ terpinjam = "", editValue }: any) {
 
     }, [terpinjam])
 
-    // console.log("Chosen", ChosenDate)
-
     function Peminjam({ display, hover }: Peminjam) {
         return (
             <div
@@ -74,7 +76,7 @@ export default function Kalender({ terpinjam = "", editValue }: any) {
         )
     }
 
-
+    // console.log("terpinjam", terpinjam)
     return (
         <>
             <input input-type="hidden" type="text" name="Chosen__TGL" defaultValue={ChosenDate} />
@@ -159,9 +161,7 @@ export default function Kalender({ terpinjam = "", editValue }: any) {
                                                     onChange={(e: any) => { ChoseDate(e, tangs.id); }}
                                                     disabled={fix_availablity === "disable" ? true : false}
                                                 />
-                                                {
-                                                    //@ts-ignore
-                                                }
+
                                                 <label
                                                     htmlFor={`${i}`}
                                                     className={`
@@ -173,6 +173,7 @@ export default function Kalender({ terpinjam = "", editValue }: any) {
                                                     `}
 
                                                 >
+
                                                     {tangs.display}
                                                 </label>
                                             </>

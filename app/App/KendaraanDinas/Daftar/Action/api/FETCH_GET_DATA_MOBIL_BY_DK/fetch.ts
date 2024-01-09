@@ -7,7 +7,10 @@ export default async function FETCH_GET_DATA_MOBIL_BY_DK(dk: string) {
 
     const URL = `http://localhost:3000/App/KendaraanDinas/Daftar/Action/api/FETCH_GET_DATA_MOBIL_BY_DK?DK=${dk}`
 
-    let FetchTag = { next: { tags: [dk] } }
+    let FetchTag = {
+        next: { tags: [dk] }
+        // cache: 'no-store'
+    }
 
     let Response = await GET(URL, FetchTag)
 

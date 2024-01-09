@@ -1,28 +1,28 @@
 'use client'
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment } from 'react'
 import { usePathname } from 'next/navigation'
 import Structure from '../../CTA/Structure'
 import Link from 'next/link'
 
 
-import { Session } from '@/app/Auth/components/SessionContext/SessionContext'
-
 interface LC_Inter {
-  style?: string
-  children: React.ReactNode
-  href: string
-  prefetch?: boolean
+  style?: string,
+  children: React.ReactNode,
+  href: string,
+  prefetch?: boolean,
   activePath: string
 }
 
 interface Menu__inter {
   Menu: ObjectMenu[]
+  role: any
 }
 
 interface ObjectMenu {
   display: string,
-  link: string
-  role?: string
+  link: string,
+  role?: string,
+  count?: React.ReactNode
 }
 
 interface Provider__Value__inter {
@@ -30,9 +30,8 @@ interface Provider__Value__inter {
 }
 
 
-export default function C_NavContainer({ Menu }: Menu__inter) {
+export default function C_NavContainer({ Menu, role }: Menu__inter) {
 
-  let DataContext = useContext<Provider__Value__inter>(Session)
 
 
 
@@ -53,7 +52,7 @@ export default function C_NavContainer({ Menu }: Menu__inter) {
       {
         Menu.map((men: any, i: number) => {
 
-          if (Menu[i].role === DataContext['UNIT ORGANISASI']) {
+          if (Menu[i]['role'] === role['UNIT ORGANISASI']) {
             return (
               <Fragment key={i}>
                 <CustomLink
@@ -78,6 +77,15 @@ export default function C_NavContainer({ Menu }: Menu__inter) {
                   prefetch={true}
                 >
                   {men.display}
+                  {
+                    men.count !== 0
+                      ?
+                      <>
+                        {men.count}
+                      </>
+                      :
+                      <></>
+                  }
                 </CustomLink>
               </Fragment>
             )

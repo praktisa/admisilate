@@ -1,10 +1,11 @@
 import { Execute_KendaraanDinas } from './executor_KendaraanDinas';
+import { READ_SEMUA_KENDARAAN_DINAS } from './schema_tb_kendaraan';
 
 const Table: string = 'tb_kendaraandinas_register'
 
 
 
-export async function CEK_REGISTER(Array_Date: string[], STR_Nama_Kendaraan: string) {
+export async function CEK_REGISTER(Array_Date: string[], STR_ID_Kendaraan: string) {
 
     let Tersedia: string[] = []
     let Tidak_Tersedia: string[] = []
@@ -13,8 +14,8 @@ export async function CEK_REGISTER(Array_Date: string[], STR_Nama_Kendaraan: str
         let QUERY = {
             "TABLE": Table,
             "METHOD": "CHECK",
-            "WHERE": "STR_DATE = ? AND STR_NAMA_KENDARAAN = ?",
-            "DATA": [Array_Date[i], STR_Nama_Kendaraan]
+            "WHERE": "STR_DATE = ? AND STR_ID_KENDARAAN = ?",
+            "DATA": [Array_Date[i], STR_ID_Kendaraan]
         }
 
         let hasil = await Execute_KendaraanDinas(QUERY)
@@ -31,8 +32,41 @@ export async function CEK_REGISTER(Array_Date: string[], STR_Nama_Kendaraan: str
     return { "0": Tersedia, "1": Tidak_Tersedia }
 }
 
+export async function CEK_REGISTER_BY_ONLY_DATE(Array_Date: string[]) {
 
-export async function READ_REGISTER_BY_NAMA_MOBIL(STR_Nama_Kendaraan: string) {
+    let Terpinjam = {}
+    let SemuaMobil = []
+
+    for (var i = 0; i < Array_Date.length; i++) {
+        // console.log("Mengambil tanggal ", Array_Date)
+        let QUERY = {
+            "TABLE": Table,
+            "METHOD": "SELECT",
+            "METHOD_QUERY": "STR_ID_KENDARAAN, STR_DATE, STR_NAMA_KENDARAAN",
+            "WHERE": "STR_DATE = ?",
+            "DATA": [Array_Date[i]]
+        }
+
+        let hasil = await Execute_KendaraanDinas(QUERY)
+
+        for (var o = 0; o < hasil[0].length; o++) {
+            SemuaMobil.push(hasil[0][o])
+        }
+
+
+        let GroupDate = { [Array_Date[i]]: hasil[0] }
+
+        Object.assign(Terpinjam, GroupDate)
+    }
+    Object.assign(Terpinjam, { "Semua": SemuaMobil })
+
+    // console.log("Terpinjam", Terpinjam)
+
+    return Terpinjam
+}
+
+
+export async function READ_REGISTER_BY_ID_MOBIL(STR_ID_KENDARAAN: string) {
 
     let HariIni = new Date()
     let STR_HariIni = `${HariIni.getFullYear()}-${HariIni.getMonth() + 1}-${HariIni.getDate()}`
@@ -41,8 +75,8 @@ export async function READ_REGISTER_BY_NAMA_MOBIL(STR_Nama_Kendaraan: string) {
         "TABLE": Table,
         "METHOD": "SELECT",
         "METHOD_QUERY": "ID, STR_DATE, STR_PEMINJAM",
-        "WHERE": `STR_NAMA_KENDARAAN = ? AND STR_DATE >= ? `, // harusnya PLAT MOBIL
-        "DATA": [STR_Nama_Kendaraan, STR_HariIni]
+        "WHERE": `STR_ID_KENDARAAN = ? AND STR_DATE >= ? `, // harusnya PLAT MOBIL
+        "DATA": [STR_ID_KENDARAAN, STR_HariIni]
     }
 
     let hasil = await Execute_KendaraanDinas(QUERY)
@@ -50,12 +84,57 @@ export async function READ_REGISTER_BY_NAMA_MOBIL(STR_Nama_Kendaraan: string) {
     return hasil[0]
 }
 
-export async function CREATE_REGISTER(ID_STATUS: number, STR_NAMA_KENDARAAN: string, Array_Date: string[], STR_PEMINJAM: string) {
+
+// upgrade register sur, masukan ID kendaraan juga agar kendaraan dengan nama yang sama terhindar !!!!!!!
+export async function READ_REGISTER_FOR_ALTERNATE_KENDARAAN_DINAS_AVAILABILITY(string_date_target: string) {
+
+    let array_date_target = string_date_target.split(",")
+
+    let Array_Semua_Kendaraan = await READ_SEMUA_KENDARAAN_DINAS()
+
+    let Array_Date_Register_Terpinjam: any = await CEK_REGISTER_BY_ONLY_DATE(array_date_target)
+
+
+    function getDifference(array1: any, array2: any) {
+        return array1.filter((object1: any) => {
+            return !array2.some((object2: any) => {
+                return object1.ID === object2.STR_ID_KENDARAAN;
+            });
+        });
+    }
+
+    let Returned_Object = {}
+
+    let SemuaMobil_Tersedia = getDifference(Array_Semua_Kendaraan, Array_Date_Register_Terpinjam['Semua'])
+
+    Object.assign(Returned_Object, { "Semua": SemuaMobil_Tersedia })
+
+
+    for (var i = 0; i < array_date_target.length; i++) {
+        let DataPertanggal = Array_Date_Register_Terpinjam[array_date_target[i]]
+        let Difference = getDifference(Array_Semua_Kendaraan, DataPertanggal)
+
+        Object.assign(Returned_Object, { [array_date_target[i]]: Difference })
+    }
+
+
+
+    // console.log("Array_Semua_Kendaraan", Array_Semua_Kendaraan)
+    // console.log("Array_Date_Register_Terpinjam", Array_Date_Register_Terpinjam)
+    // console.log("NewDate", Returned_Object)
+
+
+    return Returned_Object
+
+}
+
+export async function CREATE_REGISTER(ID_STATUS: number, STR_ID_KENDARAAN: string, STR_NAMA_KENDARAAN: string, Array_Date: string[], STR_PEMINJAM: string) {
 
     for (var i = 0; i < Array_Date.length; i++) {
         let Object = {
             "ID_STATUS": ID_STATUS,
             "STR_DATE": Array_Date[i],
+            "STR_ID_KENDARAAN": STR_ID_KENDARAAN,
             "STR_NAMA_KENDARAAN": STR_NAMA_KENDARAAN,
             "STR_PEMINJAM": STR_PEMINJAM,
 
@@ -106,6 +185,8 @@ export async function UPDATE_REGISTER(ID_STATUS: number, Array_Date_After: strin
 
 
 }
+
+
 
 
 export async function DELETE_REGISTER(ID_REGISTER: string) {

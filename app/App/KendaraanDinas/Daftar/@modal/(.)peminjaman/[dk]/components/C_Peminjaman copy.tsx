@@ -11,7 +11,7 @@ import P from './Peminjaman.module.css'
 import Kalender from '@/Global/Components/Kalender/KalenderCookie'
 
 
-import { GridTujuanLokasi, LoadingSubmit, SegmentForm, SubmitForm } from './S_Peminjaman'
+import { GridTujuanLokasi, SegmentForm, SubmitForm } from './S_Peminjaman'
 import LabelArea from '@/Global/Components/Input/_Label/TextArea/LabelArea'
 
 
@@ -218,7 +218,7 @@ export function KalenderLoadingStatus({ terpinjam, loadmsg, UpdateData }: { terp
             {
                 isPending
                     ?
-                    <LoadingSubmit msg={loadmsg} />
+                    <></>
                     :
                     <Kalender
                         terpinjam={terpinjam}

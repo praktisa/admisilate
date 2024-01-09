@@ -1,10 +1,14 @@
-
-import Connection from '@Connection';
-import { AmbilDataPegawaiDariJSONDirectory } from './function';
-
+'use server'
 import { cookies } from 'next/headers'
+import Connection from '@Connection';
+import { AmbilDataPegawaiDariJSONDirectory, MasaCookie } from './function';
+
+import { setCookie } from 'cookies-next';
+
 
 import { redirect } from 'next/navigation';
+import { CreateCookies } from '../CreateCookies';
+import FETCH_POST_CREATE_COOKIE from '../api/POST_CREATE_COOKIE/FETCH_POST_CREATE_COOKIE';
 
 const Table: string = 'tb_session'
 
@@ -17,7 +21,7 @@ export async function Execute(QUERY: any) {
 
     switch (QUERY.METHOD) {
         case "CHECK":
-            Q = `SELECT COUNT(1) FROM ${TABLE} WHERE ${QUERY.WHERE}`
+            Q = `SELECT COUNT(*) FROM ${TABLE} WHERE ${QUERY.WHERE}`
             break;
 
         case "INSERT":
@@ -45,11 +49,25 @@ export async function Execute(QUERY: any) {
             return { Error: "Method Not Found" }
     }
 
-    console.log("Q Q Q", Q, QUERY)
-    let result: any = await dbconnection.promise().query(Q, QUERY.DATA);
-    dbconnection.end();
+    try {
+        console.log("START TRANSACTION BEGIN")
+        await dbconnection.promise().query('START TRANSACTION');
 
-    return result
+        let result: any = await dbconnection.promise().query(Q, QUERY.DATA);
+
+        await dbconnection.promise().commit().then(() => {
+            dbconnection.end();
+            console.log("TRANSACTION SUCCESS")
+        })
+
+        return result
+
+    } catch (e) {
+        console.log("TRANSACTION ERROR", e)
+        await dbconnection.promise().query('ROLLBACK');
+        dbconnection.end();
+        return e
+    }
 }
 
 
@@ -105,6 +123,8 @@ export async function READ_SERVER_SESSION(select: string[]) {
 
 
     let SessionCookie = cookies().get("session")?.value
+
+    // console.log("SessionCookie XYZ", SessionCookie)
 
     if (SessionCookie != undefined) {
         let NIP = await READ_NIP_BY_SESSION(SessionCookie)
@@ -170,65 +190,58 @@ export async function DELETE_SESSION(ID: string) {
 
 
 
+// export async function READ_Session(NIP: string) {
+
+//     const dbconnection = Connection()
+//     let Query = `SELECT COUNT(*) FROM ${Table} WHERE STR_NIP9 = ?`
+//     let result: any = await dbconnection.promise().query(Query, [NIP]);
+//     dbconnection.end();
+
+//     return result[0][0]['COUNT(*)']
+// }
 
 
-export async function CREATE_Session(NIP: string, Token_NIP: string) {
-    let QuerySelect = `INSERT INTO ${Table} SET ?`
-    let ValueAdd = { "STR_Session": Token_NIP, "STR_NIP9": NIP }
+export async function READ_SESSION_BY_NIP(NIP: string) {
 
-    const dbconnection = Connection()
-    await dbconnection.promise().query(QuerySelect, ValueAdd);
-    dbconnection.end();
-}
-
-export async function READ_Session(NIP: string) {
-
-    const dbconnection = Connection()
-    let Query = `SELECT COUNT(*) FROM ${Table} WHERE STR_NIP9 = ?`
-    let result: any = await dbconnection.promise().query(Query, [NIP]);
-    dbconnection.end();
-
-    return result[0][0]['COUNT(*)']
-}
-
-
-export async function READ_NIPBySession(Session: any) {
-
-
-
-    const dbconnection = Connection()
-    let Query = `SELECT STR_NIP9 FROM ${Table} WHERE STR_Session = ?`
-    let result: any = await dbconnection.promise().query(Query, [Session]);
-    dbconnection.end();
-
-    let NIP = result[0][0]['STR_NIP9']
-
-    if (!result[0][0]['STR_NIP9']) {
-        redirect("/Auth")
+    let QUERY = {
+        "METHOD": "CHECK",
+        "WHERE": "STR_NIP9 = ?",
+        "DATA": [NIP]
     }
 
-    return NIP
+    let hasil = await Execute(QUERY)
+
+    console.log("hasil", hasil)
+
+    return hasil[0][0]['COUNT(*)']
 }
 
-export async function READ_UserBySessionRequest(request: any) {
+// terpakai
+export async function READ_UserBySessionRequest(SessionCookie: any) {
 
-    const Session = request.headers.get('authentication')
+    console.log("SessionCookie", SessionCookie)
+    let QUERY = {
+        "METHOD": "SELECT",
+        "METHOD_QUERY": "STR_NIP9",
+        "WHERE": "STR_Session = ?",
+        "DATA": [SessionCookie]
+    }
 
-    try {
-        const dbconnection = Connection()
-        let Query = `SELECT STR_NIP9 FROM ${Table} WHERE STR_Session = ?`
-        let result: any = await dbconnection.promise().query(Query, [Session]);
-        dbconnection.end();
+    let hasil = await Execute(QUERY)
 
-        let DataPegawai = AmbilDataPegawaiDariJSONDirectory(result[0][0]['STR_NIP9'])
+    console.log("READ_UserBySessionRequest", hasil)
+    if (hasil[0].length !== 0) {
+
+        let DataPegawai = AmbilDataPegawaiDariJSONDirectory(hasil[0][0]['STR_NIP9'])
+
 
         return DataPegawai
-    } catch (error) {
 
-        redirect('/Auth')
     }
-
 }
+
+
+
 
 export async function CEK_UserBySessionRequest(request: any) {
 
@@ -256,11 +269,14 @@ export async function CEK_UserBySessionRequest(request: any) {
 
 
 export async function DELETE_Session(NIP: string) {
-    let QueryDELETE = `DELETE FROM ${Table} WHERE ?`
-    let ValueDELETE = { "STR_NIP9": NIP }
 
-    const dbconnection = Connection()
-    await dbconnection.promise().query(QueryDELETE, ValueDELETE);
-    dbconnection.end();
+
+    let QUERY = {
+        "METHOD": "DELETE",
+        "WHERE": "STR_NIP9 = ?",
+        "DATA": [NIP]
+    }
+
+    await Execute(QUERY)
 }
 

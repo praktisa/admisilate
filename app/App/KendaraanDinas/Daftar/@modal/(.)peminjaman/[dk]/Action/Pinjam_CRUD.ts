@@ -3,7 +3,7 @@
 import Connection from '@Connection';
 import { INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID } from '../../../../Action/CRUD/DaftarKD_CRUD';
 
- 
+
 const Table: string = 'tb_kendaraandinas_status'
 
 export async function Execute(QUERY: any) {
@@ -66,7 +66,7 @@ export async function Execute(QUERY: any) {
 
 export async function CREATE_PINJAM__MOBIL(Object_Data: any) {
 
-    // berfungsi untuk menambahkan saja tetapi tidak menggunakan UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL agar tidak berat
+    // berfungsi untuk menambahkan saja tetapi tidak menggunakan UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL agar tidak berat
     let TGL_IN_DATABASE_UPDATE = await INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID(
         Object_Data.STR_ID_KENDARAAN,
         Object_Data.STR_TGL,

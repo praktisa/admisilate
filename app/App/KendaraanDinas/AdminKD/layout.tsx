@@ -1,9 +1,6 @@
 
-'use client'
-import React, { useContext } from 'react'
-import { Session } from '@/app/Auth/components/SessionContext/SessionContext'
-import { useRouter } from 'next/navigation'
-
+import React from 'react'
+import GET_USER from '@/app/Auth/action/function/GET_USER'
 
 
 interface children {
@@ -12,20 +9,15 @@ interface children {
     ModalKendaraanDinas: React.ReactNode
 }
 
-interface Provider__Value__inter {
-    [key: string]: string
-}
 
 
-export default function AdminKDLayout(child: children) {
+export default async function AdminKDLayout(child: children) {
 
-    let Router = useRouter()
-    let DataContext = useContext<Provider__Value__inter>(Session)
+    // let Router = useRouter()
+    let RolePegawai = await GET_USER()
     let Require = "Subbagian Umum dan Kepatuhan Internal"
 
-
-
-    if (DataContext['UNIT ORGANISASI'] === Require) {
+    if (RolePegawai['UNIT ORGANISASI'] === Require) {
         return (
             <>
                 {child.ModalKendaraanDinas}
@@ -39,7 +31,7 @@ export default function AdminKDLayout(child: children) {
         )
     } else {
         // Router.push('/App/KendaraanDinas/Daftar')
-        Router.back()
+        // Router.back()
         return (
             <>
                 <h1>Page Not Found</h1>

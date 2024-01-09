@@ -1,3 +1,4 @@
+
 import DELETE from "@Method/DELETE";
 
 export default async function FETCH_DELETE_ID_PINJAM(ID_PINJAM: any, ID_MOBIL: string) {
@@ -9,7 +10,7 @@ export default async function FETCH_DELETE_ID_PINJAM(ID_PINJAM: any, ID_MOBIL: s
         next: { tags: ['all_mobil', ID_MOBIL] }
     }
 
-    let Response = await DELETE(URL, true, FetchTag)
+    let Response = await DELETE(URL, FetchTag)
 
 
     // console.log("FETCH_DELETE_ID_PINJAM", Response)

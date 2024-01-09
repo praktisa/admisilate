@@ -9,7 +9,7 @@ export default function Notification() {
 
     const Status = useFormStatus()
 
-    console.log("Status", Status)
+    // console.log("Status", Status)
 
 
     return (
@@ -25,14 +25,8 @@ export default function Notification() {
                 {/* {User} */}
             </div>
 
-            {
-                Status.pending === true
-                    ?
-                    <Shimerloading loop={0} />
-                    :
-                    <></>
-            }
 
+            <Shimerloading loop={0} />
         </>
 
     )

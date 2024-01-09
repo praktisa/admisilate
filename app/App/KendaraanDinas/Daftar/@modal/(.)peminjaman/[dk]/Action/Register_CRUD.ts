@@ -72,7 +72,7 @@ export async function Execute(QUERY: any) {
 }
 
 
-export async function CEK_REGISTER(Array_Date: string[], STR_Nama_Kendaraan: string) {
+export async function CEK_REGISTER(Array_Date: string[], STR_ID_Kendaraan: string) {
 
     let Tersedia: string[] = []
     let Tidak_Tersedia: string[] = []
@@ -80,8 +80,8 @@ export async function CEK_REGISTER(Array_Date: string[], STR_Nama_Kendaraan: str
     for (var i = 0; i < Array_Date.length; i++) {
         let QUERY = {
             "METHOD": "CHECK",
-            "WHERE": "STR_DATE = ? AND STR_NAMA_KENDARAAN = ?",
-            "DATA": [Array_Date[i], STR_Nama_Kendaraan]
+            "WHERE": "STR_DATE = ? AND STR_ID_KENDARAAN = ?",
+            "DATA": [Array_Date[i], STR_ID_Kendaraan]
         }
 
         let hasil = await Execute(QUERY)
@@ -99,7 +99,7 @@ export async function CEK_REGISTER(Array_Date: string[], STR_Nama_Kendaraan: str
 }
 
 
-export async function READ_REGISTER_BY_NAMA_MOBIL(STR_Nama_Kendaraan: string) {
+export async function READ_REGISTER_BY_ID_MOBIL(STR_Nama_Kendaraan: string) {
 
     let HariIni = new Date()
     let STR_HariIni = `${HariIni.getFullYear()}-${HariIni.getMonth() + 1}-${HariIni.getDate()}`
@@ -194,7 +194,7 @@ export async function ADMIN_READ_ALL_REGISTER(comparison: string) {
     let STR_HariIni = `${HariIni.getFullYear()}-${HariIni.getMonth() + 1}-${HariIni.getDate()}`
 
     // console.log("HariIni dan JSON toDateString", HariIni)
- let QUERY = {
+    let QUERY = {
         "METHOD": "SELECT_LEFT_JOIN",
         "METHOD_QUERY": `${Table}.ID, ${Table}.ID_STATUS, ${Table}.STR_NAMA_KENDARAAN, ${Table}.STR_DATE, ${Table}.STR_PEMINJAM, tb_kendaraandinas_status.STR_TUJUAN, tb_kendaraandinas_status.ID_STATUS,  tb_kendaraandinas_status.STR_APPROVE`,
         "LEFT_JOIN_TABLE": `tb_kendaraandinas_status`,

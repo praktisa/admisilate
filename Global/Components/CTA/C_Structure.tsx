@@ -17,6 +17,7 @@ export default function C_Structure({ children, onClick, style = "contained", is
         "navigation": B['styleNav'],
         "text": B['styleText'],
         "danger": B['styleDanger'],
+        "dangerHover": B['styleDangerHover'],
         "success": B['styleSuccess']
     }
 

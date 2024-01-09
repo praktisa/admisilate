@@ -1,5 +1,5 @@
 import { Execute_KendaraanDinas } from './executor_KendaraanDinas';
-import { READ_REGISTER_BY_NAMA_MOBIL } from './schema_tb_kendaraan_register';
+import { READ_REGISTER_BY_ID_MOBIL } from './schema_tb_kendaraan_register';
 
 
 const Table: string = 'tb_kendaraandinas'
@@ -204,11 +204,11 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
 }
 
 
-export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(
-    NAMA_MOBIL: string
+export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(
+    ID_MOBIL: string
 ) {
     // harusnya BY ID Mobil
-    let REGISTER_BY_NAMA = await READ_REGISTER_BY_NAMA_MOBIL(NAMA_MOBIL)
+    let REGISTER_BY_NAMA = await READ_REGISTER_BY_ID_MOBIL(ID_MOBIL)
 
     // console.log("REGISTER_BY_NAMA", REGISTER_BY_NAMA.length, REGISTER_BY_NAMA)
 
@@ -233,8 +233,8 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL
         "TABLE": Table,
         "METHOD": "UPDATE",
         "METHOD_QUERY": "OBJ_DATES_BOOKING = ?",
-        "WHERE": "STR_NAMA = ?",
-        "DATA": [JSON.stringify(NEW_OBJ_DATES), NAMA_MOBIL]
+        "WHERE": "ID = ?",
+        "DATA": [JSON.stringify(NEW_OBJ_DATES), ID_MOBIL]
     }
 
 

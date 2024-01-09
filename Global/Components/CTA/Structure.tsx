@@ -8,6 +8,12 @@ interface BD_Inter {
     isActive?: boolean
 }
 
+interface ContainerIcon__inter {
+
+    children: React.ReactNode
+
+}
+
 export default function Structure({ children, onClick, style = "contained", isActive }: BD_Inter) {
 
     let styleList: any = {
@@ -17,6 +23,7 @@ export default function Structure({ children, onClick, style = "contained", isAc
         "navigation": B['styleNav'],
         "text": B['styleText'],
         "danger": B['styleDanger'],
+        "dangerHover": B['styleDangerHover'],
         "success": B['styleSuccess']
 
     }
@@ -37,4 +44,18 @@ export default function Structure({ children, onClick, style = "contained", isAc
     )
 }
 
+export function Icon({ children }: ContainerIcon__inter) {
+
+    return (
+        <>
+            <div className={B['ContainerIcon__container']}>
+                <div className={B['ContainerIcon__position']}>
+                    {children}
+                </div>
+            </div>
+
+
+        </>
+    )
+}
 

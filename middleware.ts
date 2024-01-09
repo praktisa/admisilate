@@ -1,16 +1,23 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import { cookies } from 'next/headers'
+
+import { NextRequest, NextResponse } from 'next/server'
 
 // This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-    // return NextResponse.redirect(new URL('/home', request.url))
+export async function middleware(request: NextRequest, response: NextResponse) {
 
-    // console.log("middleware", request)
+    function CopyHeader(req: any) {
+        const requestHeaders = new Headers(req)
 
-    if (request.nextUrl.pathname.startsWith('/App/KendaraanDinas/Daftar/Action/api/')) {
+        const response = NextResponse.next({
+            request: {
+                headers: requestHeaders,
+            },
+        })
+
+        return response
+    }
 
 
+    if (request.nextUrl.pathname.includes("api")) {
         let isFromApp = request.headers.get('api_key')
 
         if (isFromApp != process.env.API_KEY) {
@@ -19,16 +26,14 @@ export function middleware(request: NextRequest) {
                 { status: 401 }
             )
         }
-
-
     }
 
 }
-
 // See "Matching Paths" below to learn more
 export const config = {
     matcher: [
-        // '/App/:path*',
-        '/App/KendaraanDinas/Daftar/Action/api/FETCH_GET_OBJ_DATES_BOOKING'
+        '/App/:path*',
+        '/Auth/:path*',
     ]
 }
+

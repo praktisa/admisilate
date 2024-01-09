@@ -1,6 +1,5 @@
 import { createHash } from 'node:crypto';
 import { ReadFileJSON } from './F_CRUD_FILE_JSON';
-import fs from 'fs'
 
 export function AmbilDataPegawaiDariJSON(DataPegawai: any, NIP: string) {
     let JSON_DataPegawai = JSON.parse(DataPegawai)

@@ -71,6 +71,7 @@
     place-items: center;
     cursor: pointer;
     font-weight: bold;
+    position: relative;
     /* transition: 0.4s ease; */
     /* border: 2px solid transparent; */
 }

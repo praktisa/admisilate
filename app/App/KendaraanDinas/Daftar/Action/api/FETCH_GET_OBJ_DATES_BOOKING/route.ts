@@ -7,9 +7,6 @@ import { READ_SEMUA_OBJ_DATES_BOOKING } from '@SchemaKD/schema_tb_kendaraan'
 
 export async function GET(request: NextRequest, response: NextResponse) {
 
-    let Head = request.headers
-
-    console.log("REQUEST READ_SEMUA_OBJ_DATES_BOOKING ZZZZZZZZZZZZZZ", Head)
 
 
     try {

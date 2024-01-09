@@ -12,6 +12,29 @@
     user-select: none;
     position: relative;
     overflow: hidden;
+
+   
+
+}
+
+.ContainerIcon__container{
+    display: grid;
+    place-items: center;
+
+    /* background: blue; */
+    width: 20px;
+    aspect-ratio: 1/1;
+    padding: 0;
+}
+
+.ContainerIcon__position{
+    font-size: 26px;
+    position: absolute;
+
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 .styleContained, .styleContainedCenter{
@@ -73,9 +96,23 @@
 .styleDanger{
   text-align: center;
   background: var(--Error);
-   color: var(--Typo);
+  color: var(--Typo);
    
 }
+
+.styleDangerHover{
+  text-align: center;
+  background: transparent;
+  color: var(--Typo);
+  border: 1px solid var(--Typo);
+  transition: 0.4s ease;
+}
+
+.styleDangerHover:hover{
+  background: var(--Error);
+  border: 1px solid transparent;
+}
+
 
 .styleSuccess{
    text-align: center;

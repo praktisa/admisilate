@@ -3,6 +3,7 @@
     border: 1px;
     display: grid;
     background: var(--Surface);
+    color: var(--Typo);
     padding: 15px 15px 15px 15px;
  
     border-radius: 4px;

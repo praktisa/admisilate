@@ -4,12 +4,14 @@ import FETCH_GET_DATA_MOBIL_BY_DK from '../../../Daftar/Action/api/FETCH_GET_DAT
 import S_EditForm from '../../@ModalKendaraanDinas/_Components/Edit_KD/S_EditForm'
 import { ActionUpdateMobil } from '../../@ModalKendaraanDinas/(.)DataKendaraanDinas/Action/ActionUpdateMobil'
 import PortalNotification from '@/Global/Components/Portal/PortalNotification/PortalNotification'
+import FETCH_GET_IMG_BY_DK from '../../../Daftar/Action/api/FETCH_GET_IMG_BY_DK/fetch'
 
 export default async function page({ params }: { params: { dk: string } }) {
 
     let DataMobil = await FETCH_GET_DATA_MOBIL_BY_DK(params.dk)
+    const ImgMobil = await FETCH_GET_IMG_BY_DK(params.dk)
 
-
+    Object.assign(DataMobil, { "BLOB_IMG": ImgMobil.BLOB_IMG })
 
     return (
         <PortalNotification>

@@ -6,9 +6,9 @@ export default async function GET(
 ) {
 
 
-
     let Option = {
         method: "GET",
+        credentials: "same-origin",
         headers: {
             'Content-Type': 'application/json',
             'API_KEY': `${process.env.API_KEY}`
@@ -20,7 +20,7 @@ export default async function GET(
     }
 
     try {
-        const res: any = await fetch(URL, Option)
+        const res: any = await fetch(URL, Option as RequestInit)
 
         return res.json()
 

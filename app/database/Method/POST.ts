@@ -1,24 +1,24 @@
-import { cookies } from 'next/headers'
+
 
 export default async function POST(
     URL: string,
-    AUTH: boolean = false,
     AddOption: any = {}
 ) {
 
-    let isAuth = AUTH === true ? cookies().get('session')?.value : ""
 
-    let DefaultOption = {
+
+    let Option = {
         method: "POST",
+        credentials: "same-origin",
         headers: {
             'Content-Type': 'application/json',
-            'Authentication': `${isAuth}`
+            'API_KEY': `${process.env.API_KEY}`
         }
-        // next: { tags: [tagsData] },
-        // body: JSON.stringify(BodyData)
     }
 
-    let MergedOption = { ...DefaultOption, ...AddOption }
+    let MergedOption = { ...Option, ...AddOption }
+
+    // console.log("MergedOption", MergedOption)
 
     try {
 

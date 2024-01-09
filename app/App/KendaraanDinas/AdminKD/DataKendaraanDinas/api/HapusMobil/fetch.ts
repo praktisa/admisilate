@@ -9,7 +9,7 @@ export default async function FETCH_DELETE_ID_MOBIL(ID_MOBIL: string) {
         // next: { tags: ['all_mobil'] }
     }
 
-    let Response = await DELETE(URL, true, FetchTag)
+    let Response = await DELETE(URL, FetchTag)
 
 
 

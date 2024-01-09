@@ -1,21 +1,19 @@
-// import { cookies } from 'next/headers'
+'use server'
 
 export default async function DELETE(
     URL: string,
-    AUTH: boolean = false,
     AddOption: any = {},
 
 ) {
 
-    // let isAuth = AUTH === true ? cookies().get('session')?.value : ""
 
     let DefaultOption = {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
-            'Authentication': `${"isAuth"}`
+            'API_KEY': `${process.env.API_KEY}`
         }
-        // next: { tags: [tagsData] },
+
     }
 
     let MergedOption = { ...DefaultOption, ...AddOption }
@@ -23,8 +21,8 @@ export default async function DELETE(
     try {
 
         const res: any = await fetch(URL, MergedOption)
-
-        return res
+        console.log("(METHOD): DELETE", res)
+        return res.json()
 
     } catch (error: any) {
         throw new Error('(METHOD): GAGAL DELETE DATA PADA ' + URL, error)

@@ -6,7 +6,7 @@ import KlasifikasiSeksiPegawai from '@/app/App/KendaraanDinas/Daftar/@modal/(.)p
 
 import { AmbilDataPegawaiDariJSONDirectory } from '@/app/Auth/action/function/function'
 import { ADMIN_UPDATE_AMBIL_ALIH_REGISTER } from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/Register_CRUD'
-import { UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL } from '@/app/App/KendaraanDinas/Daftar/Action/CRUD/DaftarKD_CRUD'
+import { UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL } from '@/app/App/KendaraanDinas/Daftar/Action/CRUD/DaftarKD_CRUD'
 import { redirect } from 'next/navigation'
 
 
@@ -25,9 +25,9 @@ export async function POST(request: NextRequest, response: NextResponse) {
 
     await ADMIN_UPDATE_AMBIL_ALIH_REGISTER(DATA.ID_REGISTER, ID_STATUS_BARU.ID_AMBIL_ALIH, Peminjam)
 
-    let EndResult = await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(ID_STATUS_BARU.STR_NAMA_KENDARAAN)
+    let EndResult = await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(ID_STATUS_BARU.STR_ID_KENDARAAN)
 
-    revalidateTag(`${ID_STATUS_BARU.STR_NAMA_KENDARAAN}`)
+    revalidateTag(`${ID_STATUS_BARU.STR_ID_KENDARAAN}`)
     revalidateTag('all_mobil')
     revalidateTag('AdminRiwayatKD')
 

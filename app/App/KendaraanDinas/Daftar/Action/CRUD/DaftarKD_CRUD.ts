@@ -1,5 +1,5 @@
 import Connection from '@Connection';
-import { READ_REGISTER_BY_NAMA_MOBIL } from '../../@modal/(.)peminjaman/[dk]/Action/Register_CRUD';
+import { READ_REGISTER_BY_ID_MOBIL } from '../../@modal/(.)peminjaman/[dk]/Action/Register_CRUD';
 
 const Table: string = 'tb_kendaraandinas'
 
@@ -220,11 +220,11 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
 }
 
 
-export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(
+export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(
     NAMA_MOBIL: string
 ) {
     // harusnya BY ID Mobil
-    let REGISTER_BY_NAMA = await READ_REGISTER_BY_NAMA_MOBIL(NAMA_MOBIL)
+    let REGISTER_BY_NAMA = await READ_REGISTER_BY_ID_MOBIL(NAMA_MOBIL)
 
     // console.log("REGISTER_BY_NAMA", REGISTER_BY_NAMA.length, REGISTER_BY_NAMA)
 

@@ -4,7 +4,9 @@ import C_NavContainer from "./v1/C_NavContainer";
 import S_NavContainer from "./v1/S_NavContainer";
 
 
-export default function Navigator({ }) {
+export default function Navigator({ role }: any) {
+
+    // console.log("Navigator", role)
 
     let Menu: any = [
         {
@@ -43,7 +45,7 @@ export default function Navigator({ }) {
         <>
 
             <S_NavContainer logout={<ActionLogout />} >
-                <C_NavContainer Menu={Menu} />
+                <C_NavContainer Menu={Menu} role={role} />
             </S_NavContainer>
         </>
     )

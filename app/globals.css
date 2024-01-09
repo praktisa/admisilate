@@ -115,7 +115,29 @@ table {
   border-collapse: collapse;
 }
 
+div[scroll-type="horizontal"]{
+    overflow-y: scroll;
+}
 
+div[scroll-type="horizontal"]::-webkit-scrollbar{
+    width: 0.3em;
+    
+}
+ 
+div[scroll-type="horizontal"]::-webkit-scrollbar-track{
+    background: var(--Container);
+    
+  
+}
+ 
+div[scroll-type="horizontal"]::-webkit-scrollbar-thumb {
+
+    background-color: var(--Act);
+    outline: 1px solid var(--Act);
+
+    border-radius: 7px;
+
+}
 
 
 @media (prefers-color-scheme: dark) {

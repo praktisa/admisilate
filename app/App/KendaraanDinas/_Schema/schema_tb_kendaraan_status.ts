@@ -1,18 +1,19 @@
 import { READ_SERVER_SESSION } from '@/app/Auth/action/function/Session';
 import { Execute_KendaraanDinas } from './executor_KendaraanDinas';
-import { INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID, UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL } from './schema_tb_kendaraan';
+import { INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID, UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL } from './schema_tb_kendaraan';
 import KlasifikasiSeksiPegawai from '../Daftar/@modal/(.)peminjaman/[dk]/Action/KlasifikasiSeksiPegawai';
 
 const Table: string = 'tb_kendaraandinas_status'
 
 export async function CREATE_PINJAM__MOBIL(Object_Data: any) {
 
-    // berfungsi untuk menambahkan saja tetapi tidak menggunakan UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL agar tidak berat
-    let TGL_IN_DATABASE_UPDATE = await INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID(
-        Object_Data.STR_ID_KENDARAAN,
-        Object_Data.STR_TGL,
-        Object_Data.STR_PEMINJAM
-    )
+    // berfungsi untuk menambahkan saja tetapi tidak menggunakan UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL agar tidak berat
+    // let TGL_IN_DATABASE_UPDATE = await INSERT_OBJ_DATES_BOOKING_MOBIL_BY_ID(
+    //     Object_Data.STR_ID_KENDARAAN,
+    //     Object_Data.STR_TGL,
+    //     Object_Data.STR_PEMINJAM
+    // )
+
 
 
     let QUERY = {
@@ -63,7 +64,7 @@ export async function READ_PEMINJAMAN_MOBIL_BY_SESSION() {
     let QUERY = {
         "TABLE": Table,
         "METHOD": "SELECT",
-        "METHOD_QUERY": "ID_STATUS, STR_ID_KENDARAAN, STR_NAMA_KENDARAAN, STR_TUJUAN ,STR_TGL, STR_STATUS",
+        "METHOD_QUERY": "ID_STATUS, STR_ID_KENDARAAN, STR_NAMA_KENDARAAN, STR_TUJUAN, STR_TEMPAT ,STR_TGL, STR_STATUS",
         "WHERE": "STR_PEMINJAM = ? ORDER BY ID_STATUS DESC",
         "DATA": [Unit]
     }
@@ -71,6 +72,24 @@ export async function READ_PEMINJAMAN_MOBIL_BY_SESSION() {
     let hasil = await Execute_KendaraanDinas(QUERY)
 
     return hasil[0]
+}
+
+export async function READ_COUNT_PEMINJAMAN_MOBIL_BY_SESSION() {
+
+    let DataPegawai = await READ_SERVER_SESSION(["All"])
+
+    let Unit = KlasifikasiSeksiPegawai(DataPegawai)
+
+    let QUERY = {
+        "TABLE": Table,
+        "METHOD": "CHECK",
+        "WHERE": "STR_PEMINJAM = ?",
+        "DATA": [Unit]
+    }
+
+    let hasil = await Execute_KendaraanDinas(QUERY)
+
+    return hasil[0][0]['COUNT(1)']
 }
 
 
@@ -127,12 +146,12 @@ export async function DELETE_DATA_PINJAM_MOBIL_BY_ID(ID_PINJAM: string, ID_MOBIL
     let QUERY_AMBIL_NAMA_MOBIL = {
         "TABLE": Table,
         "METHOD": "SELECT",
-        "METHOD_QUERY": "STR_NAMA_KENDARAAN",
+        "METHOD_QUERY": "STR_ID_KENDARAAN",
         "WHERE": "ID_STATUS = ?",
         "DATA": [ID_PINJAM]
     }
 
-    let NamaKendaraan = (await Execute_KendaraanDinas(QUERY_AMBIL_NAMA_MOBIL))[0][0]['STR_NAMA_KENDARAAN']
+    let IDKendaraan = (await Execute_KendaraanDinas(QUERY_AMBIL_NAMA_MOBIL))[0][0]['STR_ID_KENDARAAN']
 
 
     let QUERY_DELETE = {
@@ -147,7 +166,7 @@ export async function DELETE_DATA_PINJAM_MOBIL_BY_ID(ID_PINJAM: string, ID_MOBIL
     try {
         await Execute_KendaraanDinas(QUERY_DELETE)
             .then(async () => {
-                await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_NAMA_MOBIL(NamaKendaraan)
+                await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(IDKendaraan)
             })
 
         return "Berhasil"
@@ -248,7 +267,7 @@ export async function ADMIN_INSERT_AMBIL_ALIH_PEMINJAMAN(ID_STATUS: string, NIP:
     let ReturnData = {
         "ID_AMBIL_ALIH": ID_AMBIL_ALIH[0].insertId,
         "STR_NAMA_KENDARAAN": Object_AmbilAlih.STR_NAMA_KENDARAAN,
-
+        "STR_ID_KENDARAAN": Object_AmbilAlih.STR_ID_KENDARAAN
     }
 
     return ReturnData
