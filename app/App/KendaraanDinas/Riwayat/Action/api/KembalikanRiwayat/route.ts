@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { ADMIN_UPDATE_CEK_DAN_UBAH_PINJAMAN_LAMA, DELETE_DATA_PINJAM_MOBIL_BY_ID } from '@SchemaKD/schema_tb_kendaraan_status'
 import { revalidateTag } from 'next/cache'
 
-import { ADMIN_UPDATE_KEMBALIKAN_REGISTER } from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/Register_CRUD'
+import { ADMIN_UPDATE_KEMBALIKAN_REGISTER } from '@SchemaKD/schema_tb_kendaraan_register'
 import { redirect } from 'next/navigation'
 
 

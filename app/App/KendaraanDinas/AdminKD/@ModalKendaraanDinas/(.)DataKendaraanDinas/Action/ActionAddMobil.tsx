@@ -1,6 +1,6 @@
 'use server'
 
-import { CREATE_KENDARAAN_DINAS } from "@/app/App/KendaraanDinas/Daftar/Action/CRUD/DaftarKD_CRUD"
+import { CREATE_KENDARAAN_DINAS } from "@SchemaKD/schema_tb_kendaraan"
 import { revalidateTag } from "next/cache"
 
 

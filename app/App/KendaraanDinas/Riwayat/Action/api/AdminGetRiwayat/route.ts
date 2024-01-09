@@ -1,4 +1,4 @@
-import { ADMIN_READ_ALL_REGISTER } from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/Register_CRUD'
+import { ADMIN_READ_ALL_REGISTER } from '@SchemaKD/schema_tb_kendaraan_register'
 import { NextRequest, NextResponse } from 'next/server'
 
 
