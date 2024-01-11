@@ -221,7 +221,8 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_BY_ID(
 
 
 export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(
-    NAMA_MOBIL: string
+    NAMA_MOBIL: string,
+    Mode: string
 ) {
     // harusnya BY ID Mobil
     let REGISTER_BY_NAMA = await READ_REGISTER_BY_ID_MOBIL(NAMA_MOBIL)
@@ -238,9 +239,16 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(
             let date = new Date(REGISTER_BY_NAMA[i]['STR_DATE'])
             let InsertDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 
-            Object.assign(NEW_OBJ_DATES, {
-                [InsertDate]: REGISTER_BY_NAMA[i]['STR_PEMINJAM']
-            })
+            if (Mode === "Ambil") {
+                Object.assign(NEW_OBJ_DATES, {
+                    [InsertDate]: "Subbagian Umum dan Kepatuhan Internal" // harusnya umumm
+                })
+            } else {
+                Object.assign(NEW_OBJ_DATES, {
+                    [InsertDate]: REGISTER_BY_NAMA[i]['STR_PEMINJAM'] // harusnya umumm
+                })
+            }
+
         }
     }
 

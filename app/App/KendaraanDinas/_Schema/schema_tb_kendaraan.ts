@@ -87,7 +87,7 @@ export async function READ_KENDARAAN_DINAS_BY_ID(ID: string) {
         "WHERE": "ID = ?",
         "DATA": [ID]
     }
-
+    // pisah OBJ_DATES_BOOKING
     let hasil = await Execute_KendaraanDinas(QUERY)
 
     return hasil[0][0]

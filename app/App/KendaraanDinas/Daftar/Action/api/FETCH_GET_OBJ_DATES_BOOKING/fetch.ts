@@ -7,7 +7,9 @@ export default async function FETCH_GET_OBJ_DATES_BOOKING() {
     const URL = `http://localhost:3000/App/KendaraanDinas/Daftar/Action/api/FETCH_GET_OBJ_DATES_BOOKING`
 
 
-    let FetchTag = { next: { tags: ['all_obj_dates'] } }
+    // let FetchTag = { next: { tags: ['all_obj_dates'] } }
+
+    let FetchTag = { cache: "no-store" }
 
     let Response = await GET(URL, FetchTag)
 

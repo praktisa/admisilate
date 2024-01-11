@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 
 export const metadata: Metadata = {
-    title: 'Admisi | TURT',
+    title: 'Atrium | Kepegawaian',
     description: 'Kepegawaian',
 }
 
@@ -13,10 +13,9 @@ interface children {
 }
 
 
+export default async function KepegawaianLayout(props: children) {
 
-export default function KepegawaianLayout(props: children) {
 
-    // console.log("params from layout", props)
 
     return (
         <>

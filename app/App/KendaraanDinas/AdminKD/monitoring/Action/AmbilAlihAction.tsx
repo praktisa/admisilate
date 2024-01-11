@@ -5,7 +5,7 @@ import KlasifikasiSeksiPegawai from "../../../Daftar/@modal/(.)peminjaman/[dk]/A
 import { ADMIN_INSERT_AMBIL_ALIH_PEMINJAMAN, ADMIN_UPDATE_CEK_DAN_UBAH_PINJAMAN_LAMA, DELETE_DATA_PINJAM_MOBIL_BY_ID } from "@SchemaKD/schema_tb_kendaraan_status"
 import { revalidatePath, revalidateTag } from "next/cache"
 import { ADMIN_UPDATE_AMBIL_ALIH_REGISTER, ADMIN_UPDATE_KEMBALIKAN_REGISTER } from "../../../Daftar/@modal/(.)peminjaman/[dk]/Action/Register_CRUD"
-import { UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL } from "../../../Daftar/Action/CRUD/DaftarKD_CRUD"
+import { UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL } from "@SchemaKD/schema_tb_kendaraan"
 
 
 export async function Action_Ambil_Alih(formData: FormData) {
@@ -22,9 +22,12 @@ export async function Action_Ambil_Alih(formData: FormData) {
     try {
         let ID_STATUS_BARU = await ADMIN_INSERT_AMBIL_ALIH_PEMINJAMAN(ID_STATUS, DataPegawai['IP Sikka'], Peminjam, TGL_AMBIL)
 
-        await ADMIN_UPDATE_AMBIL_ALIH_REGISTER(ID_REGISTER, ID_STATUS_BARU.ID_AMBIL_ALIH, Peminjam)
+        await ADMIN_UPDATE_AMBIL_ALIH_REGISTER(ID_REGISTER, ID_STATUS_BARU.ID_AMBIL_ALIH, Peminjam).then(async () => {
+            await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(ID_STATUS_BARU.STR_ID_KENDARAAN)
+        })
 
-        let EndResult = await UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(ID_STATUS_BARU.STR_ID_KENDARAAN)
+
+
 
         revalidateTag(`${ID_STATUS_BARU.STR_ID_KENDARAAN}`)
         revalidateTag('all_mobil')
