@@ -14,7 +14,7 @@ export async function CEK_REGISTER(Array_Date: string[], STR_ID_Kendaraan: strin
         let QUERY = {
             "TABLE": Table,
             "METHOD": "CHECK",
-            "WHERE": "STR_DATE = ? AND STR_ID_KENDARAAN = ?",
+            "WHERE": "STR_DATE = ? AND STR_ID_KENDARAAN = ?", 
             "DATA": [Array_Date[i], STR_ID_Kendaraan]
         }
 

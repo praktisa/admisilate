@@ -1,5 +1,5 @@
 import React from 'react'
-import { READ_SEMUA_KENDARAAN_DINAS_ONLY_ID } from '../../../Action/CRUD/DaftarKD_CRUD'
+import { READ_SEMUA_KENDARAAN_DINAS_ONLY_ID } from '@SchemaKD/schema_tb_kendaraan'
 import { ClientFormPeminjaman } from './components/C_Peminjaman'
 import FETCH_GET_DATA_MOBIL_BY_DK from '../../../Action/api/FETCH_GET_DATA_MOBIL_BY_DK/fetch'
 import { PinjamMobilState } from './Action/ActionPinjam'

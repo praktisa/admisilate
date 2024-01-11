@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { ADMIN_READ_ALL_REGISTER } from '../Daftar/@modal/(.)peminjaman/[dk]/Action/Register_CRUD'
+// import { ADMIN_READ_ALL_REGISTER } from '../Daftar/@modal/(.)peminjaman/[dk]/Action/Register_CRUD' 
+import { ADMIN_READ_ALL_REGISTER } from '@SchemaKD/schema_tb_kendaraan_register'
 import LAKD from './layoutAdminKD.module.css'
 import S_CoverData from './@PeminjamanHariIni/_Components/S_CoverData'
 import S_CoverDataKendaraanDinas from './@ModalKendaraanDinas/_Components/Cover_KD/S_CoverDataKendaraanDinas'
