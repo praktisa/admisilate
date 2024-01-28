@@ -1,0 +1,425 @@
+.Container__Form{
+    display: grid;
+    grid-template-areas: "Input Nav";
+    grid-template-columns:  0.8fr 0.2fr;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* background: var(--Surface); */
+    background: transparent;
+    width: 100%;
+    height: 100%;
+
+
+   
+}
+
+@keyframes UP {
+    0%{
+        transform: translateY(100%) scale(0.5);
+ 
+    }
+
+    100%{
+        
+        transform: translateX(0) scale(1);
+     
+    }
+}
+
+.Form__Area__Input, .Form__Area__Nav{
+
+    background: var(--Surface);
+}
+
+.Form__Area__Input{
+    grid-area: Input;
+    overflow: hidden;
+    /* display: grid; */
+    
+    /* margin-left: 25px; */
+    padding: 0 0 0 20px;
+    animation: UP 0.4s ease forwards 1s;
+    transform: translateY(100%);
+    will-change: transform;
+    position: relative;
+    
+}
+
+.Form__Area__Nav{
+    grid-area: Nav;
+    
+    display: grid;
+    grid-template-rows: 1fr 0.1fr;
+     
+   
+    animation: DOWN 0.4s ease forwards 1s;
+    transform: translateY(-110%);
+    border-radius: 14px;
+    margin: 8px;
+    will-change: transform;
+    user-select: none;
+}
+
+@keyframes UP {
+    0%{
+        transform: translateY(100%)
+ 
+    }
+
+    100%{
+        
+        transform: translateY(0)
+     
+    }
+}
+
+@keyframes DOWN {
+    0%{
+        transform: translateY(-110%) 
+ 
+    }
+
+    100%{
+        
+        transform: translateY(0) 
+     
+    }
+}
+
+
+.Input__Container{
+    display: grid;
+    grid-template-rows: 0.1fr 9fr;
+    /* padding: 15px; */
+    overflow: hidden;
+    opacity: 1;
+    transition: 0.4s ease;
+    z-index: 7;
+    will-change: opacity, transform;
+    transform-origin: center right;
+
+    height: 100%;
+    width: calc(100% - 20px);
+    position:absolute
+
+}
+
+
+.Radio__Input__Container{
+    display: none;
+}
+
+
+.Radio__Input__Container:checked + .Input__Container{
+    opacity: 1;
+    z-index: 9;
+    transform: translateY(0)
+}
+
+.Radio__Input__Container:not(:checked) + .Input__Container{
+    opacity: 0;
+    transform: translateY(100%)
+}
+
+
+.Container__Head{
+    padding: 10px 0;
+}
+
+.Container__InputData{
+    display: grid;
+    padding-left: 25px;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+   
+}
+
+.InputData{
+    border: 2px solid var(--BG);
+    border-radius: 4px;
+    /* padding: 10px; */
+}
+
+.InputData__Date{
+    background: var(--Surface);
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.InputData__Date input{
+    text-align: center;
+    /* background: red; */
+    width: 144px;
+}
+
+
+
+.Nav__Container{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    place-items: center;
+    counter-reset: Section;
+}
+
+.Container__Number{
+    /* background: green; */
+    display: grid;
+    grid-template-areas: 1fr 0.1fr;
+    gap: 10px;
+    place-items: center;
+    font-weight: bold;
+    cursor: pointer;
+   
+}
+
+.Nav__Circle::after{
+    content: counter(Section, upper-roman) ;
+    font-size: 20px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 2px solid var(--Typo);
+
+    display: grid;
+    place-items: center;
+    transition: 0.4s ease;
+    will-change: background, border;
+    counter-increment: Section;
+}
+
+.Container__Number:hover .Nav__Circle::after{
+   background: var(--ActHover);
+}
+
+.Nav__Info{
+    text-align: center;
+}
+
+.Kirim__Container{
+    /* background: pink; */
+    display: grid;
+    padding: 10px;
+}
+
+
+
+
+.Input__Line{
+    /* background: green; */
+    border-left: 2px dashed var(--Typo);
+
+    display: grid;
+    grid-template-columns: 0.01fr 0.9fr;
+    align-items: center;
+    padding: 30px 0 20px 0;
+
+    position: relative;
+    will-change: background;
+    transition: 0.2s ease;
+    scroll-snap-align: start;
+    
+   
+}
+
+.Input__Line:hover{
+    background: var(--GlassBG);
+   
+}
+
+.Input__Line:last-child{
+    padding-bottom: 60px;
+    
+}
+
+.Input__Line:last-child .Content{
+    visibility: hidden;
+    
+}
+
+
+
+.Line__Circle{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+    
+    background: var(--Typo);
+    color: var(--BG);
+    font-size: 20px;
+    font-weight: bold;
+   
+    transform: translate(-23px, -10px);
+    transition: 0.4s ease;
+}
+
+.Input__Line:where(
+    :has(.Content textarea[server-form="primary"]:valid),
+    :has(.Content input[server-form="primary"]:valid)
+) .Line__Circle{
+    background: var(--Success);
+    color: var(--Typo);
+   
+}
+
+
+.Input__Line:hover:where(
+    :has(.Content textarea[server-form="primary"]:invalid),
+    :has(.Content input[server-form="primary"]:invalid)
+) .Line__Circle{
+    background: var(--Act);
+    color: var(--Typo);
+}
+
+
+.Line__Content{
+    margin-left: 5px;
+    display: grid;
+    gap: 10px;
+}
+
+.Content__Title{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.Content{
+    color: var(--Typo);
+    overflow: hidden;
+}
+
+.Form__Area__Input:has(
+    .Radio__Input__Container[label-target="Informasi Rencana"]:checked)  + .Form__Area__Nav 
+    .Nav__Container label[label-target="Informasi Rencana"] .Container__Number .Nav__Circle::after,
+
+.Form__Area__Input:has(
+    .Radio__Input__Container[label-target="Petugas"]:checked)  + .Form__Area__Nav 
+    .Nav__Container label[label-target="Petugas"] .Container__Number .Nav__Circle::after,
+
+.Form__Area__Input:has(
+    .Radio__Input__Container[label-target="Lampiran"]:checked)  + .Form__Area__Nav 
+    .Nav__Container label[label-target="Lampiran"] .Container__Number .Nav__Circle::after
+
+{
+    background: var(--Act);
+    border: 2px solid var(--Act);
+    box-shadow: var(--Shadow);
+}
+
+
+.Form__Area__Input:has(.Radio__Input__Container[label-target="Informasi Rencana"]:checked)  + .Form__Area__Nav 
+.Nav__Container label[label-target="Informasi Rencana"] .Container__Number,
+
+.Form__Area__Input:has(.Radio__Input__Container[label-target="Petugas"]:checked) + .Form__Area__Nav 
+.Nav__Container label[label-target="Petugas"] .Container__Number,
+
+.Form__Area__Input:has(.Radio__Input__Container[label-target="Lampiran"]:checked)  + .Form__Area__Nav 
+.Nav__Container label[label-target="Lampiran"] .Container__Number
+
+{
+    opacity: 1;
+}
+
+.Form__Area__Nav :where(.Nav__Container label[label-target="Petugas"], .Nav__Container label[label-target="Lampiran"]) 
+{
+    /* pointer-events: none;  */
+    opacity: 0.4;
+   
+}
+
+
+/* Apabila Informasi Rencana Telah Valid Jalankan CSS ini */
+
+
+
+.Form__Area__Input:is(
+    :has(textarea[name="Agenda"]:valid)
+    :has(textarea[name="Lokasi_Spesifik"]:valid)
+    :has(input[name="pilihan_lokasi"]:valid)
+    ) + .Form__Area__Nav 
+
+.Nav__Container label[label-target="Informasi Rencana"] .Container__Number .Nav__Circle::after{
+    background: var(--Success) !important;
+    border: 2px solid var(--Success) !important;
+    color: var(--Typo);
+    content: "✓";
+}
+
+.Form__Area__Input:is(
+    :has(textarea[name="Agenda"]:valid)
+    :has(textarea[name="Lokasi_Spesifik"]:valid)
+    :has(input[name="pilihan_lokasi"]:valid)
+    ) + .Form__Area__Nav 
+
+.Nav__Container label[label-target="Petugas"]{
+    pointer-events: auto; 
+    opacity: 1 !important;
+}
+
+.Form__Area__Input:is(
+    :has(textarea[name="Agenda"]:valid)
+    :has(textarea[name="Lokasi_Spesifik"]:valid)
+    :has(input[name="pilihan_lokasi"]:valid)
+    ) + .Form__Area__Nav 
+
+.Nav__Container label[label-target="Petugas"] .Container__Number .Nav__Circle::after{
+    animation: pulseNext 1.5s ease;
+}
+
+.Form__Area__Input:is(
+    :has(textarea[name="Agenda"]:valid)
+    :has(textarea[name="Lokasi_Spesifik"]:valid)
+    :has(input[name="pilihan_lokasi"]:valid)
+    ) 
+   .Input__Line:last-child .Content{
+        visibility: visible;
+    }
+
+
+
+
+/* Apabila Petugas Telah Valid Jalankan CSS ini */
+
+.Form__Area__Input:is(
+    :has(input[name="pilihan_NAMA PEGAWAI"]:valid)
+    ) + .Form__Area__Nav 
+
+.Nav__Container label[label-target="Petugas"] .Container__Number .Nav__Circle::after{
+    background: var(--Success) !important;
+    border: 2px solid var(--Success) !important;
+    color: var(--Typo);
+    content: "✓";
+}
+
+.Form__Area__Input:is(
+    :has(input[name="pilihan_NAMA PEGAWAI"]:valid)
+    ) + .Form__Area__Nav 
+
+.Nav__Container label[label-target="Lampiran"]{
+    pointer-events: auto; 
+    opacity: 1 !important;
+}
+
+.Form__Area__Input:is(
+     :has(input[name="pilihan_NAMA PEGAWAI"]:valid)
+    ) + .Form__Area__Nav 
+
+.Nav__Container label[label-target="Lampiran"] .Container__Number .Nav__Circle::after{
+    animation: pulseNext 1.5s ease;
+}
+
+
+
+
+@keyframes pulseNext {
+  0% {
+    box-shadow: 0 0 0 0px rgba(238, 78, 52, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 40px rgba(238, 78, 52, 0);
+  }
+}

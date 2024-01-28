@@ -1,0 +1,78 @@
+.Transparent__Container{
+    position: relative;
+    width: 100%;
+    aspect-ratio: auto 2/1.5;
+    background: transparent;
+    border-radius: 7px;
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+.Background__Container__position{
+    position: absolute;
+     border-radius: 7px;
+    background: var(--Surface);
+    bottom: 0;
+    right: 0;
+    height: 85%;
+    width: 100%;
+    z-index: 6;
+    
+    transform: scale(0.94);
+    transition: 0.4s ease;
+    transform-origin: 100% 100%;
+    box-shadow: var(--Shadow);
+   
+}
+
+.Transparent__Container:hover .Background__Container__position{
+    transform: scale(1);
+    height: 100%;
+    background: var(--ActHover);
+}
+
+
+.Container__Grid{
+
+    display: grid;
+    grid-template-areas: "Img" "Text";
+    grid-template-rows: 0.8fr 0.20fr;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 20px 20px 10px 20px;
+    z-index: 7;
+}
+
+.Grid__Area__Img{
+    grid-area: Img;
+    /* background: green; */
+    overflow: hidden;
+    border-radius: 9px;
+    position: relative;
+    box-shadow: var(--Shadow);
+}
+
+.Img{
+     object-fit: cover;
+    /* width: 100% !important;
+   
+    transform: scale(1.35);
+    transform-origin: 100% 50%;
+    
+    will-change: transform;
+    z-index: 0; */
+}
+
+.Grid__Area__Text{
+     grid-area: Text;
+     /* background: pink; */
+     padding: 10px 10px 10px 25px;
+     display: grid;
+     align-self: center;
+
+     font-size: 18px;
+     font-weight: bold;
+}

@@ -1,0 +1,14 @@
+.Container{
+    position: relative;
+    margin-top: 15px;
+    width: 95%;
+
+    max-width: 981px;
+}
+
+.Container__Grid{
+    display: grid;
+    gap:20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}

@@ -1,0 +1,393 @@
+.separator{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    
+
+    /* margin-top: 10px; */
+    /* width: 50%; */
+    /* background: green; */
+    max-height: 450px;
+
+    transition: heigth 0.4s ease !important;
+}
+
+.container__selected{
+    
+    padding-left: 10px;
+   
+    max-height: inherit;
+    position: relative;  
+    display: grid; 
+    
+    grid-template-rows: 0.1fr 0.9fr;
+}
+
+.container{
+    display: grid; 
+    grid-template-rows: 0.1fr 0.9fr; 
+    max-height: inherit;
+  
+    width: 100%;
+    border-top: 2px solid var(--Container);
+    border-left: 2px solid var(--Container);
+    border-bottom: 2px solid var(--Container);
+    border-radius: 7px;
+    overflow: hidden;
+    /* background: red; */
+    height: 100%;
+    min-height: 450px;
+    transition: 0.4s ease !important;
+}
+
+.container__search{
+    
+    display: grid;
+    background: var(--Container);
+    color: var(--TypoStill);
+    grid-template-columns: 1fr 0.1fr;
+    padding: 3px 6px 6px 0;
+    
+}
+
+.search__field{
+    padding: 10px;
+    text-align: left !important;
+    background: var(--Container) !important;
+    color: var(--TypoStill);
+}
+
+.filter__field{
+    display: grid;
+    place-content: center;
+    user-select: none;
+    position: relative;
+}
+
+.filter__box{
+    display: none;
+}
+
+.filter__box:checked ~ .filter__selection{
+
+   
+    scale: 1;
+     opacity: 1;
+} 
+
+
+.filter__field label{
+    padding: 7px 15px;
+    background: var(--Act);
+    color: var(--TypoStill);
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.filter__selection{
+    /* display: none; */
+    transition: 0.3s ease;
+    scale: 0;
+    opacity: 0;
+    transform-origin: top right;
+
+    padding: 10px;
+    position: absolute;
+    top: 50px;
+    right:10px;
+    z-index: 20;
+    background: var(--Surface);
+    color: var(--Typo);
+
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    border-radius: 7px;
+    width: 300px;
+    /* border: 2px solid var(--Act); */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px 0px, rgba(0, 0, 0, 0.23) 0px 3px 6px 0px;
+}
+
+.current__Filter{
+    background: var(--Act);
+    color: var(--TypoStill);
+    font-weight: bold;
+
+    
+}
+
+.not__Filter:hover{
+    background: var(--ActHover);
+    color: var(--Typo);
+}
+
+.filter__selection li{
+    padding: 8px ;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    transition: 0.4s ease;
+}
+
+
+.search__field::placeholder{
+   opacity: 1;
+   color: var(--TypoStill);
+}
+
+.container__pegawai{
+    /* background: red; */
+    overflow-y: scroll;
+    user-select: none;
+    font-size: 15px;
+    min-height: inherit;
+    /* padding-bottom: 20px; */
+    scroll-behavior: smooth;
+   
+}
+
+.container__pegawai div[search-target~="true"]{
+    display: none;
+}
+
+
+.container__pegawai::-webkit-scrollbar,
+.container__selected ol::-webkit-scrollbar,
+.filter__selection::-webkit-scrollbar {
+    width: 0.3em;
+  
+}
+ 
+.container__pegawai::-webkit-scrollbar-track,
+.container__selected ol::-webkit-scrollbar-track,
+.filter__selection::-webkit-scrollbar-track
+ {
+    background: var(--Container);
+  
+}
+ 
+.container__pegawai::-webkit-scrollbar-thumb,
+.container__selected ol::-webkit-scrollbar-thumb,
+.filter__selection::-webkit-scrollbar-thumb {
+
+    background-color: var(--Act);
+    outline: 1px solid var(--Act);
+
+    border-radius: 7px;
+}
+
+
+.container__ListData{
+    display: grid;
+    grid-template-columns: 0.1fr 0.9fr;
+    
+    background: var(--BG);
+    transition: 0.4s ease;
+    cursor: pointer;
+    
+    /* opacity: 0; */
+}
+
+
+
+.container__ListDataGroup{
+    display: grid;
+    grid-template-columns: 0.1fr 0.9fr;
+    
+    background: var(--BG);
+    transition: 0.4s ease;
+    cursor: pointer;
+    
+    /* opacity: 0; */
+}
+
+
+
+
+.ListData__box{
+    display: grid;
+    place-items: center;
+}
+
+.ListData__box input{
+    outline: none;
+    transform: scale(2);
+}
+
+.container__ListData:hover, 
+.container__ListDataGroup:hover
+{
+    background: var(--Act);
+    color: var(--Typo);
+   
+}
+
+.container__summary:hover{
+    background: var(--Container);
+    color: var(--TypoStill);
+}
+
+.ListData__label{
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+
+.container__Details{
+    transition: 0.4s ease;
+     background: var(--BG);
+     color: var(--Typo);
+}
+
+.container__Details[open]{
+    counter-set: checked;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.container__Details[open] .container__summary{
+     background: var(--Container);
+    color: var(--TypoStill);
+    
+}
+
+.container__Details:not([open]) .container__summary span{
+    color: var(--Act);
+    scale: 0.8;
+}
+
+
+
+.container__ListData .check:checked, 
+.container__ListDataGroup .check:checked{
+     accent-color: var(--Act);
+     counter-increment: checked;
+}
+
+
+.container__ListData:has(.check:checked), 
+.container__ListDataGroup:has(.check:checked)
+{
+    background: var(--ActHover);
+}
+
+
+.container__ListDataGroup:has(.check:checked) ~ .container__summary{
+    background: var(--Surface);
+}
+
+.container__summary span{
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    background: var(--Act);
+    border-radius: 50%;
+
+    transition: 0.4s ease;
+    opacity: 0;
+}
+
+.container__ListData:has(.check:checked) ~ .container__summary span,
+.container__ListDataGroup:has(.check:checked) ~ .container__summary span{
+    opacity: 1;
+}
+
+
+.container__summary{    
+    display: flex;
+    gap: 10px;
+    padding: 15px 10px;
+    
+    background: var(--BG);
+    color: var(--Typo);
+    transition: 0.4s ease;
+    cursor: pointer;
+    position: sticky;
+    top: 0;
+
+    z-index: 9;
+}
+
+.container__summary span:after {
+  content: counter(checked);
+}
+
+
+
+.search__field:not(:placeholder-shown) + .container__pegawai .container__Details{
+   display: none;
+    
+}   
+
+.search__field:not(:placeholder-shown) + .container__pegawai .container__ListData{
+    display: grid;
+   
+}
+
+.checkAll{
+   
+    accent-color: var(--Act);
+
+}
+
+.container__selected ol{ 
+    user-select: none;
+    list-style-position: inside;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+     
+    align-content: flex-start;
+    height: 100%;
+    font-size: 14px;
+     overflow: auto;
+     position: relative;
+    scroll-behavior: smooth;
+}
+
+
+.container__selected li{
+    background: var(--Act);
+    color: var(--TypoStill);
+    box-shadow: var(--Shadow);
+    padding: 5px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    scale: 0;
+    opacity: 1;
+    transition: 0.2s ease;
+    animation: MunculList 0.2s ease forwards ;
+    /* animation-delay: attr(data-order);  */
+}
+
+.container__selected li:hover{
+    background: var(--ActHover);
+   
+}
+
+.container__selected h2{
+    margin-bottom: 10px;
+    position: sticky;
+    top: 1;
+}
+
+.reset__jumlah{
+    position: absolute;
+    right: 3%;
+    cursor: pointer;
+    visibility: hidden;
+    /* top: 25%; */
+}
+
+@keyframes MunculList{
+    0%{
+        scale: 0;
+    }
+
+    100%{
+        scale:1 ;
+    }
+}
+

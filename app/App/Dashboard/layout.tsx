@@ -25,7 +25,8 @@ export default async function DashLayout(props: children) {
     return (
         <>
             <div>
-                <h2>Hallo</h2>
+                <h1>Hallo</h1>
+                <h2>{User['NAMA PEGAWAI']} &#128075;</h2>
                 {props.children}
             </div>
         </>

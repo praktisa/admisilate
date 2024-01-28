@@ -43,6 +43,7 @@
 
     --GlassTypo: #fafbfc;
     --GlassBG: #12121270;
+    --GlassBG2:  rgba(18, 18, 18, 0.8);
   }
 }
 
@@ -58,7 +59,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: 'Noto Sans', Tahoma, Geneva, Verdana, sans-serif;
-
+  scroll-behavior: smooth;
 }
 
 body {
@@ -77,6 +78,16 @@ input, textarea{
   outline: none;
   font-size: 16px;
   letter-spacing: 1px;
+}
+
+input[input-style="picker"]
+{
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-size: 12px;
+  
+  /* letter-spacing: 1px; */
 }
 
 input[input-type="hidden"]
@@ -131,6 +142,30 @@ div[scroll-type="horizontal"]::-webkit-scrollbar-track{
 }
  
 div[scroll-type="horizontal"]::-webkit-scrollbar-thumb {
+
+    background-color: var(--Act);
+    outline: 1px solid var(--Act);
+
+    border-radius: 7px;
+
+}
+
+div[scroll-type="vertical"]{
+    overflow-y: scroll;
+}
+
+div[scroll-type="vertical"]::-webkit-scrollbar{
+    width: 0.3em;
+    
+}
+ 
+div[scroll-type="vertical"]::-webkit-scrollbar-track{
+    background: var(--Container);
+    
+  
+}
+ 
+div[scroll-type="vertical"]::-webkit-scrollbar-thumb {
 
     background-color: var(--Act);
     outline: 1px solid var(--Act);

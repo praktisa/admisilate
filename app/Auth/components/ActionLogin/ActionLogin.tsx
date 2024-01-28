@@ -18,7 +18,7 @@ export default function ActionLogin({ ServerAction }: ActionLogin__inter) {
     function OnChangeInput(e: any) {
         let x = e.keyCode
 
-        console.log("e.keyCode", e)
+        // console.log("e.keyCode", e)
         if (!(
             x >= 48 && x <= 57 ||
             x >= 96 && x <= 105 ||

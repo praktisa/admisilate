@@ -6,13 +6,21 @@
     color: var(--Typo);
     padding: 15px 15px 15px 15px;
  
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: text;
 }
 
 
 .with__border{
+    transition: 0.4s ease;
     border: 1px solid var(--borderColor);
+}
+
+.with__border:focus-within {
+   border: 1px solid var(--Typo);
+}
+.label:has(input[server-form="primary"]:invalid){
+   border: 1px solid var(--Error2);
 }
 
 

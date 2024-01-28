@@ -1,0 +1,93 @@
+.Layout__Grid{
+    display: grid;
+    place-items: left;
+    gap: 20px;
+ 
+    margin: auto;
+}
+
+.Dates__Container__Grid{
+    display: grid;
+    gap: 20px;
+
+    
+}
+
+.Date__Cancel{
+    display: grid;
+    place-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--borderColor);
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.Date__Cancel:hover{
+    background: var(--ActHover);
+}
+
+.Date{
+    display: flex;
+    justify-content: flex-start;
+    
+    gap: 20px;
+    position: relative;
+    /* background: red; */
+    overflow: hidden;
+    will-change: height;
+    animation:none
+}
+
+.Date:only-child
+{
+    animation: none !important
+}
+
+.Date:last-child{
+   
+    animation: Reveal 0.4s ease forwards
+}
+
+.Date__Action{
+    display: grid;
+    place-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+
+   
+    transition: 0.4s ease;
+    font-size: 34px;
+    user-select: none;
+}
+
+.Date__Action__Add{
+    background: var(--Act);
+    cursor: pointer;
+}
+
+@keyframes Reveal {
+   0%{
+     height: 0%;
+   }
+   100%{
+     height: 100%;
+
+   }
+}
+
+
+
+.Date label{
+    display: grid;
+    place-items: center;
+}
+
+.Date__Input{
+    position: absolute;
+    width: 0;
+    left: 67px;
+    bottom: 0;
+}

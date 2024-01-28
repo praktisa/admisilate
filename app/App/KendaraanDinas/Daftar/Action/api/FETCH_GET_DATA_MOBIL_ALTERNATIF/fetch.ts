@@ -1,4 +1,4 @@
-import 'server-only'
+// import 'server-only'
 import GET from "@Method/GET";
 import { redirect } from "next/navigation";
 

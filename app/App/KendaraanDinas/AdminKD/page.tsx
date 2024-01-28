@@ -12,6 +12,24 @@ interface CMP_Container__inter {
 
 }
 
+export function CMP_Container({ children, head }: CMP_Container__inter) {
+    return (
+        <>
+            <div className={LAKD['relative']} >
+
+                <div className={`${LAKD['container']} ${LAKD['draw']}`}>
+                    <h4 className={LAKD['container__head']} >{head}</h4>
+                    <div className={LAKD['overflow']}>
+                        {children}
+                    </div>
+                </div>
+
+            </div>
+
+        </>
+    )
+}
+
 export default async function page() {
 
     let DATA_HARI_INI = await ADMIN_READ_ALL_REGISTER("=")
@@ -19,23 +37,7 @@ export default async function page() {
     let DataSemuaKD = JSON.parse(await ADMIN_READ_SEMUA_KENDARAAN_DINAS())
 
 
-    function CMP_Container({ children, head }: CMP_Container__inter) {
-        return (
-            <>
-                <div className={LAKD['relative']} >
 
-                    <div className={`${LAKD['container']} ${LAKD['draw']}`}>
-                        <h4 className={LAKD['container__head']} >{head}</h4>
-                        <div className={LAKD['overflow']}>
-                            {children}
-                        </div>
-                    </div>
-
-                </div>
-
-            </>
-        )
-    }
 
     return (
         <>

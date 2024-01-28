@@ -1,0 +1,226 @@
+.separator{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 10px;
+}
+
+.container__selected{
+    /* background: red; */
+    padding: 10px;
+}
+
+.container{
+    display: grid;
+    grid-template-rows: 0.1fr 0.9fr;
+    /* background: slateblue; */
+    max-height: 450px;
+    width: 100%;
+    border-top: 2px solid var(--Surface);
+    border-left: 2px solid var(--Surface);
+    border-bottom: 2px solid var(--Surface);
+    border-radius: 7px;
+    overflow: hidden;
+    margin-top: 10px;
+    height: 100%;
+    transition: 0.4s ease;
+}
+
+.container__search{
+    
+    display: grid;
+
+}
+
+.container__search{
+    background: var(--Surface);
+     padding: 10px;
+}
+
+.container__search::placeholder{
+   opacity: 1;
+}
+
+.container__pegawai{
+    /* background: red; */
+    overflow-y: scroll;
+    user-select: none;
+    font-size: 15px;
+
+    padding-bottom: 20px;
+}
+
+.container__pegawai{
+   
+    overflow-y: scroll;
+    user-select: none;
+    font-size: 15px;
+
+    scroll-behavior: smooth;
+    
+}
+
+.container__pegawai::-webkit-scrollbar {
+    width: 0.3em;
+  
+}
+ 
+.container__pegawai::-webkit-scrollbar-track {
+    background: var(--Surface);
+  
+}
+ 
+.container__pegawai::-webkit-scrollbar-thumb {
+
+    background-color: var(--Act);
+    outline: 1px solid var(--Act);
+
+    border-radius: 7px;
+}
+
+
+.container__ListData{
+    display: grid;
+    grid-template-columns: 1fr;
+    
+    background: var(--BG);
+    transition: 0.4s ease;
+    cursor: pointer;
+    
+    /* opacity: 0; */
+}
+
+.container__ListDataSeksi{
+    display: grid;
+    grid-template-columns: 0.1fr 0.9fr;
+    
+    background: var(--BG);
+    transition: 0.4s ease;
+    cursor: pointer;
+    
+    /* opacity: 0; */
+}
+
+
+
+
+.ListData__box{
+    display: grid;
+    grid-template-columns: 0.12fr 0.9fr;
+    gap: 3px;
+    transition: 0.4s ease;
+    /* place-items: center; */
+}
+
+.ListData__box input{
+    outline: none;
+    transform: scale(0.8);
+}
+
+.ListData__box:hover{
+    background: var(--Surface);
+   
+}
+
+.ListData__display{
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+
+
+
+
+.container__Details{
+    transition: 0.4s ease;
+     background: var(--BG);
+}
+
+.container__Details[open]{
+    counter-set: checked;
+    position: relative;
+    
+}
+
+.container__Details[open] .container__summary{
+    background: var(--Surface);
+    
+}
+
+.container__Details:not([open]) .container__summary span{
+    color: var(--Act);
+    scale: 0.8;
+}
+
+
+
+.ListData__box .check:checked, 
+.container__ListDataSeksi .check:checked{
+     accent-color: var(--Act);
+     counter-increment: checked;
+}
+
+
+.ListData__box:has(.check:checked), 
+.container__ListDataSeksi:has(.check:checked)
+{
+    background: var(--ActHover);
+}
+
+
+.container__ListDataSeksi:has(.check:checked) ~ .container__summary{
+    background: var(--Surface);
+}
+
+.container__summary span{
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    background: var(--Act);
+    border-radius: 50%;
+
+    transition: 0.4s ease;
+    opacity: 0;
+}
+
+.container__ListData:has(.check:checked) ~ .container__summary span,
+.container__ListDataSeksi:has(.check:checked) ~ .container__summary span{
+    opacity: 1;
+}
+
+
+.container__summary{    
+    display: flex;
+    gap: 10px;
+    padding: 15px 10px;
+    
+    background: var(--BG);
+    transition: 0.4s ease;
+    cursor: pointer;
+    position: sticky;
+    top: 0;
+
+    z-index: 9;
+}
+
+.container__summary span:after {
+  content: counter(checked);
+}
+
+
+
+.container__search:not(:placeholder-shown) + .container__pegawai .container__Details{
+   display: none;
+    
+}   
+
+.container__search:not(:placeholder-shown) + .container__pegawai .container__ListData{
+    display: grid;
+   
+}
+
+.checkAll{
+   
+    accent-color: var(--Act);
+
+}

@@ -1,0 +1,111 @@
+.Layout__Grid{
+    display: grid;
+    place-items: left;
+    gap: 5px;
+ 
+    grid-template-areas: "Add Form";
+    grid-template-columns: 0.07fr 1fr;
+    
+
+}
+
+.Grid__Area__Add{
+    grid-area: Add;
+    display: grid;
+    align-items: end;  
+    justify-items: center;
+}
+
+.Circle__Add{
+    width: 48px;
+    height: 48px;
+    font-size: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 4px;
+    border: 1px solid var(--Act);
+    cursor: pointer;
+    background: var(--Act);
+}
+
+.Grid__Area__Form{
+    grid: Form;
+    display: grid;
+    row-gap: 5px;
+}
+
+.Form__Container{
+    display: grid;
+    grid-template-areas: "Head Delete" "Grid Delete";
+    grid-template-columns: 1fr 0.1fr;
+    column-gap: 5px;
+    will-change: transform, opacity;
+    animation:none;
+    overflow: hidden;
+}
+
+.Form__Grid{
+    grid-area: Grid;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+}
+
+.Form__Container:only-child
+{
+    animation: none !important
+}
+
+.Form__Container[status-container="New"]
+{
+
+    animation: Reveal 0.4s ease forwards
+}
+
+
+@keyframes Reveal {
+   0%{
+        opacity: 0;
+        transform: translateX(100%);
+   }
+   100%{
+        opacity: 1;
+        transform: translateX(0);
+
+   }
+}
+
+.Form__Head{
+    grid-area: Head;
+    color:var(--borderColor);
+    padding: 5px 0;
+    transition: 0.4s ease;
+}
+
+.Form__Container:hover .Form__Head{
+    color:var(--Typo)
+}
+
+.Form__Delete{
+    grid-area: Delete;
+    display: grid;
+     align-items: end;  
+    justify-items: center;
+}
+
+
+.Form__Delete__Button{
+    display: grid;
+    place-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--borderColor);
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.Form__Delete__Button:hover{
+    background: var(--ActHover);
+}

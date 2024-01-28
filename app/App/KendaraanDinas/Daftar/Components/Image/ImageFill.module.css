@@ -12,6 +12,14 @@
     
 }
 
+.IMG__NULL{
+    display: grid;
+    /* background: red; */
+    padding: 10px;
+    place-items: center;
+    height: 100%;
+}
+
 
 
 .animated{

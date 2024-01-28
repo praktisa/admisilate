@@ -21,9 +21,11 @@ export default function useCalendar(dateData: Date) {
     let index = 1
     let TesTanggal = new Date(tahun, bulan, index).getDay()
 
+
     if (TesTanggal != 0) {
       index = index - TesTanggal
     }
+
     for (var i = 0; i < 42; i++) {
       // let Now = new Date().setHours(0, 0, 0, 0)
       let DateData = new Date(tahun, bulan, index)

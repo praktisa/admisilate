@@ -12,7 +12,7 @@ export default function Navigator({ role }: any) {
         {
 
             display: "Dashboard",
-            link: "/App/Dashoard"
+            link: "/App/Dashboard"
         },
         {
 

@@ -1,0 +1,29 @@
+.Interception{
+
+    width: 90vw;
+    height: 93vh;
+
+    position: relative;
+    top: 3%;
+
+    margin: auto;
+
+    will-change: transform;
+    animation: UP 0.3s ease forwards;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--Shadow);
+}
+
+@keyframes UP {
+    0%{
+        transform: translateY(15%) scale(0.9);
+ 
+    }
+
+    100%{
+        
+        transform: translateX(0)scale(1);
+     
+    }
+}

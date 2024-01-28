@@ -7,9 +7,10 @@ interface ImageFill_inter {
     animated: boolean
     hover: boolean
     quality: number
+    ifNull?: string
 }
 
-export default function ImageFill({ src = null, animated, hover, quality }: ImageFill_inter) {
+export default function ImageFill({ src = null, animated, hover, quality, ifNull = "📷" }: ImageFill_inter) {
 
     // ${ IF['IMG'] } 
 
@@ -54,8 +55,8 @@ export default function ImageFill({ src = null, animated, hover, quality }: Imag
                         blurDataURL='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
                     />
                     :
-                    <div >
-                        📷
+                    <div className={IF['IMG__NULL']} >
+                        {ifNull}
                     </div>
             }
 

@@ -18,14 +18,18 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
 
     if (request.nextUrl.pathname.includes("api")) {
-        let isFromApp = request.headers.get('api_key')
 
-        if (isFromApp != process.env.API_KEY) {
-            return Response.json(
-                'authentication failed',
-                { status: 401 }
-            )
+        if (!request.nextUrl.pathname.includes("FETCH_GET_DATA_MOBIL_ALTERNATIF")) {
+            let isFromApp = request.headers.get('api_key')
+
+            if (isFromApp != process.env.API_KEY) {
+                return Response.json(
+                    'authentication failed',
+                    { status: 401 }
+                )
+            }
         }
+
     }
 
 }

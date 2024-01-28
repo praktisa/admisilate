@@ -9,6 +9,15 @@ const nextConfig = {
           },
         ]
       },
+       async redirects() {
+        return [
+          {
+            source: '/App/Kepegawaian',
+            destination: '/App/Kepegawaian/Informasi',
+            permanent: true,
+          },
+        ]
+      },
 
 
       //  api: {

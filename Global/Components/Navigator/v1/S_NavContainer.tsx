@@ -13,7 +13,7 @@ export default function S_NavContainer({ children, logout }: children) {
       <div className={NC['layout']}>
 
         <span className={NC['layout__logo']}>
-          <h1>Admisi</h1>
+          <h1>Atrium</h1>
         </span>
 
         <span className={NC['layout__menu']}>
