@@ -1,11 +1,12 @@
 'use client'
 import React, { Fragment, useState, useRef } from 'react'
 import DTP from './DateTimePicker.module.css'
-
-// import { setCookie } from 'cookies-next'
 import TimePicker from '../TimePicker/TimePicker'
 import Structure from '@/Global/Components/CTA/Structure'
-import Label_KDPicker from '../KDPicker/KDPicker'
+
+import dynamic from 'next/dynamic'
+
+const Label_KDPicker = dynamic(() => import('../KDPicker/KDPicker'), { ssr: false })
 
 interface StatePicker__inter {
     [key: string]: { [key: string]: string }
@@ -13,23 +14,30 @@ interface StatePicker__inter {
 
 interface DateTimePicker_inter {
     ImgMobil?: string
+    CurrentData?: StatePicker__inter
 }
 
-export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter) {
+export default function DateTimePickerWithCar({ ImgMobil, CurrentData = undefined }: DateTimePicker_inter) {
 
     const [Open, setOpen] = useState(false)
 
 
     const [DateTime, setDateTime] = useState<StatePicker__inter>(
-        {
-            [Today()]: {
-                "WAKTU": `${Today()} | 07:30 : 17:00`,
-                "ID_MOBIL:": "",
-                "STR_NAMA_MOBIL": "",
-                "ANIMATED": "false"
+        CurrentData === undefined
+            ?
+            {
+                [Today()]: {
+                    "WAKTU": `${Today()} | 07:30 : 17:00`,
+                    "ID_MOBIL": "",
+                    "STR_NAMA_MOBIL": "",
+                    "ANIMATED": "false",
+                    "ID_PINJAMAN": ""
+                }
             }
-        }
+            : CurrentData
     )
+
+    console.log("DateTime", DateTime)
 
     const DateTimeRef = useRef<HTMLDivElement>(null)
 
@@ -59,15 +67,16 @@ export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter
             Create = {
                 [Today(day)]: {
                     "WAKTU": `${Today(day)} | 07:30 : 17:00`,
-                    "ID_MOBIL:": "",
+                    "ID_MOBIL": "",
                     "STR_NAMA_MOBIL": "",
-                    "ANIMATED": "true"
+                    "ANIMATED": "true",
+                    "ID_PINJAMAN": ""
                 }
             }
         } else {
             let Date_State = Object.keys(DateTime)
             let GetLastDate = new Date(Date_State[Date_State.length - 1])
-            console.log("GetLastDate", GetLastDate)
+            // console.log("GetLastDate", GetLastDate)
 
             let NextDate = ParseDate(GetLastDate, 1)
 
@@ -76,9 +85,10 @@ export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter
             Create = {
                 [NextDate]: {
                     "WAKTU": `${NextDate} | 07:30 : 17:00`,
-                    "ID_MOBIL:": "",
+                    "ID_MOBIL": "",
                     "STR_NAMA_MOBIL": "",
-                    "ANIMATED": "true"
+                    "ANIMATED": "true",
+                    "ID_PINJAMAN": ""
                 }
             }
         }
@@ -138,8 +148,8 @@ export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter
                 let SampaiJam = (Sampai.children[0] as HTMLInputElement).value
                 let SampaiMenit = (Sampai.children[2] as HTMLInputElement).value
 
-                console.log("5", (ContainerDateTimeRef[i].children[4] as HTMLInputElement))
-                console.log("6", (ContainerDateTimeRef[i].children[5] as HTMLInputElement))
+                // console.log("5", (ContainerDateTimeRef[i].children[4] as HTMLInputElement))
+                // console.log("6", (ContainerDateTimeRef[i].children[5] as HTMLInputElement))
 
                 let STR_NAMA_MOBIL_UPDATE = (ContainerDateTimeRef[i].children[4] as HTMLInputElement).value
                 let ID_MOBIL_UPDATE = (ContainerDateTimeRef[i].children[5] as HTMLInputElement).value
@@ -152,7 +162,8 @@ export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter
                         "WAKTU": `${Tanggal} | ${DariJam}:${DariMenit} : ${SampaiJam}:${SampaiMenit}`,
                         "ID_MOBIL": ID_MOBIL_UPDATE,
                         "STR_NAMA_MOBIL": STR_NAMA_MOBIL_UPDATE,
-                        "ANIMATED": "false"
+                        "ANIMATED": "false",
+                        "ID_PINJAMAN": ""
                     }
                 })
             }
@@ -177,7 +188,7 @@ export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter
             })
         }
 
-        console.log("New_Sorted_Date_Data", New_Sorted_Date_Data)
+        // console.log("New_Sorted_Date_Data", New_Sorted_Date_Data)
 
         if (Render === true) {
             // setCookie("tglRK", Object.keys(New_Sorted_Date_Data))
@@ -192,7 +203,7 @@ export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter
 
     function StringToTimePicker(string: string) {
 
-        console.log("string", string)
+        // console.log("string", string)
         let SplitString = string.split("|")
         let Tanggal = SplitString[0].trim()
         let SplitJam = SplitString[1].split(":")
@@ -239,7 +250,7 @@ export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter
 
     return (
         <>
-
+            <input input-type="hidden" name='DateTimePicker_State' defaultValue={JSON.stringify(DateTime)} />
             <div className={DTP['Layout__Grid']}>
 
                 <div className={DTP['Dates__Container__Grid']} ref={DateTimeRef} >
@@ -249,8 +260,6 @@ export default function DateTimePickerWithCar({ ImgMobil }: DateTimePicker_inter
                             // console.log("Dt.WAKTU", Dt.WAKTU)
                             let Waktu = StringToTimePicker(Dt.WAKTU)
                             let Conditional_Waktu = Waktu.Tanggal ? Waktu.Tanggal : Today() // untuk menjaga apabila waktu undefined
-
-                            console.log("Dt Dt Dt", Dt)
 
                             return (
                                 <Fragment key={Dt.WAKTU}>

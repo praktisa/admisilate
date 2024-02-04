@@ -61,7 +61,7 @@ export default function Kalender({ terpinjam = "", editValue = [] }: Kalender__i
             setDataterpinjam(ArrObj)
 
         }
-        // console.log("terpinjam", terpinjam)
+        console.log("terpinjam", terpinjam)
 
     }, [terpinjam])
 
@@ -76,7 +76,7 @@ export default function Kalender({ terpinjam = "", editValue = [] }: Kalender__i
         )
     }
 
-    // console.log("terpinjam", terpinjam)
+    console.log("ChosenDate", ChosenDate)
     return (
         <>
             <input input-type="hidden" type="text" name="Chosen__TGL" defaultValue={ChosenDate} />

@@ -5,7 +5,7 @@ import { READ_SERVER_SESSION } from '@/app/Auth/action/function/Session'
 import KlasifikasiSeksiPegawai from '@/app/App/KendaraanDinas/Daftar/@modal/(.)peminjaman/[dk]/Action/KlasifikasiSeksiPegawai'
 
 import { AmbilDataPegawaiDariJSONDirectory } from '@/app/Auth/action/function/function'
-import { ADMIN_UPDATE_AMBIL_ALIH_REGISTER } from '@SchemaKD/schema_tb_kendaraan'
+import { ADMIN_UPDATE_AMBIL_ALIH_REGISTER } from '@SchemaKD/schema_tb_kendaraan_register'
 import { UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL } from '@SchemaKD/schema_tb_kendaraan'
 // import { redirect } from 'next/navigation'
 

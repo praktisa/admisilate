@@ -14,7 +14,7 @@ export async function CEK_REGISTER(Array_Date: string[], STR_ID_Kendaraan: strin
         let QUERY = {
             "TABLE": Table,
             "METHOD": "CHECK",
-            "WHERE": "STR_DATE = ? AND STR_ID_KENDARAAN = ?", 
+            "WHERE": "STR_DATE = ? AND STR_ID_KENDARAAN = ?",
             "DATA": [Array_Date[i], STR_ID_Kendaraan]
         }
 
@@ -69,7 +69,8 @@ export async function CEK_REGISTER_BY_ONLY_DATE(Array_Date: string[]) {
 export async function READ_REGISTER_BY_ID_MOBIL(STR_ID_KENDARAAN: string) {
 
     let HariIni = new Date()
-    let STR_HariIni = `${HariIni.getFullYear()}-${HariIni.getMonth() + 1}-${HariIni.getDate()}`
+    HariIni.setHours(10)
+    let STR_HariIni = HariIni.toISOString().split("T")[0] as string
 
     let QUERY = {
         "TABLE": Table,
@@ -174,7 +175,9 @@ export async function UPDATE_REGISTER(ID_STATUS: number, Array_Date_After: strin
         let BLN = DATE.getMonth() + 1
         let THN = DATE.getFullYear()
 
-        let STR = `${THN}-${BLN}-${TGL}`
+        DATE.setHours(10)
+
+        let STR = DATE.toISOString().split("T")[0] as string
 
         let TARGET_DELETE_DATE_AWAL = Array_Date_After.includes(STR)
 

@@ -2,7 +2,6 @@
 import FETCH_GET_DATA_MOBIL_ALTERNATIF from '@/app/App/KendaraanDinas/Daftar/Action/api/FETCH_GET_DATA_MOBIL_ALTERNATIF/fetch'
 import React, { useState, useEffect, Fragment } from 'react'
 import KDP from './KDPicker.module.css'
-import Structure from '@/Global/Components/CTA/Structure'
 import ImageFill from '@/app/App/KendaraanDinas/Daftar/Components/Image/ImageFill'
 import Shimerloading from '@/Global/Components/Loading/Shimerloading'
 import SliderContainer from '@/app/App/KendaraanDinas/AdminKD/_Components/SliderContainer'
@@ -53,7 +52,7 @@ export default function Label_KDPicker({ ImgMobil, DateTime, Open, setOpen, setD
         ImgMobil: any, DateTime: Selected__inter, Open: boolean, setOpen: any, setDateTime: any
     }) {
 
-    console.log("DateTime", DateTime)
+    // console.log("DateTime", DateTime)
 
     return (
         <>
@@ -174,15 +173,34 @@ export function KDPicker({ ImgMobil, DateTime, Open, setOpen, setDateTime }:
     function CardMobil({ ID, imgBlob, MobilName, GroupTglMob, DateTime, setDateTime }: CardMobil__inter) {
 
         function CheckSelected(GroupTglMob: string, ID: string,) {
+
+            let CheckSemua = {}
+
+            if (GroupTglMob === "Semua") {
+                for (var i = 0; i < Object.values(DateTime).length; i++) {
+                    Object.assign(CheckSemua, { [Object.values(DateTime)[i]['ID_MOBIL']]: "" })
+                }
+            }
+
+
             if (DateTime[GroupTglMob]) {
                 if (DateTime[GroupTglMob]['ID_MOBIL'] === ID) {
                     return true
                 } else {
                     return false
                 }
+            } else if (Object.keys(CheckSemua).length === 1) {
+                if (Object.keys(CheckSemua)[0] === ID) {
+                    return true
+                } else {
+                    return false
+                }
+
             } else {
                 return false
             }
+
+
 
         }
 
@@ -224,7 +242,7 @@ export function KDPicker({ ImgMobil, DateTime, Open, setOpen, setDateTime }:
                             defaultChecked={CheckSelected(GroupTglMob, ID)}
                         />
 
-                        <RealCard_Mobil imgBlob={Object__Img[ID]} MobilName={MobilName} />
+                        <RealCard_Mobil imgBlob={imgBlob} MobilName={MobilName} />
 
 
                     </div>
@@ -293,7 +311,7 @@ export function KDPicker({ ImgMobil, DateTime, Open, setOpen, setDateTime }:
                                             <details className={KDP['Mobil__Group__Container']} >
                                                 <summary className={`${KDP['Mobil__Date__Group']}`} >
                                                     <Shimerloading loop={0} />
-                                                    Memuat ...
+                                                    Memuat Mobil ...
                                                 </summary>
 
                                                 <div className={KDP['Mobil__Grid__Container']} >

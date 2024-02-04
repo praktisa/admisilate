@@ -53,7 +53,7 @@ export default async function KendaraanDinasLayout(child: children) {
     )
 }
 
-export function CounterContainer({ Count }: { Count: number }) {
+function CounterContainer({ Count }: { Count: number }) {
 
     return (
         <>

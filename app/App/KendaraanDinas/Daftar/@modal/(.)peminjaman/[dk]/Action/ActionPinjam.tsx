@@ -21,11 +21,12 @@ export async function DataProcessing(formData: FormData) {
     let DataPegawai = await AmbilDataPegawaiDariJSONDirectory(NIP)
     let Peminjam = KlasifikasiSeksiPegawai(DataPegawai)
 
+    // let TGL_INSERT = typeof formData.get("TGL") === "string" ? formData.get("TGL") : JSON.stringify(formData.getAll("TGL")) as string
 
     let ValueAdd = {
         "STR_ID_KENDARAAN": formData.get("ID_MOBIL") as string,
         "STR_NAMA_KENDARAAN": formData.get("NAMA_MOBIL") as string,
-        "STR_NIP9": await READ_NIP_BY_SESSION(SessionCookie),
+        "STR_NIP9": NIP,
 
         "STR_PEMINJAM": Peminjam,
         "STR_TGL": JSON.stringify(formData.getAll("TGL")) as string,
@@ -34,6 +35,10 @@ export async function DataProcessing(formData: FormData) {
         "STR_STATUS": "Terpinjam"
     }
 
+    // console.log("TYPE OF", typeof formData.getAll("TGL") === "string", typeof formData.get("TGL"), formData.get("TGL"))
+
+    // console.log("TGL_INSERT", TGL_INSERT)
+    console.log("ValueAdd", ValueAdd)
 
     return ValueAdd
 }
@@ -45,7 +50,7 @@ export async function PinjamMobilState(formData: FormData) {
 
     let Chosen_TGL = (formData.get("Chosen__TGL") as string).split(",").sort()
 
-
+    console.log("Chosen_TGL", Chosen_TGL)
 
     try {
         let ReturnedData = await CEK_REGISTER(Chosen_TGL, ValueAdd.STR_NAMA_KENDARAAN)
@@ -53,6 +58,8 @@ export async function PinjamMobilState(formData: FormData) {
 
                 ValueAdd.STR_TGL = JSON.stringify(HASIL_CEK_REGISTER['0'])
                 let ID_INSERTED = await CREATE_PINJAM__MOBIL(ValueAdd)
+
+                console.log("CEK HASIL REGISTER", ValueAdd.STR_TGL)
 
                 await CREATE_REGISTER(ID_INSERTED, ValueAdd.STR_ID_KENDARAAN, ValueAdd.STR_NAMA_KENDARAAN, HASIL_CEK_REGISTER['0'], ValueAdd.STR_PEMINJAM)
 
@@ -84,6 +91,7 @@ export async function PinjamMobilState(formData: FormData) {
         } else {
             return {
                 sebagian: false,
+
             }
         }
 
@@ -91,11 +99,6 @@ export async function PinjamMobilState(formData: FormData) {
     } catch (error) {
         return JSON.stringify(error)
     }
-
-
-
-
-
 }
 
 

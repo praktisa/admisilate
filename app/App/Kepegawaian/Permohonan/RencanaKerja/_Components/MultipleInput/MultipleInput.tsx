@@ -7,13 +7,14 @@ interface MultipleInput__inter {
     ArrayForm: string[]
     NameForm: string,
     SectionNameForm: string
+    CurrentData?: FormInput__inter[]
 }
 
 interface FormInput__inter {
     [key: string]: string
 }
 
-export default function MultipleInput({ ArrayForm, NameForm, SectionNameForm }: MultipleInput__inter) {
+export default function MultipleInput({ ArrayForm, NameForm, SectionNameForm, CurrentData = undefined }: MultipleInput__inter) {
 
     let Into_Initial = {
         "Status": "New"
@@ -26,7 +27,7 @@ export default function MultipleInput({ ArrayForm, NameForm, SectionNameForm }: 
     }
 
 
-    const [FormInput, setFormInput] = useState<FormInput__inter[]>(InsertNullForm)
+    const [FormInput, setFormInput] = useState<FormInput__inter[]>(CurrentData != undefined ? CurrentData : InsertNullForm)
 
     function CreateMoreFormInput() {
         setFormInput([...UpdateForm(), ...InsertNullForm])
@@ -62,7 +63,7 @@ export default function MultipleInput({ ArrayForm, NameForm, SectionNameForm }: 
     }
 
 
-    function CMP_Input({ Name, Index, Value }: { Name: string, Index: number, Value: string }) {
+    function CMP_Input({ Name, Index, Value, Id }: { Name: string, Index: number, Value: string, Id: string }) {
         return (
             <>
                 <input
@@ -70,7 +71,7 @@ export default function MultipleInput({ ArrayForm, NameForm, SectionNameForm }: 
                     server-form="primary"
                     type='text'
                     name={Name}
-                    id={`${Name}_${Index}`}
+                    id={Id}
                     placeholder=''
                     defaultValue={Value}
                     onKeyDown={() => UpdateForm()}
@@ -102,28 +103,13 @@ export default function MultipleInput({ ArrayForm, NameForm, SectionNameForm }: 
                                                     return (
                                                         <Fragment key={AF + NameForm}>
                                                             <StyledInput label={AF} forId={`${AF}_${Index}`} withBorder>
-                                                                <CMP_Input Name={NameForm + AF} Index={Index} Value={FI[AF]} />
+                                                                <CMP_Input Name={NameForm} Id={`${AF}_${Index}`} Index={Index} Value={FI[AF]} />
                                                             </StyledInput>
                                                         </Fragment>
                                                     )
                                                 })
                                             }
-                                            {/*                                             
-                                            <StyledInput label="Nama" forId={`Nama_${Index}`} withBorder>
-                                                <CMP_Input Name={NameForm+"Nama"} Index={Index} Value={FI.Nama} />
-                                            </StyledInput>
 
-                                            <StyledInput label="NIP" forId={`NIP_${Index}`} withBorder>
-                                                <CMP_Input Name={NameForm + "NIP"} Index={Index} Value={FI.NIP} />
-                                            </StyledInput>
-
-                                            <StyledInput label="Pangkat" forId={`Pangkat_${Index}`} withBorder>
-                                                <CMP_Input Name={NameForm + "Pangkat"} Index={Index} Value={FI.Pangkat} />
-                                            </StyledInput>
-
-                                            <StyledInput label="Jabatan" forId={`Jabatan_${Index}`} withBorder>
-                                                <CMP_Input Name={NameForm + "Jabatan"} Index={Index} Value={FI.Jabatan} />
-                                            </StyledInput> */}
                                         </div>
                                         <div className={MI['Form__Delete']}>
                                             {

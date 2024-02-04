@@ -66,10 +66,7 @@ export default function HapusRiwayat({ DataPinjam }: HapusRiwayat_Inter) {
 export function Konfirmation_Batal({ LoadingProcess }: { LoadingProcess: boolean }) {
 
     let BatalToggle: any
-
-    if (useContext != null) {
-        BatalToggle = useContext(ModalContext)
-    }
+    BatalToggle = useContext(ModalContext)
 
 
     return (

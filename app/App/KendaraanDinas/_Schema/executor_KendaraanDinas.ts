@@ -1,4 +1,3 @@
-import { READ_SERVER_SESSION } from '@/app/Auth/action/function/Session';
 
 import Connection from '@Connection';
 
@@ -48,19 +47,20 @@ export async function Execute_KendaraanDinas(QUERY: any) {
     // console.log("Q Q Q", Q, QUERY)
 
     try {
-        console.log("START TRANSACTION BEGIN")
+        console.log(`TRANSACTION START ${TABLE} : ${QUERY.METHOD}`)
         await dbconnection.promise().query('START TRANSACTION');
 
         let result: any = await dbconnection.promise().query(Q, QUERY.DATA);
 
         await dbconnection.promise().commit().then(() => {
             dbconnection.end();
-            console.log("TRANSACTION SUCCESS")
+            console.log(`TRANSACTION SUCCESS ${TABLE} : ${QUERY.METHOD}`)
         })
 
         return result
 
     } catch (e) {
+        console.log(`TRANSACTION FAILED ${TABLE} : ${QUERY.METHOD}`)
         console.log("TRANSACTION ERROR", e)
         await dbconnection.promise().query('ROLLBACK');
         dbconnection.end();

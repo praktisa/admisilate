@@ -1,3 +1,4 @@
+
 import React from 'react'
 import GET_ALL_DataMobil from './Action/api/GET_ALL_DataMobil/fetch'
 import CMP_DaftarMobil from './Components/Combined/CMP_DaftarMobil'
@@ -9,6 +10,8 @@ import FETCH_GET_IMG from './Action/api/FETCH_GET_IMG/fetch'
 export default async function KendaraanDinasPage() {
 
     const SemuaKendaraanDinas = await GET_ALL_DataMobil()
+
+    // console.log("SemuaKendaraanDinas", SemuaKendaraanDinas)
     const SemuaObjDatesKendaraanDinas = await FETCH_GET_OBJ_DATES_BOOKING()
     const SemuaIMG = await FETCH_GET_IMG()
 
@@ -16,7 +19,7 @@ export default async function KendaraanDinasPage() {
         if (SemuaKendaraanDinas[i].ID === SemuaObjDatesKendaraanDinas[i].ID) {
             Object.assign(SemuaKendaraanDinas[i], { "OBJ_DATES_BOOKING": SemuaObjDatesKendaraanDinas[i].OBJ_DATES_BOOKING })
         }
-        console.log("SemuaIMG", SemuaIMG)
+        // console.log("SemuaIMG", SemuaIMG)
 
         if (SemuaIMG.message === "Can't add new command when connection is in closed state") {
 

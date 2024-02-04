@@ -57,6 +57,8 @@ export function ClientFormPeminjaman({ ServerAction, DataMobil, UpdateData, From
 
     const NotificationToggle = useContext(ModalNotification_Context)
 
+    console.log("UpdateData", UpdateData)
+
     function CheckInput() {
         if (RefTujuan.current && RefLokasi.current
             // && RefPin.current

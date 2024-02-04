@@ -39,6 +39,7 @@
     grid-template-areas: "Head Delete" "Grid Delete";
     grid-template-columns: 1fr 0.1fr;
     column-gap: 5px;
+    margin-top: 5px;
     will-change: transform, opacity;
     animation:none;
     overflow: hidden;

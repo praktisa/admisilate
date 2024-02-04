@@ -176,9 +176,10 @@
 
 .Nav__Circle::after{
     content: counter(Section, upper-roman) ;
-    font-size: 20px;
-    width: 55px;
-    height: 55px;
+    font-size: 2vw;
+    width: 4.5vw;
+    height: 4.5vw;
+    /* aspect-ratio: 1/1; */
     border-radius: 50%;
     border: 2px solid var(--Typo);
 
@@ -345,6 +346,7 @@
 .Nav__Container label[label-target="Informasi Rencana"] .Container__Number .Nav__Circle::after{
     background: var(--Success) !important;
     border: 2px solid var(--Success) !important;
+    box-shadow: var(--Shadow);
     color: var(--Typo);
     content: "✓";
 }

@@ -220,7 +220,8 @@ export async function UPDATE_OBJ_DATES_BOOKING_MOBIL_FROM_REGISTER_BY_ID_MOBIL(
             console.log("CREATE NEW", REGISTER_BY_NAMA[i])
 
             let date = new Date(REGISTER_BY_NAMA[i]['STR_DATE'])
-            let InsertDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+            date.setHours(15)
+            let InsertDate = date.toISOString().split("T")[0] as string
 
             Object.assign(NEW_OBJ_DATES, {
                 [InsertDate]: REGISTER_BY_NAMA[i]['STR_PEMINJAM']

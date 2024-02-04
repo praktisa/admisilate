@@ -1,11 +1,15 @@
 'use client'
-import React, { Fragment, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import LP from './ListDataPicker2.module.css'
 import { setCookie, getCookie } from 'cookies-next'
 
 
 interface Kelompok__inter {
     [key: string]: Object[]
+}
+
+interface Object__inter {
+    [key: string]: string
 }
 
 
@@ -17,10 +21,11 @@ interface ListDataPicker2_inter {
     idDisplay: string,
     filterOpt?: string[]
     CookieName: string
+    CurrentData?: Object__inter
 }
 
 export default function ListDataPicker2(
-    { placeholder = "Cari ...", data, group = '', dataDisplay, idDisplay, filterOpt = [], CookieName = "" }: ListDataPicker2_inter
+    { placeholder = "Cari ...", data, group = '', dataDisplay, idDisplay, filterOpt = [], CookieName = "", CurrentData = undefined }: ListDataPicker2_inter
 ) {
 
     const DataPegawaiRef = useRef<HTMLDivElement | null>(null)
@@ -51,6 +56,7 @@ export default function ListDataPicker2(
     function UpdateAfterFilter() {
         let Cookie_string = getCookie(CookieName) as string
 
+
         // console.log("GetCookie", JSON.parse(Cookie_string))
         if (Cookie_string != "{}" && Cookie_string != undefined) {
             let Cookie_object = JSON.parse(Cookie_string)
@@ -66,9 +72,25 @@ export default function ListDataPicker2(
                 }
             }
         }
-
-
     }
+
+    useEffect(() => {
+        if (CurrentData != undefined) {
+            if (Object.values(CurrentData).length !== 0) {
+
+                let obj_keys = Object.keys(CurrentData) as string[]
+                let obj_value = Object.values(CurrentData) as string[]
+
+                for (var i = 0; i < obj_keys.length; i++) {
+                    CheckUnCheck(obj_value[i], obj_keys[i], "onlyCheck")
+                }
+            }
+        }
+    }, [CurrentData])
+
+
+
+
 
     function SetCookies() {
         setCookie(CookieName, ArrayPegawai.current)
@@ -82,7 +104,6 @@ export default function ListDataPicker2(
     function CheckUnCheck(pegawai: string, NIP: string, option?: string) {
 
         let idCheck = document.querySelectorAll(`input[name="${pegawai}"]`) as NodeListOf<HTMLInputElement>
-
 
         let CatchData: CatchData__inter = {}
 
@@ -421,7 +442,7 @@ export default function ListDataPicker2(
     function function_CatchData(Catch: any) {
 
         const GetNode = document.querySelectorAll(`li[data-id="${Catch.id}"]`) as NodeListOf<HTMLOListElement>
-
+        // console.log("Catch", Catch)
 
 
         if (Object.keys(Catch).length != 0) {
@@ -435,7 +456,7 @@ export default function ListDataPicker2(
                 // InputNode.readOnly = true
                 InputNode.required = true
                 InputNode.minLength = 1
-                InputNode.defaultValue = Catch.display
+                InputNode.defaultValue = `${Catch.id} - ${Catch.display}`
                 InputNode.setAttribute("input-type", "hidden")
                 InputNode.setAttribute("server-form", "primary")
 
@@ -455,7 +476,11 @@ export default function ListDataPicker2(
 
                 node.onclick = function () { CheckUnCheck(Catch.display, Catch.id, "reset") }
                 ShowDataRef.current?.appendChild(node)
-                node.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+
+                if (CurrentData === undefined) {
+                    node.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+                }
+
 
 
             } else if (Catch['status'] === "remove") {

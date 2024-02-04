@@ -27,7 +27,8 @@ export default function Card({ name, plat, img, booked = "" }: Card__Inter) {
             // console.log("Array_Date_Values", Array_Date_Values)
 
             let Today = new Date()
-            let STR_TODAY = `${Today.getFullYear()}-${Today.getMonth() + 1}-${Today.getDate()}`
+            Today.setHours(15)
+            let STR_TODAY = Today.toISOString().split("T")[0] as string
 
             for (var i = 0; i < Array_Date_Keys.length; i++) {
                 let Compare = Array_Date_Keys[i] === STR_TODAY

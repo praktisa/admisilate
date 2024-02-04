@@ -29,10 +29,13 @@ export default function useCalendar(dateData: Date) {
     for (var i = 0; i < 42; i++) {
       // let Now = new Date().setHours(0, 0, 0, 0)
       let DateData = new Date(tahun, bulan, index)
+      DateData.setHours(10)
       // let DateData_0 = 
       // let StringDate = DateData.toString() // this
       // let StringDate = DateData.toDateString()
-      let StringDate = `${DateData.getFullYear()}-${DateData.getMonth() + 1}-${DateData.getDate()}`
+      // let StringDate = `${DateData.getFullYear()}-${DateData.getMonth() + 1}-${DateData.getDate()}`
+
+      let StringDate = DateData.toISOString().split("T")[0] as string
 
 
 
